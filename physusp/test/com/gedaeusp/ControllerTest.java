@@ -1,6 +1,6 @@
 package com.gedaeusp;
 
-// TESTANDO LÕX’!!!√¿&
+// TESTANDO L√çX√ï!!!√Ñ√ï√Ä
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ public class ControllerTest {
 
 	@Test
 	public void test() {
-		fail("N„o implementado!");
+		fail("N√£o implementado!");
 	}
 
 }
