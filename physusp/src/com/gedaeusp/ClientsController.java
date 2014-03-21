@@ -1,5 +1,6 @@
 package com.gedaeusp;
 
+import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
@@ -19,9 +20,9 @@ public class ClientsController {
  		this.result = result;
  	}
 
- 	//@Path("/")
+ 	@Path("/")
  	public void hello() {
- 		result.include("variable", "VRaptor!");
+ 		result.include("variable", "Alfredo!");
  	}
 
      
