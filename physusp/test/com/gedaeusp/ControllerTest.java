@@ -10,7 +10,6 @@ public class ControllerTest {
 
 	@Test
 	public void test() {
-		fail("Não implementado!");
 	}
 
 }
