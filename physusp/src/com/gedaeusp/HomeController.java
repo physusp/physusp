@@ -5,23 +5,23 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 /*
-* anotando seu controller com @Resource, seus métodos públicos ficarão disponíveis
-* para receber requisições web.
+* anotando seu controller com @Resource, seus mÃ©todos pÃºblicos ficarÃ£o disponÃ­veis
+* para receber requisiÃ§Ãµes web.
 */
 @Resource
-public class ClientsController {
+public class HomeController {
 
  	private final Result result;
 
      
 
 
- 	public ClientsController(Result result) {
+ 	public HomeController(Result result) {
  		this.result = result;
  	}
 
  	@Path("/")
- 	public void hello() {
+ 	public void index() {
  		result.include("variable", "Alfredo!");
  	}
 
