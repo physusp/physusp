@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.caelum.vraptor.restfulie.headers.RestDefaults;
-
 import com.gedaeusp.domain.AerobicCalculator;
 
 public class AerobicTest {

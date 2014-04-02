@@ -25,7 +25,7 @@ public class TimeTest {
 		time.add((int) 133);
 		time.add((int) 143);
 		time.add((int) 150);
-		assertEquals(Time.timeRange(time), (Integer) 141);
+		assertEquals(Time.timeRange(time), (Integer) 140);
 	
 	}
 	
