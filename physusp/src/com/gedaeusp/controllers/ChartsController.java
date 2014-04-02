@@ -12,7 +12,7 @@ public class ChartsController {
 		this.result = result;
 	}
 	
-	@Path({"/charts", "/charts/", "/charts/index"})
+	@Path("/charts")
 	public void index() {
 		
 	}

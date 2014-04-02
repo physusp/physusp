@@ -4,8 +4,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title>PhysUSP</title>
-		<script type="text/javascript" src="js/lib/highcharts.js"></script>
-		<script type="text/javascript" src="js/chart.js"></script>
+		<script type="text/javascript" src="/Physusp/js/lib/highcharts.js"></script>
+		<script type="text/javascript" src="/Physusp/js/chart.js"></script>
 	</head>
 	<body>
 		<form action="/Physusp/charts/index" method="GET">
