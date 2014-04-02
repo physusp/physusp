@@ -4,22 +4,19 @@
 	<head>
 		<meta charset="utf-8">
 		<title>PhysUSP</title>
-		<script type="text/javascript" src="/Physusp/js/lib/highcharts.js"></script>
-		<script type="text/javascript" src="/Physusp/js/chart.js"></script>
 	</head>
 	<body>
-		<form action="/Physusp/charts/index" method="GET">
-			<input type="text" name="valorx1" />
-			<input type="text" name="valorx2" />
-			<input type="text" name="valory1" />
-			<input type="text" name="valory2" />
-			<input type="submit" value="Enviar" />
+		<form id="data">
+			<input type="text" name="aerobic" />
+			<input type="text" name="anaerobicLactic" />
+			<input type="text" name="anaerobicAlactic" />
+			<button type="submit">Send</button>
 		</form>
 		<div id="results">
-			<p><%= request.getParameter("valorx1") %></p>
-			<p><%= request.getParameter("valorx2") %></p>
-			<p><%= request.getParameter("valory1") %></p>
-			<p><%= request.getParameter("valory2") %></p>
+
 		</div>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script type="text/javascript" src="/Physusp/js/lib/highcharts.js"></script>
+		<script type="text/javascript" src="/Physusp/js/chart.js"></script>
 	</body>
 </html>
