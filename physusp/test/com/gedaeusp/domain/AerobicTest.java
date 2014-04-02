@@ -1,4 +1,4 @@
-package com.gedaeusp;
+package com.gedaeusp.domain;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import com.gedaeusp.domain.AerobicCalculator;
+import com.gedaeusp.domain.TimeConverter;
 
 public class AerobicTest {
 

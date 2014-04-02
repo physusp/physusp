@@ -1,8 +1,14 @@
-package com.gedaeusp;
+package com.gedaeusp.domain;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.gedaeusp.domain.AnaerobicLactic;
+import com.gedaeusp.domain.Constants;
+import com.gedaeusp.domain.EnergyValue;
+import com.gedaeusp.domain.LactateValue;
+import com.gedaeusp.domain.WeightValue;
 
 public class AnaerobicLacticTest {
 

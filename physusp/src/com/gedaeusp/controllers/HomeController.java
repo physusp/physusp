@@ -1,4 +1,4 @@
-package com.gedaeusp;
+package com.gedaeusp.controllers;
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;

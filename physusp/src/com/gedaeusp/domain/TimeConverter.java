@@ -1,4 +1,4 @@
-package com.gedaeusp;
+package com.gedaeusp.domain;
 
 import java.text.DateFormat;
 import java.text.ParseException;

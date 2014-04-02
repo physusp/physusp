@@ -1,4 +1,4 @@
-package com.gedaeusp;
+package com.gedaeusp.domain;
 
 import java.util.List;
 

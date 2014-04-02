@@ -1,4 +1,4 @@
-package com.gedaeusp;
+package com.gedaeusp.domain;
 
 public class WeightValue {
 
