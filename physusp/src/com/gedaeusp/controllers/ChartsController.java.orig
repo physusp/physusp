@@ -18,12 +18,17 @@ import br.com.caelum.vraptor.view.Results;
 
 import com.gedaeusp.domain.AerobicCalculator;
 import com.gedaeusp.domain.AnaerobicLactic;
+<<<<<<< HEAD
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.MolarConcentrationUnit;
-import com.gedaeusp.domain.VolumeUnit;
 import com.gedaeusp.domain.WeightUnit;
+=======
+import com.gedaeusp.domain.EnergyValue;
+import com.gedaeusp.domain.MolarConcentrationValue;
 import com.gedaeusp.domain.Time;
+import com.gedaeusp.domain.WeightValue;
+>>>>>>> origin/victor1
 import com.gedaeusp.models.EnergyConsumption;
 import com.gedaeusp.models.Parameters;
 
@@ -51,30 +56,31 @@ public class ChartsController {
 		UnitValue<WeightUnit> weight = new UnitValue<WeightUnit>(parameters.getWeight(), WeightUnit.Kg);
 		
 		
-		UnitValue<EnergyUnit> anaerobicLacticEnergy = anaerobicLactic.calculate(restLactic, maxLactic, weight);
+		UnitValue<EnergyUnit> energy = anaerobicLactic.calculate(restLactic, maxLactic, weight);
 		
+<<<<<<< HEAD
 		EnergyConsumption energyConsumption = new EnergyConsumption();
 
-		energyConsumption.setAnaerobicLactic(anaerobicLacticEnergy.getValue(EnergyUnit.Kcal));
+		energyConsumption.setAnaerobicLactic(energy.getValue(EnergyUnit.Kcal));
+=======
+		energyConsumption.setAnaerobicLactic(energy.getValue(EnergyValue.Kcal));
 
 		List<Integer> times = new ArrayList<Integer>();
-		List<UnitValue<VolumeUnit>> values = new ArrayList<UnitValue<VolumeUnit>>();
+		List<Double> values = new ArrayList<Double>();
 		readFile(oxygenConsumption, times, values);
+>>>>>>> origin/victor1
 		
 		List<Integer> timesRest = new ArrayList<Integer>();
-		List<UnitValue<VolumeUnit>> valuesRest = new ArrayList<UnitValue<VolumeUnit>>();
+		List<Double> valuesRest = new ArrayList<Double>();
 		readFile(oxygenConsumptionRest, timesRest, valuesRest);
 		
-		UnitValue<VolumeUnit> aerobicOxygenEquivalent = AerobicCalculator.calculateAerobicComsumption(values, valuesRest, times, timesRest);
-		
-		UnitValue<EnergyUnit> aerobicEnergyConsumption = AerobicCalculator.AerobicEnergyComsumption(aerobicOxygenEquivalent);
-		
-		energyConsumption.setAerobic(aerobicEnergyConsumption.getValue(EnergyUnit.Kcal));
+		double energyAerobic = AerobicCalculator.calculateAerobicComsumption(values, valuesRest, times, timesRest);
+		energyConsumption.setAerobic(energyAerobic);
 		
 		this.result.use(Results.json()).from(energyConsumption).serialize();
 	}
 
-	private void readFile(UploadedFile oxygenConsumption, List<Integer> times, List<UnitValue<VolumeUnit>> values) {
+	private void readFile(UploadedFile oxygenConsumption, List<Integer> times, List<Double> values) {
 		InputStream file = oxygenConsumption.getFile();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(file));
 		String line;
@@ -83,7 +89,7 @@ public class ChartsController {
 				String[] data = line.split(",");
 				int time = Time.convertDateToSeconds(data[0]);
 				times.add(time);
-				values.add(new UnitValue<VolumeUnit>(Double.parseDouble(data[1]), VolumeUnit.ml));
+				values.add(Double.parseDouble(data[1]));
 			}
 		} catch (Exception e) {
 			log.error("Error reading file: " + e.getMessage());

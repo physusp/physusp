@@ -18,6 +18,10 @@
 							<input type="text" name="parameters.maxLactateConcentration" class="form-control" />
 							<label>Massa do indivíduo (kg)</label>
 							<input type="text" name="parameters.weight" class="form-control" />
+							<label>Arquivo com dados de consumo de oxigênio no repouso</label>
+							<input type="file" name="oxygenConsumptionRest" />
+							<label>Arquivo com dados de consumo de oxigênio durante o exercício</label>
+							<input type="file" name="oxygenConsumption" />
 							<button type="submit">Send</button>
 						</div>
 					</form>
