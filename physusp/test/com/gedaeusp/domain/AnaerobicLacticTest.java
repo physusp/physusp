@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.gedaeusp.domain.AnaerobicLactic;
 import com.gedaeusp.domain.Constants;
 import com.gedaeusp.domain.EnergyValue;
-import com.gedaeusp.domain.LactateValue;
+import com.gedaeusp.domain.MolarConcentrationValue;
 import com.gedaeusp.domain.WeightValue;
 
 public class AnaerobicLacticTest {
@@ -15,8 +15,8 @@ public class AnaerobicLacticTest {
 	@Test	
 	public void addAnaerobicLacticToReturnZero()
 	{
-		LactateValue minLactic = new LactateValue(1.0, LactateValue.MiliMolPerLiter);
-		LactateValue maxLactic = new LactateValue(1.0, LactateValue.MiliMolPerLiter);
+		MolarConcentrationValue minLactic = new MolarConcentrationValue(1.0, MolarConcentrationValue.MiliMolPerLiter);
+		MolarConcentrationValue maxLactic = new MolarConcentrationValue(1.0, MolarConcentrationValue.MiliMolPerLiter);
 		WeightValue weight = new WeightValue(100.0, WeightValue.Kg);
 		
 		AnaerobicLactic anaerobicLactic = new AnaerobicLactic();
@@ -27,8 +27,8 @@ public class AnaerobicLacticTest {
 	@Test	
 	public void addAnaerobicLacticToReturnProduct()
 	{
-		LactateValue minLactic = new LactateValue(0.7, LactateValue.MiliMolPerLiter);
-		LactateValue maxLactic = new LactateValue(6.7, LactateValue.MiliMolPerLiter);
+		MolarConcentrationValue minLactic = new MolarConcentrationValue(0.7, MolarConcentrationValue.MiliMolPerLiter);
+		MolarConcentrationValue maxLactic = new MolarConcentrationValue(6.7, MolarConcentrationValue.MiliMolPerLiter);
 		WeightValue weight = new WeightValue(74, WeightValue.Kg);
 		
 		AnaerobicLactic anaerobicLactic = new AnaerobicLactic();

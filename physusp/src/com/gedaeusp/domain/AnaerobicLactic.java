@@ -2,10 +2,10 @@ package com.gedaeusp.domain;
 
 public class AnaerobicLactic {
 
-	public EnergyValue calculate(LactateValue minLactic, LactateValue maxLactic, WeightValue weight) {
+	public EnergyValue calculate(MolarConcentrationValue minLactic, MolarConcentrationValue maxLactic, WeightValue weight) {
 		
-		double minLactatemMPerLiter = minLactic.getValue(LactateValue.MiliMolPerLiter);
-		double maxLactatemMPerLiter = maxLactic.getValue(LactateValue.MiliMolPerLiter);
+		double minLactatemMPerLiter = minLactic.getValue(MolarConcentrationValue.MiliMolPerLiter);
+		double maxLactatemMPerLiter = maxLactic.getValue(MolarConcentrationValue.MiliMolPerLiter);
 		
 		double oxygenEquivalent = (maxLactatemMPerLiter - minLactatemMPerLiter)
 									* weight.getValue(WeightValue.Kg)
