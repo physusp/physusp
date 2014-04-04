@@ -2,8 +2,8 @@ package com.gedaeusp.domain;
 
 public enum VolumeUnit implements Unit {
 
-	l(1000.0),
-	ml(1.0);
+	l(1.0),
+	ml(1000.0);
 	
 	private double value;
 	

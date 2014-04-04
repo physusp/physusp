@@ -2,8 +2,8 @@ package com.gedaeusp.domain;
 
 public enum EnergyUnit implements Unit
 {
-	Kcal(4.2),
-	KJ(1);
+	Kcal(1.0),
+	KJ(4.184);
 	
 	private double value;
 	

@@ -50,7 +50,7 @@ public class AerobicCalculator {
 	{
 		double energy;
 		UnitValue<EnergyUnit> result;
-		energy = (oxygenComsumption.getValue(VolumeUnit.l))*20.9;
+		energy = (oxygenComsumption.getValue(VolumeUnit.l))*5/60.0;
 		result = new UnitValue<EnergyUnit>(energy,EnergyUnit.Kcal);
 		return result;
 	}
