@@ -1,19 +1,44 @@
 $(function(){
 	
 	$("#data").submit(function(){
+		
 		var input = $(this).serialize();
 		
-		$.ajax({
-			url: "/Physusp/charts/calculate",
-			type: "POST",
-			data: input
-		})
-		.done(function(result){
-			var data = []; 
-			$.each(result.consumption, function(key, value) { data.push([key, value]);});
-			showChart(data);
-		});
+		var restFileLoaded = false;
+		var fileLoaded = false;
+		var restFile = document.getElementById("oxygenConsumptionRest").files[0];
+		var restFileReader = new FileReader();
+		restFileReader.readAsText(restFile, 'UTF-8');
+		restFileReader.onload = function(evt) {
+			input += "&" + $.param({"parameters.oxygenConsumptionRest": evt.target.result});
+			if(fileLoaded)
+				sendDataForm();
+			restFileLoaded = true;
+		};
 		
+		var file = document.getElementById("oxygenConsumption").files[0];
+		var fileReader = new FileReader();
+		fileReader.readAsText(file, 'UTF-8');
+		fileReader.onload = function(evt) {
+			input += "&" + $.param({"parameters.oxygenConsumption": evt.target.result});
+			if(restFileLoaded)
+				sendDataForm();
+			fileLoaded = true;
+		};
+		
+		
+		function sendDataForm() {
+			$.ajax({
+				url: "/Physusp/charts/calculate",
+				type: "POST",
+				data: input
+			})
+			.done(function(result){
+				var data = []; 
+				$.each(result.consumption, function(key, value) { data.push([key, value]);});
+				showChart(data);
+			});
+		}
 		return false;
 	});
 	

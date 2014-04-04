@@ -19,9 +19,9 @@
 							<label>Massa do indivíduo (kg)</label>
 							<input type="text" name="parameters.weight" class="form-control" />
 							<label>Arquivo com dados de consumo de oxigênio no repouso</label>
-							<input type="file" name="oxygenConsumptionRest" />
+							<input type="file" name="oxygenConsumptionRest" id="oxygenConsumptionRest"/>
 							<label>Arquivo com dados de consumo de oxigênio durante o exercício</label>
-							<input type="file" name="oxygenConsumption" />
+							<input type="file" name="oxygenConsumption" id="oxygenConsumption" />
 							<button type="submit">Send</button>
 						</div>
 					</form>

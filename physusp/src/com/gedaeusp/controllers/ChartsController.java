@@ -1,8 +1,7 @@
 package com.gedaeusp.controllers;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +12,16 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.interceptor.multipart.UploadedFile;
 import br.com.caelum.vraptor.view.Results;
 
 import com.gedaeusp.domain.AerobicCalculator;
 import com.gedaeusp.domain.AnaerobicLactic;
 import com.gedaeusp.domain.EnergyUnit;
-import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.MolarConcentrationUnit;
+import com.gedaeusp.domain.Time;
+import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.VolumeUnit;
 import com.gedaeusp.domain.WeightUnit;
-import com.gedaeusp.domain.Time;
 import com.gedaeusp.models.EnergyConsumption;
 import com.gedaeusp.models.Parameters;
 
@@ -42,7 +40,7 @@ public class ChartsController {
 	}
 	
 	@Post
-	public void calculate(Parameters parameters, UploadedFile oxygenConsumption, UploadedFile oxygenConsumptionRest){
+	public void calculate(Parameters parameters){
 		
 		AnaerobicLactic anaerobicLactic = new AnaerobicLactic();
 		
@@ -59,11 +57,11 @@ public class ChartsController {
 
 		List<Integer> times = new ArrayList<Integer>();
 		List<UnitValue<VolumeUnit>> values = new ArrayList<UnitValue<VolumeUnit>>();
-		readFile(oxygenConsumption, times, values);
+		readFile(parameters.getOxygenConsumption(), times, values);
 		
 		List<Integer> timesRest = new ArrayList<Integer>();
 		List<UnitValue<VolumeUnit>> valuesRest = new ArrayList<UnitValue<VolumeUnit>>();
-		readFile(oxygenConsumptionRest, timesRest, valuesRest);
+		readFile(parameters.getOxygenConsumptionRest(), timesRest, valuesRest);
 		
 		UnitValue<VolumeUnit> aerobicOxygenEquivalent = AerobicCalculator.calculateAerobicComsumption(values, valuesRest, times, timesRest);
 		
@@ -74,12 +72,14 @@ public class ChartsController {
 		this.result.use(Results.json()).from(energyConsumption).serialize();
 	}
 
-	private void readFile(UploadedFile oxygenConsumption, List<Integer> times, List<UnitValue<VolumeUnit>> values) {
-		InputStream file = oxygenConsumption.getFile();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(file));
+	private void readFile(String oxygenConsumption, List<Integer> times, List<UnitValue<VolumeUnit>> values) {
+		StringReader file = new StringReader(oxygenConsumption);
+		BufferedReader reader = new BufferedReader(file);
 		String line;
 		try {
 			while ((line = reader.readLine()) != null) {
+				if(line.isEmpty())
+					continue;
 				String[] data = line.split(",");
 				int time = Time.convertDateToSeconds(data[0]);
 				times.add(time);
