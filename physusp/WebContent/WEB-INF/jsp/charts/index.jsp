@@ -3,17 +3,30 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<title>PhysUSP</title>
 	</head>
 	<body>
-		<form id="data">
-			<input type="text" name="aerobic" />
-			<input type="text" name="anaerobicLactic" />
-			<input type="text" name="anaerobicAlactic" />
-			<button type="submit">Send</button>
-		</form>
-		<div id="results">
-
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<form id="data">
+						<div class="form-group">
+							<label>Concentração de lactato repouso (mmol/L)</label> 
+							<input type="text" name="parameters.restLactateConcentration" class="form-control" />
+							<label>Concentração de lactato máxima (mmol/L)</label>
+							<input type="text" name="parameters.maxLactateConcentration" class="form-control" />
+							<label>Massa do indivíduo (kg)</label>
+							<input type="text" name="parameters.weight" class="form-control" />
+							<button type="submit">Send</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-8">
+					<div id="results">
+					</div>
+				</div>
+			</div>
 		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script type="text/javascript" src="/Physusp/js/lib/highcharts.js"></script>
