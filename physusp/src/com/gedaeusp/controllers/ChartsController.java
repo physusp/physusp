@@ -23,6 +23,7 @@ public class ChartsController {
 	}
 	
 	@Post
+	@Consumes("application/json")
 	public void calculate(EnergyConsumption consumption){
 		this.result.use(Results.json()).from(consumption).serialize();
 	}

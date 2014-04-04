@@ -14,7 +14,9 @@ $(function(){
 			contentType: "application/json"
 		})
 		.done(function(result){
-			showChart(result);
+			var data = []; 
+			$.each(result.consumption, function(key, value) { data.push([key, value]);});
+			showChart(data);
 		});
 		
 		return false;
