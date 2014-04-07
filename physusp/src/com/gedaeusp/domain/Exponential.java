@@ -68,7 +68,7 @@ public class Exponential implements UnivariateDifferentiableFunction {
 
 			double da = FastMath.exp(-x / tau);
 			double dTau = a * x * FastMath.exp(-x / tau) / FastMath.pow(tau, 2);
-			return new double[] { 0, da, dTau };
+			return new double[] { 1, da, dTau };
 		}
 
 	}

@@ -3,6 +3,7 @@ package com.gedaeusp.domain;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -52,9 +53,9 @@ public class AnaerobicAlacticTest {
 
 	@Test
 	public void testExponentialCurveFit() {
-		double vo2 = 17;
-		double a = 13;
-		double tau = 7;
+		double vo2 = 170;
+		double a = 1300;
+		double tau = 70;
 
 		Exponential exp = new Exponential(vo2, a, tau);
 
@@ -68,7 +69,7 @@ public class AnaerobicAlacticTest {
 			log.debug("(" + i + ", " + value + ")");
 		}
 
-		double[] init = { vo2, 100, 100 };
+		double[] init = { vo2, 10, 1 };
 
 		double[] best = fitter.fit(new Exponential.Parametric(), init);
 
@@ -82,7 +83,7 @@ public class AnaerobicAlacticTest {
 		assertEquals(tau, best[2], Constants.ANAEROBIC_ALACTIC_EPS);
 	}
 
-	//@Test
+	@Test
 	public void testBiexponentialCurveFit() {
 		// TODO: Se trocarmos os a1/a2 e tau1/tau2, o teste provavelmente
 		// falhará, apesar da curve fit estar correta.
@@ -94,18 +95,36 @@ public class AnaerobicAlacticTest {
 		double tau2 = 3;
 
 		Biexponential exp = new Biexponential(vo2, t0, a1, a2, tau1, tau2);
-
+		
 		CurveFitter<Biexponential.Parametric> fitter = new CurveFitter<Biexponential.Parametric>(
+				new LevenbergMarquardtOptimizer());
+
+		CurveFitter<Exponential.Parametric> initFitter = new CurveFitter<Exponential.Parametric>(
 				new LevenbergMarquardtOptimizer());
 
 		log.debug("Observed points:");
 		for (int i = 0; i <= 100; i++) {
 			double value = exp.value(i);
 			fitter.addObservedPoint(i, value);
+			initFitter.addObservedPoint(i, value);
 			log.debug("(" + i + ", " + value + ")");
 		}
+		
+		double[] initBest = initFitter.fit(new Exponential.Parametric(),
+				new double[] { vo2, 1, 1 });
+		log.debug("init v0 = " + initBest[0]);
+		log.debug("init A = " + initBest[1]);
+		log.debug("init tau = " + initBest[2]);
+		
+		double initT0 = 5; // Collections.min(times);
+		double initV0 = vo2;
+		double initTau1 = initBest[2] * 1.25;
+		double initTau2 = initBest[2] * 0.75;
+		double initA1, initA2;
+		initA1 = initA2 = initBest[1] * 0.5 * FastMath.exp(-t0/initBest[2]);
 
-		double[] init = { vo2, 1, 100, 100, 100, 100 };
+		double[] init = { initV0, initT0, initA1, initA2, initTau1, initTau2 };
+		//double[] init = { initV0, initT0, 1, 1, 1, 1 };
 
 		double[] best = fitter.fit(new Biexponential.Parametric(), init);
 
@@ -124,8 +143,8 @@ public class AnaerobicAlacticTest {
 		assertEquals(tau1, best[4], Constants.ANAEROBIC_ALACTIC_EPS);
 		assertEquals(tau2, best[5], Constants.ANAEROBIC_ALACTIC_EPS);
 	}
-	
-	//@Test
+
+	// @Test
 	public void testMonoexponentialWithBiexponentialCurveFit() {
 		// TODO: Se trocarmos os a1/a2 e tau1/tau2, o teste provavelmente
 		// falhará, apesar da curve fit estar correta.
@@ -160,13 +179,13 @@ public class AnaerobicAlacticTest {
 		assertEquals(a1, best[2], Constants.ANAEROBIC_ALACTIC_EPS);
 		assertEquals(tau1, best[4], Constants.ANAEROBIC_ALACTIC_EPS);
 	}
-	
-	//@Test
+
+	// @Test
 	public void calculateRestAerobicComsumption() {
 		List<Double> comsumption = new ArrayList<Double>();
 		// TODO: Verificar se há necessidade de usar Double para escala de tempo
 		List<Integer> time = new ArrayList<Integer>();
-		
+
 		double mass = 80;
 		double v0 = 17;
 		double a1 = 13;
@@ -179,9 +198,10 @@ public class AnaerobicAlacticTest {
 			comsumption.add(value);
 			time.add(i);
 			log.debug("(" + i + ", " + value + ")");
-			
+
 		}
 
-		assertEquals(AnaerobicAlacticCalculator.calculate(comsumption, time, mass, v0), 305, Constants.ANAEROBIC_ALACTIC_EPS);
+		assertEquals(AnaerobicAlacticCalculator.calculate(comsumption, time,
+				mass, v0), 305, Constants.ANAEROBIC_ALACTIC_EPS);
 	}
 }
