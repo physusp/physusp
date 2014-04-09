@@ -11,7 +11,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
-					<form id="data">
+					<form id="data" action="<c:url value="/charts/calculate"/>">
 						<div class="form-group">
 							<label>Rest lactate concentration (mmol/L)</label> 
 							<input type="text" name="parameters.restLactateConcentration" class="form-control" />

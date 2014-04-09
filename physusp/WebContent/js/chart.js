@@ -3,6 +3,7 @@ $(function(){
 	$("#data").submit(function(){
 		
 		var input = $(this).serialize();
+		var url = $(this).attr("action");
 		
 		var restFileLoaded = false;
 		var fileLoaded = false;
@@ -12,7 +13,7 @@ $(function(){
 		restFileReader.onload = function(evt) {
 			input += "&" + $.param({"parameters.oxygenConsumptionRest": evt.target.result});
 			if(fileLoaded)
-				sendDataForm();
+				sendDataForm(url);
 			restFileLoaded = true;
 		};
 		
@@ -22,12 +23,11 @@ $(function(){
 		fileReader.onload = function(evt) {
 			input += "&" + $.param({"parameters.oxygenConsumption": evt.target.result});
 			if(restFileLoaded)
-				sendDataForm();
+				sendDataForm(url);
 			fileLoaded = true;
 		};
 		
-		
-		function sendDataForm() {
+		function sendDataForm(url) {
 			$.ajax({
 				url: "/Physusp/charts/calculate",
 				type: "POST",
@@ -39,6 +39,7 @@ $(function(){
 				showChart(data);
 			});
 		}
+		
 		return false;
 	});
 	
