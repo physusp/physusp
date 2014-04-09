@@ -1,3 +1,39 @@
+var FilesLoader = function () {
+	this.files = [];
+	this.output = "";
+	
+	this.addFile = function(file, parameterName) {
+		this.files.push({file: file, loaded: false, parameterName: parameterName});
+	};
+	
+	this.loadFiles = function (callback) {
+		var $this = this;
+		this.files.forEach(function(item){
+			var fileReader = new FileReader();
+			fileReader.readAsText(item.file);
+			fileReader.onload = function(evt){
+				var object = {};
+				object[item.parameterName] = evt.target.result;
+				$this.output += "&" + $.param(object);
+				item.loaded = true;
+				if($this.hasLoadedAllFiles())
+					callback();
+			};
+		});
+	};
+	
+	this.hasLoadedAllFiles = function (){
+		var loadedAllFiles = true;
+		this.files.forEach(function(item){
+			if(!item.loaded) {
+				loadedAllFiles = false;
+			}
+		});
+		return loadedAllFiles;
+	};
+	
+};
+
 $(function(){
 	
 	$("#data").submit(function(){
@@ -5,43 +41,30 @@ $(function(){
 		var input = $(this).serialize();
 		var url = $(this).attr("action");
 		
-		var restFileLoaded = false;
-		var fileLoaded = false;
-		var restFile = document.getElementById("oxygenConsumptionRest").files[0];
-		var restFileReader = new FileReader();
-		restFileReader.readAsText(restFile, 'UTF-8');
-		restFileReader.onload = function(evt) {
-			input += "&" + $.param({"parameters.oxygenConsumptionRest": evt.target.result});
-			if(fileLoaded)
-				sendDataForm(url);
-			restFileLoaded = true;
-		};
+		var filesLoader = new FilesLoader();
 		
-		var file = document.getElementById("oxygenConsumption").files[0];
-		var fileReader = new FileReader();
-		fileReader.readAsText(file, 'UTF-8');
-		fileReader.onload = function(evt) {
-			input += "&" + $.param({"parameters.oxygenConsumption": evt.target.result});
-			if(restFileLoaded)
-				sendDataForm(url);
-			fileLoaded = true;
-		};
+		filesLoader.addFile(document.getElementById("oxygenConsumptionRest").files[0], "parameters.oxygenConsumptionRest");
+		filesLoader.addFile(document.getElementById("oxygenConsumption").files[0], "parameters.oxygenConsumption");
 		
-		function sendDataForm(url) {
-			$.ajax({
-				url: "/Physusp/charts/calculate",
-				type: "POST",
-				data: input
-			})
-			.done(function(result){
-				var data = []; 
-				$.each(result.consumption, function(key, value) { data.push([key, value]);});
-				showChart(data);
-			});
-		}
+		filesLoader.loadFiles(function() {
+			sendDataForm(url, input + filesLoader.output);
+		});
 		
 		return false;
 	});
+	
+	function sendDataForm(url, formData) {
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: formData
+		})
+		.done(function(result){
+			var data = []; 
+			$.each(result.consumption, function(key, value) { data.push([key, value]);});
+			showChart(data);
+		});
+	}
 	
 	function showChart(data)
 	{
