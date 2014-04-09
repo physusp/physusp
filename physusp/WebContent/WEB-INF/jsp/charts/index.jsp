@@ -13,15 +13,15 @@
 				<div class="col-md-4">
 					<form id="data">
 						<div class="form-group">
-							<label>Concentração de lactato repouso (mmol/L)</label> 
+							<label>Rest lactate concentration (mmol/L)</label> 
 							<input type="text" name="parameters.restLactateConcentration" class="form-control" />
-							<label>Concentração de lactato máxima (mmol/L)</label>
+							<label>Maximum lactate concentration (mmol/L)</label>
 							<input type="text" name="parameters.maxLactateConcentration" class="form-control" />
-							<label>Massa do indivíduo (kg)</label>
+							<label>Subject mass (kg)</label>
 							<input type="text" name="parameters.weight" class="form-control" />
-							<label>Arquivo com dados de consumo de oxigênio no repouso</label>
+							<label>Rest oxygen consumption file</label>
 							<input type="file" name="oxygenConsumptionRest" id="oxygenConsumptionRest"/>
-							<label>Arquivo com dados de consumo de oxigênio durante o exercício</label>
+							<label>Exercise oxygen consumption file</label>
 							<input type="file" name="oxygenConsumption" id="oxygenConsumption" />
 							<button type="submit">Send</button>
 						</div>
