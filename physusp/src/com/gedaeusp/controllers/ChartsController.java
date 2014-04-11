@@ -17,6 +17,7 @@ import br.com.caelum.vraptor.view.Results;
 import com.gedaeusp.domain.AerobicCalculator;
 import com.gedaeusp.domain.AnaerobicLactic;
 import com.gedaeusp.domain.EnergyUnit;
+import com.gedaeusp.domain.FlowUnit;
 import com.gedaeusp.domain.MolarConcentrationUnit;
 import com.gedaeusp.domain.Time;
 import com.gedaeusp.domain.UnitValue;
@@ -56,11 +57,11 @@ public class ChartsController {
 		energyConsumption.setAnaerobicLactic(anaerobicLacticEnergy.getValue(EnergyUnit.Kcal));
 
 		List<Integer> times = new ArrayList<Integer>();
-		List<UnitValue<VolumeUnit>> values = new ArrayList<UnitValue<VolumeUnit>>();
+		List<UnitValue<FlowUnit>> values = new ArrayList<UnitValue<FlowUnit>>();
 		readFile(parameters.getOxygenConsumption(), times, values);
 		
 		List<Integer> timesRest = new ArrayList<Integer>();
-		List<UnitValue<VolumeUnit>> valuesRest = new ArrayList<UnitValue<VolumeUnit>>();
+		List<UnitValue<FlowUnit>> valuesRest = new ArrayList<UnitValue<FlowUnit>>();
 		readFile(parameters.getOxygenConsumptionRest(), timesRest, valuesRest);
 		
 		UnitValue<VolumeUnit> aerobicOxygenEquivalent = AerobicCalculator.calculateAerobicComsumption(values, valuesRest, times, timesRest);
@@ -72,7 +73,7 @@ public class ChartsController {
 		this.result.use(Results.json()).from(energyConsumption).serialize();
 	}
 
-	private void readFile(String oxygenConsumption, List<Integer> times, List<UnitValue<VolumeUnit>> values) {
+	private void readFile(String oxygenConsumption, List<Integer> times, List<UnitValue<FlowUnit>> values) {
 		StringReader file = new StringReader(oxygenConsumption);
 		BufferedReader reader = new BufferedReader(file);
 		String line;
@@ -83,7 +84,7 @@ public class ChartsController {
 				String[] data = line.split(",");
 				int time = Time.convertDateToSeconds(data[0]);
 				times.add(time);
-				values.add(new UnitValue<VolumeUnit>(Double.parseDouble(data[1]), VolumeUnit.ml));
+				values.add(new UnitValue<FlowUnit>(Double.parseDouble(data[1]), FlowUnit.mlPerMinute));
 			}
 		} catch (Exception e) {
 			log.error("Error reading file: " + e.getMessage());
