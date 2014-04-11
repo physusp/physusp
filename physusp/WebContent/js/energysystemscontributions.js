@@ -64,35 +64,25 @@ $(function(){
 		var oxygenConsumption = $('#oxygenConsumption').handsontable('getData');
 		input += "&parameters.oxygenConsumption=" + prepareTableToSend(oxygenConsumption);
 		
+		var oxygenConsumptionPost = $('#oxygenConsumptionPost').handsontable('getData');
+		input += "&parameters.oxygenConsumptionPost=" + prepareTableToSend(oxygenConsumptionPost);
+		
 		sendFormData(url, input);
 		
 		return false;
 	});
 	
 	var headers = ["Time (hh:mm:ss)", "Consumption (ml/min)"];
-	
-	$('#oxygenConsumptionRest').handsontable({
+	var handsonConfig = {
 	    minSpareRows: 1,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
 	    height: 300
-	});
+	};
 	
-	$('#oxygenConsumption').handsontable({
-	    minSpareRows: 1,
-	    colHeaders: headers,
-	    contextMenu: true,
-	    data: [[null, null]],
-	    height: 300
-	});
-	
-	$('#oxygenConsumptionPost').handsontable({
-	    minSpareRows: 1,
-	    colHeaders: headers,
-	    contextMenu: true,
-	    data: [[null, null]],
-	    height: 300
-	});
+	$('#oxygenConsumptionRest').handsontable(handsonConfig);
+	$('#oxygenConsumption').handsontable(handsonConfig);
+	$('#oxygenConsumptionPost').handsontable(handsonConfig);
 	
 });

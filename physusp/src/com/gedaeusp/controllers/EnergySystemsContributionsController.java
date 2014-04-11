@@ -15,29 +15,29 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 
 import com.gedaeusp.domain.AerobicCalculator;
+import com.gedaeusp.domain.AnaerobicAlacticCalculator;
 import com.gedaeusp.domain.AnaerobicLactic;
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.FlowUnit;
 import com.gedaeusp.domain.MolarConcentrationUnit;
 import com.gedaeusp.domain.Time;
 import com.gedaeusp.domain.UnitValue;
-import com.gedaeusp.domain.VolumeUnit;
 import com.gedaeusp.domain.WeightUnit;
 import com.gedaeusp.models.EnergyConsumption;
 import com.gedaeusp.models.Parameters;
 
 @Resource
-public class ChartsController {
+@Path("/esc")
+public class EnergySystemsContributionsController {
 	private final Result result;
 	private Log log = LogFactory.getLog(this.getClass());
 	
-	public ChartsController(Result result) {
+	public EnergySystemsContributionsController(Result result) {
 		this.result = result;
 	}
 	
-	@Path("/charts")
+	@Path("")
 	public void index() {
-		
 	}
 	
 	@Post
@@ -64,11 +64,17 @@ public class ChartsController {
 		List<UnitValue<FlowUnit>> valuesRest = new ArrayList<UnitValue<FlowUnit>>();
 		readFile(parameters.getOxygenConsumptionRest(), timesRest, valuesRest);
 		
-		//UnitValue<VolumeUnit> aerobicOxygenEquivalent = AerobicCalculator.calculateAerobicComsumption(values, valuesRest, times, timesRest);
+		List<Integer> timesPost = new ArrayList<Integer>();
+		List<UnitValue<FlowUnit>> valuesPost = new ArrayList<UnitValue<FlowUnit>>();
+		readFile(parameters.getOxygenConsumptionPost(), timesPost, valuesPost);
 		
-		//UnitValue<EnergyUnit> aerobicEnergyConsumption = AerobicCalculator.AerobicEnergyComsumption(aerobicOxygenEquivalent);
+		AerobicCalculator aerobicCalculator = new AerobicCalculator();
+		UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator.calculateEnergyConsumption(values, valuesRest, times, timesRest);
 		
-		//energyConsumption.setAerobic(aerobicEnergyConsumption.getValue(EnergyUnit.Kcal));
+		UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateBiexponential(valuesPost, timesPost, aerobicCalculator.getAverageRestConsumption(), 0);
+		
+		energyConsumption.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
+		energyConsumption.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
 		
 		this.result.use(Results.json()).from(energyConsumption).serialize();
 	}
