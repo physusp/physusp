@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<form id="data" class="form-horizontal" action="<c:url value="/charts/calculate"/>">
+			<form id="data" class="form-horizontal" action="<c:url value="/esc/calculate"/>">
 				<div class="row">
 					<div class="col-md-6">
 						<h1>Energy Systems Contributions</h1>
@@ -61,7 +61,7 @@
 		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script type="text/javascript" src="<c:url value="/js/lib/highcharts.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/js/chart.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/js/energysystemscontributions.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/lib/jquery.handsontable.full.js"/>"></script>
 	</body>
 </html>

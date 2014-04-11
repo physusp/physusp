@@ -27,17 +27,17 @@ import com.gedaeusp.models.EnergyConsumption;
 import com.gedaeusp.models.Parameters;
 
 @Resource
-public class ChartsController {
+@Path("/esc")
+public class EnergySystemsContributionsController {
 	private final Result result;
 	private Log log = LogFactory.getLog(this.getClass());
 	
-	public ChartsController(Result result) {
+	public EnergySystemsContributionsController(Result result) {
 		this.result = result;
 	}
 	
-	@Path("/charts")
+	@Path("")
 	public void index() {
-		
 	}
 	
 	@Post
