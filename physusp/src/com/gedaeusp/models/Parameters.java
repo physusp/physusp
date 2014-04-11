@@ -7,6 +7,7 @@ public class Parameters {
 	private double weight;
 	private String oxygenConsumption;
 	private String oxygenConsumptionRest;
+	private String oxygenConsumptionPost;
 	
 	
 	public double getWeight() {
@@ -38,6 +39,12 @@ public class Parameters {
 	}
 	public void setOxygenConsumptionRest(String oxygenConsumptionRest) {
 		this.oxygenConsumptionRest = oxygenConsumptionRest;
+	}
+	public String getOxygenConsumptionPost() {
+		return oxygenConsumptionPost;
+	}
+	public void setOxygenConsumptionPost(String oxygenConsumptionPost) {
+		this.oxygenConsumptionPost = oxygenConsumptionPost;
 	}
 	
 	

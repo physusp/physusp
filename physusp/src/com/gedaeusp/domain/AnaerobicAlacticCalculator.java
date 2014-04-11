@@ -9,23 +9,6 @@ import org.apache.commons.math3.util.FastMath;
 
 public class AnaerobicAlacticCalculator {
 
-	/**
-	 * 1
-	 * 
-	 * @param comsumption
-	 *            Oxygen consumption (volume per unit of time - e.g. Liters per
-	 *            second) observed in a given moment.
-	 * @param times
-	 *            Time in which the oxygen consumption was observed.
-	 * @param weight
-	 *            Subject mass in kg.
-	 * @param baselineOxygenVol
-	 *            Baseline oxygen consumption (volume per unit of time - e.g.
-	 *            Liters/second).
-	 * @param timeDelay
-	 *            Delay time (delta) in seconds.
-	 * @return Energy in KJ.
-	 */
 	public static UnitValue<EnergyUnit> calculateBiexponential(
 			List<UnitValue<FlowUnit>> consumption, List<Integer> times,
 			UnitValue<FlowUnit> baselineOxygenVol, Integer timeDelay) {
@@ -36,8 +19,6 @@ public class AnaerobicAlacticCalculator {
 		CurveFitter<Exponential.Parametric> monoexpFitter = new CurveFitter<Exponential.Parametric>(
 				new LevenbergMarquardtOptimizer());
 
-		// 2 Varre o conjunto de tempos e consumos adicionando cada ponto
-		// 2 observados ao MonoExponential e Biexponential fitter.
 		Iterator<Integer> timesIter = times.iterator();
 		Iterator<UnitValue<FlowUnit>> consIter = consumption.iterator();
 

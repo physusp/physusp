@@ -27,7 +27,7 @@ public class AerobicCalculator {
 					* (comsumption.get(i).getValue(FlowUnit.lPerSecond) + comsumption.get(i + 1).getValue(FlowUnit.lPerSecond)) / 2.0;
 		}
 		result = comsumptionValue / totalTime;
-		averageRestConsumption = new UnitValue<FlowUnit>(result,FlowUnit.lPerSecond);;
+		setAverageRestConsumption(new UnitValue<FlowUnit>(result,FlowUnit.lPerSecond));;
 	}
 
 	private UnitValue<VolumeUnit> calculateOxygenConsumptionDuringExercise(List<UnitValue<FlowUnit>> consumptionDuringExercise,
@@ -35,7 +35,7 @@ public class AerobicCalculator {
 		double integralValue = integrate(consumptionDuringExercise,time).getValue(VolumeUnit.l);
 		calculateAverageRestComsumption(restConsumption, restTime);
 		Integer timeRange = Time.timeRange(time);
-		double value = integralValue - (averageRestConsumption.getValue(FlowUnit.lPerSecond)*timeRange);
+		double value = integralValue - (getAverageRestConsumption().getValue(FlowUnit.lPerSecond)*timeRange);
 		return new UnitValue<VolumeUnit>(value,VolumeUnit.l);
 	}
 	
@@ -57,5 +57,13 @@ public class AerobicCalculator {
 		double energy = (oxygenConsumption.getValue(VolumeUnit.l))*5;
 		result = new UnitValue<EnergyUnit>(energy,EnergyUnit.Kcal);
 		return result;
+	}
+
+	public UnitValue<FlowUnit> getAverageRestConsumption() {
+		return averageRestConsumption;
+	}
+
+	public void setAverageRestConsumption(UnitValue<FlowUnit> averageRestConsumption) {
+		this.averageRestConsumption = averageRestConsumption;
 	}
 }
