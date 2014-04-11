@@ -64,11 +64,11 @@ public class ChartsController {
 		List<UnitValue<FlowUnit>> valuesRest = new ArrayList<UnitValue<FlowUnit>>();
 		readFile(parameters.getOxygenConsumptionRest(), timesRest, valuesRest);
 		
-		UnitValue<VolumeUnit> aerobicOxygenEquivalent = AerobicCalculator.calculateAerobicComsumption(values, valuesRest, times, timesRest);
+		//UnitValue<VolumeUnit> aerobicOxygenEquivalent = AerobicCalculator.calculateAerobicComsumption(values, valuesRest, times, timesRest);
 		
-		UnitValue<EnergyUnit> aerobicEnergyConsumption = AerobicCalculator.AerobicEnergyComsumption(aerobicOxygenEquivalent);
+		//UnitValue<EnergyUnit> aerobicEnergyConsumption = AerobicCalculator.AerobicEnergyComsumption(aerobicOxygenEquivalent);
 		
-		energyConsumption.setAerobic(aerobicEnergyConsumption.getValue(EnergyUnit.Kcal));
+		//energyConsumption.setAerobic(aerobicEnergyConsumption.getValue(EnergyUnit.Kcal));
 		
 		this.result.use(Results.json()).from(energyConsumption).serialize();
 	}

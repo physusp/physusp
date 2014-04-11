@@ -13,6 +13,12 @@ public class UnitValue<T extends Unit> {
 	public double getValue(T expectedUnit) {
 		return value * expectedUnit.getValue() / unit.getValue();
 	}
-
-
+	
+	public double getValue(){
+		return value;
+	}
+	
+	public T getUnit(){
+		return unit;
+	}
 }
