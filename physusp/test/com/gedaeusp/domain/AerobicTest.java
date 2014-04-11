@@ -13,43 +13,7 @@ public class AerobicTest {
 
 	private static double EPSILON = 0.000000000001;
 
-	@Test
-	public void integrateTest() {
-		List<UnitValue<FlowUnit>> comsumption = new ArrayList<UnitValue<FlowUnit>>();
-		List<Integer> time = new ArrayList<Integer>();
-		comsumption.add(new UnitValue<FlowUnit>((double) 400, FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 800, FlowUnit.lPerSecond));
-		time.add((int) 10);
-		time.add((int) 12);
-		assertEquals(
-				AerobicCalculator.integrate(comsumption, time).getValue(
-						VolumeUnit.l), 1200, EPSILON);
 
-	}
-
-	@Test
-	public void integrateTest2() {
-		List<UnitValue<FlowUnit>> comsumption = new ArrayList<UnitValue<FlowUnit>>();
-		List<Integer> time = new ArrayList<Integer>();
-		comsumption.add(new UnitValue<FlowUnit>((double) 2992.44,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2672.82,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2610.53,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2521.70,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2313.76,
-				FlowUnit.lPerSecond));
-		time.add((int) 1);
-		time.add((int) 2);
-		time.add((int) 3);
-		time.add((int) 4);
-		time.add((int) 5);
-		assertEquals(
-				AerobicCalculator.integrate(comsumption, time).getValue(
-						VolumeUnit.l), 10458.15, EPSILON);
-	}
 
 	@Test
 	public void calculateRestAerobicComsumptionTest() {
@@ -65,7 +29,7 @@ public class AerobicTest {
 		time.add((int) 13);
 		time.add((int) 14);
 		time.add((int) 19);
-		assertEquals(AerobicCalculator.restComsumption(comsumption, time)
+		assertEquals(AerobicCalculator.averageRestComsumption(comsumption, time)
 				.getValue(FlowUnit.lPerSecond), 305.55555555555554, EPSILON);
 	}
 
@@ -88,7 +52,7 @@ public class AerobicTest {
 		time.add((int) 237);
 		time.add((int) 241);
 		time.add((int) 246);
-		assertEquals(AerobicCalculator.restComsumption(comsumption, time)
+		assertEquals(AerobicCalculator.averageRestComsumption(comsumption, time)
 				.getValue(FlowUnit.lPerSecond), 593.76722222222222, EPSILON);
 	}
 

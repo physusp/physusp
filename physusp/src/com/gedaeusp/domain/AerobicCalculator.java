@@ -3,8 +3,11 @@ package com.gedaeusp.domain;
 import java.util.List;
 
 public class AerobicCalculator {
-
-	public static UnitValue<VolumeUnit> integrate(List<UnitValue<FlowUnit>> comsumption, List<Integer> time) {
+	
+	private UnitValue<FlowUnit> averageRestConsumption;
+	
+	
+	private  UnitValue<VolumeUnit> integrate(List<UnitValue<FlowUnit>> comsumption, List<Integer> time) {
 		double integralValue = 0;
 		for (int i = 0; i < comsumption.size() - 1; i++) {
 			integralValue += (time.get(i + 1) - time.get(i))
@@ -12,9 +15,8 @@ public class AerobicCalculator {
 		}
 		return new UnitValue<VolumeUnit>(integralValue,VolumeUnit.l);
 	}
-	
 
-	public static UnitValue<FlowUnit> restComsumption(List<UnitValue<FlowUnit>> comsumption,
+	private void calculateAverageRestComsumption(List<UnitValue<FlowUnit>> comsumption,
 			List<Integer> time) {
 		double result = 0;
 		double comsumptionValue = 0;
@@ -25,32 +27,34 @@ public class AerobicCalculator {
 					* (comsumption.get(i).getValue(FlowUnit.lPerSecond) + comsumption.get(i + 1).getValue(FlowUnit.lPerSecond)) / 2.0;
 		}
 		result = comsumptionValue / totalTime;
-		return new UnitValue<FlowUnit>(result,FlowUnit.lPerSecond);
+		averageRestConsumption = new UnitValue<FlowUnit>(result,FlowUnit.lPerSecond);;
 	}
 
-	public static UnitValue<VolumeUnit> calculateAerobicComsumption(List<UnitValue<FlowUnit>> comsumption,
-			List<UnitValue<FlowUnit>> restComsumption, List<Integer> time, List<Integer> restTime) {
-		double integralValue = integrate(comsumption,time).getValue(VolumeUnit.l);
-		double restComsumptionAverage = restComsumption(restComsumption, restTime).getValue(FlowUnit.lPerSecond);
+	private UnitValue<VolumeUnit> calculateOxygenConsumptionDuringExercise(List<UnitValue<FlowUnit>> consumptionDuringExercise,
+			List<UnitValue<FlowUnit>> restConsumption, List<Integer> time, List<Integer> restTime) {
+		double integralValue = integrate(consumptionDuringExercise,time).getValue(VolumeUnit.l);
+		calculateAverageRestComsumption(restConsumption, restTime);
 		Integer timeRange = Time.timeRange(time);
-		double value = integralValue-(restComsumptionAverage*timeRange);
+		double value = integralValue - (averageRestConsumption.getValue(FlowUnit.lPerSecond)*timeRange);
 		return new UnitValue<VolumeUnit>(value,VolumeUnit.l);
 	}
 	
-	public static UnitValue<EnergyUnit> AerobicEnergyComsumption(UnitValue<VolumeUnit> oxygenComsumption, UnitValue<WeightUnit> weight)
-	{
-		double energy;
+	public UnitValue<EnergyUnit> calculateEnergyConsumption(List<UnitValue<FlowUnit>> consumptionDuringExercise,
+			List<UnitValue<FlowUnit>> restConsumption, List<Integer> time, List<Integer> restTime, UnitValue<WeightUnit> weight) {
+		UnitValue<VolumeUnit> oxygenConsumption = calculateOxygenConsumptionDuringExercise(consumptionDuringExercise,
+			restConsumption, time, restTime);
 		UnitValue<EnergyUnit> result;
-		energy = (oxygenComsumption.getValue(VolumeUnit.l)/weight.getValue(WeightUnit.Kg))*5;
+		double energy = (oxygenConsumption.getValue(VolumeUnit.l)/weight.getValue(WeightUnit.Kg))*5;
 		result = new UnitValue<EnergyUnit>(energy,EnergyUnit.Kcal);
 		return result;
 	}
 	
-	public static UnitValue<EnergyUnit> AerobicEnergyComsumption(UnitValue<VolumeUnit> oxygenComsumption)
-	{
-		double energy;
+	public UnitValue<EnergyUnit> calculateEnergyConsumption(List<UnitValue<FlowUnit>> consumptionDuringExercise,
+			List<UnitValue<FlowUnit>> restConsumption, List<Integer> time, List<Integer> restTime) {
+		UnitValue<VolumeUnit> oxygenConsumption = calculateOxygenConsumptionDuringExercise(consumptionDuringExercise,
+				restConsumption, time, restTime);
 		UnitValue<EnergyUnit> result;
-		energy = (oxygenComsumption.getValue(VolumeUnit.l))*5;
+		double energy = (oxygenConsumption.getValue(VolumeUnit.l))*5;
 		result = new UnitValue<EnergyUnit>(energy,EnergyUnit.Kcal);
 		return result;
 	}
