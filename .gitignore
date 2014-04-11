@@ -45,6 +45,7 @@ physusp/.settings/
 physusp/loadpath
 physusp/build/
 physusp/target/
+physusp/log/
 
 # External tool builders
 physusp/externalToolBuilders/
