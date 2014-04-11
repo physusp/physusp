@@ -73,16 +73,34 @@ $(function(){
 	});
 	
 	var headers = ["Time (hh:mm:ss)", "Consumption (ml/min)"];
-	var handsonConfig = {
+//	var handsonConfig = {
+//	    minSpareRows: 1,
+//	    colHeaders: headers,
+//	    contextMenu: true,
+//	    data: [[null, null]],
+//	    height: 300
+//	};
+	
+	$('#oxygenConsumptionRest').handsontable({
 	    minSpareRows: 1,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
 	    height: 300
-	};
-	
-	$('#oxygenConsumptionRest').handsontable(handsonConfig);
-	$('#oxygenConsumption').handsontable(handsonConfig);
-	$('#oxygenConsumptionPost').handsontable(handsonConfig);
+	});
+	$('#oxygenConsumption').handsontable({
+	    minSpareRows: 1,
+	    colHeaders: headers,
+	    contextMenu: true,
+	    data: [[null, null]],
+	    height: 300
+	});
+	$('#oxygenConsumptionPost').handsontable({
+	    minSpareRows: 1,
+	    colHeaders: headers,
+	    contextMenu: true,
+	    data: [[null, null]],
+	    height: 300
+	});
 	
 });
