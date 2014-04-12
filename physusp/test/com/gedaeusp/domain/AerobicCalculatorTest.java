@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.gedaeusp.domain.AerobicCalculator;
 
-public class AerobicTest {
+public class AerobicCalculatorTest {
 
 	private static double EPSILON = 0.01;
 
