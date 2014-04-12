@@ -6,15 +6,6 @@ public class AerobicCalculator {
 	
 	private UnitValue<FlowUnit> averageRestConsumption;
 	
-	private  UnitValue<VolumeUnit> integrate(List<UnitValue<FlowUnit>> comsumption, List<Integer> time) {
-		double integralValue = 0;
-		for (int i = 0; i < comsumption.size() - 1; i++) {
-			integralValue += (time.get(i + 1) - time.get(i))
-					* (comsumption.get(i).getValue(FlowUnit.lPerSecond) + comsumption.get(i + 1).getValue(FlowUnit.lPerSecond)) / 2.0;
-		}
-		return new UnitValue<VolumeUnit>(integralValue,VolumeUnit.l);
-	}
-
 	private void calculateAverageRestComsumption(List<UnitValue<FlowUnit>> consumption,
 			List<Integer> time) {
 		IntegralCalculator<FlowUnit> integralCalculator = new IntegralCalculator<FlowUnit>(time, consumption);
@@ -26,7 +17,8 @@ public class AerobicCalculator {
 
 	public UnitValue<VolumeUnit> calculateOxygenConsumptionDuringExercise(List<UnitValue<FlowUnit>> consumptionDuringExercise,
 			List<UnitValue<FlowUnit>> restConsumption, List<Integer> time, List<Integer> restTime) {
-		double integralValue = integrate(consumptionDuringExercise,time).getValue(VolumeUnit.l);
+		IntegralCalculator<FlowUnit> integralCalculator = new IntegralCalculator<FlowUnit>(time, consumptionDuringExercise);
+		double integralValue = integralCalculator.calculate().getValue(FlowUnit.lPerSecond);
 		calculateAverageRestComsumption(restConsumption, restTime);
 		Integer timeRange = Time.timeRange(time);
 		double value = integralValue - (getAverageRestConsumption().getValue(FlowUnit.lPerSecond)*timeRange);
@@ -60,4 +52,5 @@ public class AerobicCalculator {
 	public void setAverageRestConsumption(UnitValue<FlowUnit> averageRestConsumption) {
 		this.averageRestConsumption = averageRestConsumption;
 	}
+	
 }
