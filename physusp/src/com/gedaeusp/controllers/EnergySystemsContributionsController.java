@@ -1,12 +1,8 @@
 package com.gedaeusp.controllers;
 
-import java.io.BufferedReader;
-import java.io.StringReader;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.LinkedHashMap;
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -20,7 +16,7 @@ import com.gedaeusp.domain.AnaerobicLactic;
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.FlowUnit;
 import com.gedaeusp.domain.MolarConcentrationUnit;
-import com.gedaeusp.domain.Time;
+import com.gedaeusp.domain.TimeSeriesParser;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.WeightUnit;
 import com.gedaeusp.models.EnergyConsumption;
@@ -30,8 +26,6 @@ import com.gedaeusp.models.Parameters;
 @Path("/esc")
 public class EnergySystemsContributionsController {
 	private final Result result;
-	private Log log = LogFactory.getLog(this.getClass());
-	
 	public EnergySystemsContributionsController(Result result) {
 		this.result = result;
 	}
@@ -56,44 +50,33 @@ public class EnergySystemsContributionsController {
 
 		energyConsumption.setAnaerobicLactic(anaerobicLacticEnergy.getValue(EnergyUnit.Kcal));
 
-		List<Integer> times = new ArrayList<Integer>();
-		List<UnitValue<FlowUnit>> values = new ArrayList<UnitValue<FlowUnit>>();
-		readFile(parameters.getOxygenConsumption(), times, values);
-		
-		List<Integer> timesRest = new ArrayList<Integer>();
-		List<UnitValue<FlowUnit>> valuesRest = new ArrayList<UnitValue<FlowUnit>>();
-		readFile(parameters.getOxygenConsumptionRest(), timesRest, valuesRest);
-		
-		List<Integer> timesPost = new ArrayList<Integer>();
-		List<UnitValue<FlowUnit>> valuesPost = new ArrayList<UnitValue<FlowUnit>>();
-		readFile(parameters.getOxygenConsumptionPost(), timesPost, valuesPost);
-		
-		AerobicCalculator aerobicCalculator = new AerobicCalculator();
-		UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator.calculateEnergyConsumption(values, valuesRest, times, timesRest);
-		
-		UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateBiexponential(valuesPost, timesPost, aerobicCalculator.getAverageRestConsumption(), 0);
-		
-		energyConsumption.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
-		energyConsumption.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
-		
-		this.result.use(Results.json()).from(energyConsumption).serialize();
-	}
-
-	private void readFile(String oxygenConsumption, List<Integer> times, List<UnitValue<FlowUnit>> values) {
-		StringReader file = new StringReader(oxygenConsumption);
-		BufferedReader reader = new BufferedReader(file);
-		String line;
+		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
 		try {
-			while ((line = reader.readLine()) != null) {
-				if(line.isEmpty())
-					continue;
-				String[] data = line.split(",");
-				int time = Time.convertDateToSeconds(data[0]);
-				times.add(time);
-				values.add(new UnitValue<FlowUnit>(Double.parseDouble(data[1]), FlowUnit.mlPerMinute));
-			}
-		} catch (Exception e) {
-			log.error("Error reading file: " + e.getMessage());
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser.parse(parameters.getOxygenConsumptionRest(), FlowUnit.mlPerMinute);
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser.parse(parameters.getOxygenConsumption(), FlowUnit.mlPerMinute);
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser.parse(parameters.getOxygenConsumptionPost(), FlowUnit.mlPerMinute);
+			
+			AerobicCalculator aerobicCalculator = new AerobicCalculator();
+			UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator.calculateEnergyConsumption(
+					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionDuringExerciseSeries.values()), 
+					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionRestSeries.values()), 
+					new ArrayList<Integer>(oxygenConsumptionDuringExerciseSeries.keySet()), 
+					new ArrayList<Integer>(oxygenConsumptionRestSeries.keySet()));
+			
+			UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateBiexponential(
+					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionPostExerciseSeries.values()), 
+					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries.keySet()), 
+					aerobicCalculator.getAverageRestConsumption(), 
+					0);
+			
+			energyConsumption.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
+			energyConsumption.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
+			
+			this.result.use(Results.json()).from(energyConsumption).serialize();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
+
 }
