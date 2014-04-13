@@ -53,8 +53,8 @@ public class EnergySystemsContributionsController {
 		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
 		try {
 			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser.parse(parameters.getOxygenConsumptionRest(), FlowUnit.mlPerMinute);
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser.parse(parameters.getOxygenConsumption(), FlowUnit.mlPerMinute);
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser.parse(parameters.getOxygenConsumptionPost(), FlowUnit.mlPerMinute);
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser.parse(parameters.getOxygenConsumptionDuringExercise(), FlowUnit.mlPerMinute);
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser.parse(parameters.getOxygenConsumptionPostExercise(), FlowUnit.mlPerMinute);
 			
 			AerobicCalculator aerobicCalculator = new AerobicCalculator();
 			UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator.calculateEnergyConsumption(

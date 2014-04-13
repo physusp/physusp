@@ -61,11 +61,11 @@ $(function(){
 		var oxygenConsumptionRest = $('#oxygenConsumptionRest').handsontable('getData');
 		input += "&parameters.oxygenConsumptionRest=" + prepareTableToSend(oxygenConsumptionRest);
 		
-		var oxygenConsumption = $('#oxygenConsumption').handsontable('getData');
-		input += "&parameters.oxygenConsumption=" + prepareTableToSend(oxygenConsumption);
+		var oxygenConsumptionDuringExercise = $('#oxygenConsumptionDuringExercise').handsontable('getData');
+		input += "&parameters.oxygenConsumptionDuringExercise=" + prepareTableToSend(oxygenConsumptionDuringExercise);
 		
-		var oxygenConsumptionPost = $('#oxygenConsumptionPost').handsontable('getData');
-		input += "&parameters.oxygenConsumptionPost=" + prepareTableToSend(oxygenConsumptionPost);
+		var oxygenConsumptionPostExercise = $('#oxygenConsumptionPostExercise').handsontable('getData');
+		input += "&parameters.oxygenConsumptionPostExercise=" + prepareTableToSend(oxygenConsumptionPostExercise);
 		
 		sendFormData(url, input);
 		
@@ -73,13 +73,6 @@ $(function(){
 	});
 	
 	var headers = ["Time (hh:mm:ss)", "Consumption (ml/min)"];
-//	var handsonConfig = {
-//	    minSpareRows: 1,
-//	    colHeaders: headers,
-//	    contextMenu: true,
-//	    data: [[null, null]],
-//	    height: 300
-//	};
 	
 	$('#oxygenConsumptionRest').handsontable({
 	    minSpareRows: 1,
@@ -88,14 +81,14 @@ $(function(){
 	    data: [[null, null]],
 	    height: 300
 	});
-	$('#oxygenConsumption').handsontable({
+	$('#oxygenConsumptionDuringExercise').handsontable({
 	    minSpareRows: 1,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
 	    height: 300
 	});
-	$('#oxygenConsumptionPost').handsontable({
+	$('#oxygenConsumptionPostExercise').handsontable({
 	    minSpareRows: 1,
 	    colHeaders: headers,
 	    contextMenu: true,

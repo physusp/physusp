@@ -45,11 +45,11 @@
 					</div>
 					<div class="col-md-4">
 						<label>Exercise oxygen consumption</label>
-						<div id="oxygenConsumption"></div>
+						<div id="oxygenConsumptionDuringExercise"></div>
 					</div>
 					<div class="col-md-4">
 						<label>Post-Exercise oxygen consumption</label>
-						<div id="oxygenConsumptionPost"></div>
+						<div id="oxygenConsumptionPostExercise"></div>
 					</div>
 				</div>
 				<div class="row" style="margin-top: 15px">

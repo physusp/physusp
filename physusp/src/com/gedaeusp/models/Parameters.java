@@ -5,9 +5,9 @@ public class Parameters {
 	private double restLactateConcentration;
 	private double maxLactateConcentration;
 	private double weight;
-	private String oxygenConsumption;
+	private String oxygenConsumptionDuringExercise;
 	private String oxygenConsumptionRest;
-	private String oxygenConsumptionPost;
+	private String oxygenConsumptionPostExercise;
 	
 	
 	public double getWeight() {
@@ -28,11 +28,11 @@ public class Parameters {
 	public void setRestLactateConcentration(double restLactateConcentration) {
 		this.restLactateConcentration = restLactateConcentration;
 	}
-	public String getOxygenConsumption() {
-		return oxygenConsumption;
+	public String getOxygenConsumptionDuringExercise() {
+		return oxygenConsumptionDuringExercise;
 	}
-	public void setOxygenConsumption(String oxygenConsumption) {
-		this.oxygenConsumption = oxygenConsumption;
+	public void setOxygenConsumptionDuringExercise(String oxygenConsumption) {
+		this.oxygenConsumptionDuringExercise = oxygenConsumption;
 	}
 	public String getOxygenConsumptionRest() {
 		return oxygenConsumptionRest;
@@ -40,11 +40,11 @@ public class Parameters {
 	public void setOxygenConsumptionRest(String oxygenConsumptionRest) {
 		this.oxygenConsumptionRest = oxygenConsumptionRest;
 	}
-	public String getOxygenConsumptionPost() {
-		return oxygenConsumptionPost;
+	public String getOxygenConsumptionPostExercise() {
+		return oxygenConsumptionPostExercise;
 	}
-	public void setOxygenConsumptionPost(String oxygenConsumptionPost) {
-		this.oxygenConsumptionPost = oxygenConsumptionPost;
+	public void setOxygenConsumptionPostExercise(String oxygenConsumptionPost) {
+		this.oxygenConsumptionPostExercise = oxygenConsumptionPost;
 	}
 	
 	
