@@ -12,7 +12,7 @@ import br.com.caelum.vraptor.view.Results;
 
 import com.gedaeusp.domain.AerobicCalculator;
 import com.gedaeusp.domain.AnaerobicAlacticCalculator;
-import com.gedaeusp.domain.AnaerobicLactic;
+import com.gedaeusp.domain.AnaerobicLacticCalculator;
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.FlowUnit;
 import com.gedaeusp.domain.MolarConcentrationUnit;
@@ -37,7 +37,7 @@ public class EnergySystemsContributionsController {
 	@Post
 	public void calculate(Parameters parameters){
 		
-		AnaerobicLactic anaerobicLactic = new AnaerobicLactic();
+		AnaerobicLacticCalculator anaerobicLactic = new AnaerobicLacticCalculator();
 		
 		UnitValue<MolarConcentrationUnit> restLactic = new UnitValue<MolarConcentrationUnit>(parameters.getRestLactateConcentration(), MolarConcentrationUnit.MiliMolPerLiter);
 		UnitValue<MolarConcentrationUnit> maxLactic = new UnitValue<MolarConcentrationUnit>(parameters.getMaxLactateConcentration(), MolarConcentrationUnit.MiliMolPerLiter);
