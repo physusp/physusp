@@ -191,7 +191,7 @@ public class AnaerobicAlacticTest {
 		// - we will not pass in an initial value for t0 parameter
 		double[] init = AnaerobicAlacticCalculator
 				.guessBiexponentialParameters(consumption, times,
-						baselineOxygenVol, (int) 0, FlowUnit.mlPerMinute);
+						baselineOxygenVol, (int) t0, FlowUnit.mlPerMinute);
 
 		for (double d : init) {
 			log.debug(d);
@@ -200,7 +200,7 @@ public class AnaerobicAlacticTest {
 		// do the curve fitting
 		// - we will try to find t0 without giving an initial guess
 		Biexponential.ParametricBuilder builder = new Biexponential.ParametricBuilder()
-				.fixedT0(false).fixedV0(true);
+				.fixedT0(true).fixedV0(true);
 
 		CurveFitter<Biexponential.Parametric> fitter = new CurveFitter<Biexponential.Parametric>(
 				new LevenbergMarquardtOptimizer());
