@@ -167,12 +167,12 @@ public class AnaerobicAlacticCalculator {
 		addObservedPointsToFitter(consumption, times, fitter,
 				FlowUnit.lPerSecond);
 
-		Biexponential.ParametricBuilder biexp = new Biexponential.ParametricBuilder()
+		Biexponential.ParametricBuilder builder = new Biexponential.ParametricBuilder()
 				.fixedV0(true) // We never optimize the given v0
 				// If a timeDalay was given, we won't optimize the parameter t0
 				.fixedT0(timeDelay > 0);
 
-		double[] best = fitter.fit(biexp.build(), init);
+		double[] best = fitter.fit(builder.build(), init);
 
 		log.debug("Resultados da regressão:");
 		log.debug("VO2_base = " + best[Biexponential.PARAM_v0]);

@@ -9,64 +9,38 @@ import org.junit.Test;
 
 import com.gedaeusp.domain.AerobicCalculator;
 
-public class AerobicTest {
+public class AerobicCalculatorTest {
 
-	private static double EPSILON = 0.000000000001;
+	private static double EPSILON = 0.01;
 
-	@Test
-	public void integrateTest() {
-		List<UnitValue<FlowUnit>> comsumption = new ArrayList<UnitValue<FlowUnit>>();
-		List<Integer> time = new ArrayList<Integer>();
-		comsumption.add(new UnitValue<FlowUnit>((double) 400, FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 800, FlowUnit.lPerSecond));
-		time.add((int) 10);
-		time.add((int) 12);
-		assertEquals(
-				AerobicCalculator.integrate(comsumption, time).getValue(
-						VolumeUnit.l), 1200, EPSILON);
 
-	}
 
 	@Test
-	public void integrateTest2() {
-		List<UnitValue<FlowUnit>> comsumption = new ArrayList<UnitValue<FlowUnit>>();
-		List<Integer> time = new ArrayList<Integer>();
-		comsumption.add(new UnitValue<FlowUnit>((double) 2992.44,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2672.82,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2610.53,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2521.70,
-				FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 2313.76,
-				FlowUnit.lPerSecond));
-		time.add((int) 1);
-		time.add((int) 2);
-		time.add((int) 3);
-		time.add((int) 4);
-		time.add((int) 5);
-		assertEquals(
-				AerobicCalculator.integrate(comsumption, time).getValue(
-						VolumeUnit.l), 10458.15, EPSILON);
-	}
-
-	@Test
-	public void calculateRestAerobicComsumptionTest() {
-		List<UnitValue<FlowUnit>> comsumption = new ArrayList<UnitValue<FlowUnit>>();
-		List<Integer> time = new ArrayList<Integer>();
-		comsumption.add(new UnitValue<FlowUnit>((double) 400, FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 200, FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 300, FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 500, FlowUnit.lPerSecond));
-		comsumption.add(new UnitValue<FlowUnit>((double) 100, FlowUnit.lPerSecond));
-		time.add((int) 10);
-		time.add((int) 12);
-		time.add((int) 13);
-		time.add((int) 14);
-		time.add((int) 19);
-		assertEquals(AerobicCalculator.restComsumption(comsumption, time)
-				.getValue(FlowUnit.lPerSecond), 305.55555555555554, EPSILON);
+	public void getAverageRestConsumptionTest() {
+		List<UnitValue<FlowUnit>> restConsumption = new ArrayList<UnitValue<FlowUnit>>();
+		List<UnitValue<FlowUnit>> consumptionDuringExercise= new ArrayList<UnitValue<FlowUnit>>();
+		List<Integer> restTime = new ArrayList<Integer>();
+		List<Integer> timeDuringExercise = new ArrayList<Integer>();
+		
+		restConsumption.add(new UnitValue<FlowUnit>((double) 400, FlowUnit.lPerSecond));
+		restConsumption.add(new UnitValue<FlowUnit>((double) 200, FlowUnit.lPerSecond));
+		restConsumption.add(new UnitValue<FlowUnit>((double) 300, FlowUnit.lPerSecond));
+		restConsumption.add(new UnitValue<FlowUnit>((double) 500, FlowUnit.lPerSecond));
+		restConsumption.add(new UnitValue<FlowUnit>((double) 100, FlowUnit.lPerSecond));
+		restTime.add((int) 10);
+		restTime.add((int) 12);
+		restTime.add((int) 13);
+		restTime.add((int) 14);
+		restTime.add((int) 19);
+		
+		for (int i = 0; i < restTime.size(); i++) {
+			consumptionDuringExercise.add(new UnitValue<FlowUnit>((double) i, FlowUnit.lPerMinute));
+			timeDuringExercise.add(i);
+		}				
+				
+		AerobicCalculator aerobicCalculator = new AerobicCalculator();
+		aerobicCalculator.calculateEnergyConsumption(consumptionDuringExercise, restConsumption, timeDuringExercise, restTime);
+		assertEquals(305.5555555, aerobicCalculator.getAverageRestConsumption().getValue(FlowUnit.lPerSecond), EPSILON);
 	}
 
 	@Test
@@ -88,12 +62,22 @@ public class AerobicTest {
 		time.add((int) 237);
 		time.add((int) 241);
 		time.add((int) 246);
-		assertEquals(AerobicCalculator.restComsumption(comsumption, time)
+		
+		List<UnitValue<FlowUnit>> consumptionDuringExercise= new ArrayList<UnitValue<FlowUnit>>();
+		List<Integer> timeDuringExercise = new ArrayList<Integer>();
+		for (int i = 0; i < time.size(); i++) {
+			consumptionDuringExercise.add(new UnitValue<FlowUnit>((double) i, FlowUnit.lPerMinute));
+			timeDuringExercise.add(i);
+		}
+		
+		AerobicCalculator aerobicCalculator = new AerobicCalculator();
+		aerobicCalculator.calculateEnergyConsumption(consumptionDuringExercise, comsumption, timeDuringExercise, time);
+		assertEquals(aerobicCalculator.getAverageRestConsumption()
 				.getValue(FlowUnit.lPerSecond), 593.76722222222222, EPSILON);
 	}
 
 	@Test
-	public void AerobicComsumptionTest() {
+	public void aerobicComsumptionTest() {
 		List<UnitValue<FlowUnit>> comsumption = new ArrayList<UnitValue<FlowUnit>>();
 		List<UnitValue<FlowUnit>> restComsumption = new ArrayList<UnitValue<FlowUnit>>();
 		List<Integer> time = new ArrayList<Integer>();
@@ -108,20 +92,20 @@ public class AerobicTest {
 		time.add((int) 14);
 		restTime.add((int) 1);
 		restTime.add((int) 10);
+		
+		AerobicCalculator aerobicCalculator = new AerobicCalculator();
+		UnitValue<VolumeUnit> oxygenConsumption = aerobicCalculator.calculateOxygenConsumptionDuringExercise(comsumption, restComsumption, time, restTime);
 		assertEquals(
-				AerobicCalculator.calculateAerobicComsumption(comsumption,
-						restComsumption, time, restTime).getValue(VolumeUnit.l),
+				oxygenConsumption.getValue(VolumeUnit.l),
 				1200, EPSILON);
 	}
 
 	@Test
-	public void AerobicEnergyComsumptionTest() {
+	public void aerobicEnergyComsumptionTest() {
 		List<UnitValue<FlowUnit>> comsumption = new ArrayList<UnitValue<FlowUnit>>();
 		List<UnitValue<FlowUnit>> restComsumption = new ArrayList<UnitValue<FlowUnit>>();
 		List<Integer> time = new ArrayList<Integer>();
 		List<Integer> restTime = new ArrayList<Integer>();
-		UnitValue<VolumeUnit> oxygenComsumption;
-		double energy;
 		comsumption.add(new UnitValue<FlowUnit>((double) 2992.44,
 				FlowUnit.lPerMinute));
 		comsumption.add(new UnitValue<FlowUnit>((double) 2672.82,
@@ -153,11 +137,10 @@ public class AerobicTest {
 		restTime.add((int) 241);
 		restTime.add((int) 246);
 
-		oxygenComsumption = AerobicCalculator.calculateAerobicComsumption(
+		AerobicCalculator aerobicCalculator = new AerobicCalculator();
+		UnitValue<EnergyUnit> energyConsumption = aerobicCalculator.calculateEnergyConsumption(
 				comsumption, restComsumption, time, restTime);
-		energy = AerobicCalculator.AerobicEnergyComsumption(oxygenComsumption)
-				.getValue(EnergyUnit.Kcal);
-		assertEquals(energy, 673.5900925925926, EPSILON);
+		assertEquals(energyConsumption.getValue(EnergyUnit.Kcal), 673.5900925925926, EPSILON);
 	}
 
 }
