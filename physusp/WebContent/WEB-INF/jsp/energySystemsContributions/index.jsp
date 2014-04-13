@@ -33,6 +33,12 @@
 								<input type="text" name="parameters.weight" class="form-control col-md-6" />
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-md-7 control-label">Post-Exercise time delay &delta; (s)</label>
+							<div class="col-md-5">
+								<input type="text" name="parameters.timeDelayPost" class="form-control col-md-6" />
+							</div>
+						</div>
 					</div>
 					<div class="col-md-6">
 						<div id="results"></div>

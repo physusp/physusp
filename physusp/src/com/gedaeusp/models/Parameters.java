@@ -5,6 +5,7 @@ public class Parameters {
 	private double restLactateConcentration;
 	private double maxLactateConcentration;
 	private double weight;
+	private double timeDelayPost;
 	private String oxygenConsumption;
 	private String oxygenConsumptionRest;
 	private String oxygenConsumptionPost;
@@ -46,6 +47,10 @@ public class Parameters {
 	public void setOxygenConsumptionPost(String oxygenConsumptionPost) {
 		this.oxygenConsumptionPost = oxygenConsumptionPost;
 	}
-	
-	
+	public double getTimeDelayPost() {
+		return timeDelayPost;
+	}
+	public void setTimeDelayPost(double timeDelayPost) {
+		this.timeDelayPost = timeDelayPost;
+	}
 }

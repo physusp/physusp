@@ -182,7 +182,7 @@ public class AnaerobicAlacticTest {
 		for (int i = 0; i <= 600; i++) {
 			double value = exp.value(i);
 			log.debug("(" + i + ", " + value + ")");
-			times.add(i);
+			times.add(400+i);
 			consumption
 					.add(new UnitValue<FlowUnit>(value, FlowUnit.mlPerMinute));
 		}

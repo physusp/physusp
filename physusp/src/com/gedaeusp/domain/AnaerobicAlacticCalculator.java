@@ -21,12 +21,13 @@ public class AnaerobicAlacticCalculator {
 			List<UnitValue<FlowUnit>> consumption, List<Integer> times,
 			CurveFitter<?> fitter, FlowUnit unit) {
 
+		Integer minTime = times.get(0); // offsets time data
 		Iterator<Integer> timesIter = times.iterator();
 		Iterator<UnitValue<FlowUnit>> consIter = consumption.iterator();
 
 		while (consIter.hasNext() && timesIter.hasNext()) {
 			UnitValue<FlowUnit> oxygen = consIter.next();
-			Integer time = timesIter.next();
+			Integer time = timesIter.next() - minTime;
 			fitter.addObservedPoint(time, oxygen.getValue(unit));
 		}
 	}

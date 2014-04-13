@@ -71,7 +71,7 @@ public class EnergySystemsContributionsController {
 		AerobicCalculator aerobicCalculator = new AerobicCalculator();
 		UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator.calculateEnergyConsumption(values, valuesRest, times, timesRest);
 		
-		UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateBiexponential(valuesPost, timesPost, aerobicCalculator.getAverageRestConsumption(), 0);
+		UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateBiexponential(valuesPost, timesPost, aerobicCalculator.getAverageRestConsumption(), (int) parameters.getTimeDelayPost());
 		
 		energyConsumption.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
 		energyConsumption.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
