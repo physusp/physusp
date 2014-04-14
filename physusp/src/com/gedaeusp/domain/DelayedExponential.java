@@ -7,22 +7,19 @@ import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.util.FastMath;
 
 /**
- * A function of the form: {@code V(t) = V0 + A * exp(-t/tau)}. {@code V(t)} is
- * the oxygen uptake at time {@code t}. {@code V0}, {@code A} and {@code tau}
- * are the oxygen uptake at baseline, the amplitude and the time constant,
- * respectively.
+ * A function of the form: {@code V(t) = V0 + A * exp(-(t - t0)/tau)}.
+ * {@code V(t)} is the oxygen uptake at time {@code t}. {@code V0}, {@code A}
+ * and {@code tau} are the oxygen uptake at baseline, the amplitude and the time
+ * constant, respectively. {@code t0} is the time delay.
  * 
- * As proposed in the article
- * "Energy system contributions in indoor rock climbing", equations [1] and [2].
- * 
- * @see "R. C. deM. Bertuzzi et al., Energy system contributions in indoor rock climbing, 2007, Springer-Verlag"
  * @author igortopcin
  */
-public class Exponential implements UnivariateDifferentiableFunction {
+public class DelayedExponential implements UnivariateDifferentiableFunction {
 
 	public static final int PARAM_v0 = 0;
 	public static final int PARAM_a = 1;
 	public static final int PARAM_tau = 2;
+	public static final int PARAM_t0 = 3;
 
 	/** The oxygen uptake at baseline */
 	private final double v0;
@@ -33,19 +30,24 @@ public class Exponential implements UnivariateDifferentiableFunction {
 	/** Time constant */
 	private final double tau;
 
-	public Exponential(double v0, double a, double tau) {
+	/** Time delay */
+	private final double t0;
+
+	public DelayedExponential(double v0, double a, double tau, double t0) {
 		this.v0 = v0;
 		this.a = a;
 		this.tau = tau;
+		this.t0 = t0;
 	}
 
 	@Override
 	public double value(double t) {
-		return value(t, v0, a, tau);
+		return value(t, v0, a, tau, t0);
 	}
 
-	private static double value(double t, double v0, double a, double tau) {
-		return v0 + a * FastMath.exp(-t / tau);
+	private static double value(double t, double v0, double a, double tau,
+			double t0) {
+		return v0 + a * FastMath.exp(-(t - t0) / tau);
 	}
 
 	@Override
@@ -60,21 +62,23 @@ public class Exponential implements UnivariateDifferentiableFunction {
 	 * 
 	 * This is meant to be used by a curve fitter.
 	 * 
-	 * Use {@link Exponential.ParametricBuilder} to create
-	 * {@link Exponential.Parametric} instances.
+	 * Use {@link DelayedExponential.ParametricBuilder} to create
+	 * {@link DelayedExponential.Parametric} instances.
 	 * 
-	 * @see {@link Exponential.ParametricBuilder}
+	 * @see {@link DelayedExponential.ParametricBuilder}
 	 */
 	public static class Parametric implements ParametricUnivariateFunction {
 
 		private boolean fixedV0;
+		private boolean fixedT0;
 
 		/**
 		 * Constructor that takes a builder as parameter in order to create a
-		 * {@link Exponential.Parametric} instance.
+		 * {@link DelayedExponential.Parametric} instance.
 		 */
-		public Parametric(Exponential.ParametricBuilder builder) {
+		public Parametric(DelayedExponential.ParametricBuilder builder) {
 			fixedV0 = builder.fixedV0;
+			fixedT0 = builder.fixedT0;
 		}
 
 		/**
@@ -82,11 +86,12 @@ public class Exponential implements UnivariateDifferentiableFunction {
 		 */
 		@Override
 		public double value(double t, double... params) {
-			double v0 = params[0];
-			double a = params[1];
-			double tau = params[2];
+			double v0 = params[PARAM_v0];
+			double a = params[PARAM_a];
+			double tau = params[PARAM_tau];
+			double t0 = params[PARAM_t0];
 
-			return Exponential.value(t, v0, a, tau);
+			return DelayedExponential.value(t, v0, a, tau, t0);
 		}
 
 		/**
@@ -96,24 +101,39 @@ public class Exponential implements UnivariateDifferentiableFunction {
 		public double[] gradient(double t, double... params) {
 			double a = params[PARAM_a];
 			double tau = params[PARAM_tau];
+			double t0 = params[PARAM_t0];
 
 			// We do not optimize v0 if fixedV0 is true
 			double dv0 = fixedV0 ? 0 : 1;
 
+			// We do not optimize t0 if fixedT0 is true
+			// Also, we set a lower boundary for t0
+			double dt0 = 0;
+			if (!fixedT0) {
+				if (t0 < 0) {
+					params[PARAM_t0] = 0;
+				} else {
+					dt0 = (a / tau) * FastMath.exp((t0 - t) / tau);
+				}
+			}
+
 			// We optimize the rest of the parameters, that is, A and Tau
-			double da = FastMath.exp(-t / tau);
-			double dTau = a * t * FastMath.exp(-t / tau) / FastMath.pow(tau, 2);
-			return new double[] { dv0, da, dTau };
+			double da = FastMath.exp((t0 - t) / tau);
+			double dTau = a * (t - t0) * FastMath.exp((t0 - t) / tau)
+					/ FastMath.pow(tau, 2);
+
+			return new double[] { dv0, da, dTau, dt0 };
 		}
 
 	}
 
 	/**
-	 * A Builder class for {@link Exponential.Parametric}.
+	 * A Builder class for {@link DelayedExponential.Parametric}.
 	 */
 	public static class ParametricBuilder {
 
 		private boolean fixedV0;
+		private boolean fixedT0;
 
 		/**
 		 * Tell the curve fitter not to optimize the {@code v0} parameter, that
@@ -125,10 +145,19 @@ public class Exponential implements UnivariateDifferentiableFunction {
 		}
 
 		/**
-		 * Creates a {@link Exponential.Parametric}
+		 * Tell the curve fitter not to optimize the {@code t0} parameter, that
+		 * is, the passed in initial value for {@code t0} will remain untouched.
 		 */
-		public Exponential.Parametric build() {
-			return new Exponential.Parametric(this);
+		public ParametricBuilder fixedT0(boolean fixedT0) {
+			this.fixedT0 = fixedT0;
+			return this;
+		}
+
+		/**
+		 * Creates a {@link DelayedExponential.Parametric}
+		 */
+		public DelayedExponential.Parametric build() {
+			return new DelayedExponential.Parametric(this);
 		}
 
 	}

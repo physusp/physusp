@@ -21,6 +21,13 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class Biexponential implements UnivariateDifferentiableFunction {
 
+	public static final int PARAM_v0 = 0;
+	public static final int PARAM_t0 = 1;
+	public static final int PARAM_a1 = 2;
+	public static final int PARAM_a2 = 3;
+	public static final int PARAM_tau1 = 4;
+	public static final int PARAM_tau2 = 5;
+
 	/** The oxygen uptake at baseline */
 	private final double v0;
 
@@ -62,35 +69,74 @@ public class Biexponential implements UnivariateDifferentiableFunction {
 		return t.exp();
 	}
 
+	/**
+	 * A class representing a bi-exponential function that depends on one
+	 * independent variable plus some extra parameters.
+	 * 
+	 * This is meant to be used by a curve fitter.
+	 * 
+	 * Use {@link Biexponential.ParametricBuilder} to create
+	 * {@link Biexponential.Parametric} instances.
+	 * 
+	 * @see {@link Biexponential.ParametricBuilder}
+	 */
 	public static class Parametric implements ParametricUnivariateFunction {
 
+		private boolean fixedV0;
+		private boolean fixedT0;
+
+		/**
+		 * Constructor that takes a builder as parameter in order to create a
+		 * {@link Biexponential.Parametric} instance.
+		 */
+		public Parametric(Biexponential.ParametricBuilder builder) {
+			fixedV0 = builder.fixedV0;
+			fixedT0 = builder.fixedT0;
+		}
+
+		/**
+		 * Compute the value of the function.
+		 */
 		@Override
 		public double value(double t, double... params) {
-			double v0 = params[0];
-			double t0 = params[1];
-			double a1 = params[2];
-			double a2 = params[3];
-			double tau1 = params[4];
-			double tau2 = params[5];
+			double v0 = params[PARAM_v0];
+			double t0 = params[PARAM_t0];
+			double a1 = params[PARAM_a1];
+			double a2 = params[PARAM_a2];
+			double tau1 = params[PARAM_tau1];
+			double tau2 = params[PARAM_tau2];
 
 			return Biexponential.value(t, v0, t0, a1, a2, tau1, tau2);
 		}
 
+		/**
+		 * Compute the gradient of the function with respect to its parameters.
+		 */
 		@Override
 		public double[] gradient(double t, double... params) {
-			double t0 = params[1];
-			double a1 = params[2];
-			double a2 = params[3];
-			double tau1 = params[4];
-			double tau2 = params[5];
+			double t0 = params[PARAM_t0];
+			double a1 = params[PARAM_a1];
+			double a2 = params[PARAM_a2];
+			double tau1 = params[PARAM_tau1];
+			double tau2 = params[PARAM_tau2];
 
+			// We do not optimize v0 if fixedV0 is true
+			double dv0 = fixedV0 ? 0 : 1;
+
+			// We do not optimize t0 if fixedT0 is true
+			// Also, we set a lower boundary for t0
 			double dt0 = 0;
-			if (t0 < 0) {
-				params[1] = 0;
-			} else {
-				dt0 = (a1 / tau1) * FastMath.exp((t0 - t) / tau1) + (a2 / tau2)
-						* FastMath.exp((t0 - t) / tau2);
+			if (!fixedT0) {
+				if (t0 < 0) {
+					params[PARAM_t0] = 0;
+				} else {
+					dt0 = (a1 / tau1) * FastMath.exp((t0 - t) / tau1)
+							+ (a2 / tau2) * FastMath.exp((t0 - t) / tau2);
+				}
 			}
+
+			// We always try to optimize the rest of the parameters, that is,
+			// A1, A2, Tau1, Tau2
 			double da1 = FastMath.exp((t0 - t) / tau1);
 			double da2 = FastMath.exp((t0 - t) / tau2);
 			double dTau1 = (a1 * (t - t0) * FastMath.exp((t0 - t) / tau1))
@@ -98,7 +144,42 @@ public class Biexponential implements UnivariateDifferentiableFunction {
 			double dTau2 = (a2 * (t - t0) * FastMath.exp((t0 - t) / tau2))
 					/ FastMath.pow(tau2, 2);
 
-			return new double[] { 1, dt0, da1, da2, dTau1, dTau2 };
+			return new double[] { dv0, dt0, da1, da2, dTau1, dTau2 };
+		}
+
+	}
+
+	/**
+	 * A Builder class for {@link Biexponential.Parametric}.
+	 */
+	public static class ParametricBuilder {
+
+		private boolean fixedV0;
+		private boolean fixedT0;
+
+		/**
+		 * Tell the curve fitter not to optimize the {@code v0} parameter, that
+		 * is, the passed in initial value for {@code v0} will remain untouched.
+		 */
+		public ParametricBuilder fixedV0(boolean fixedV0) {
+			this.fixedV0 = fixedV0;
+			return this;
+		}
+
+		/**
+		 * Tell the curve fitter not to optimize the {@code t0} parameter, that
+		 * is, the passed in initial value for {@code t0} will remain untouched.
+		 */
+		public ParametricBuilder fixedT0(boolean fixedT0) {
+			this.fixedT0 = fixedT0;
+			return this;
+		}
+
+		/**
+		 * Creates a {@link Biexponential.Parametric}
+		 */
+		public Biexponential.Parametric build() {
+			return new Biexponential.Parametric(this);
 		}
 
 	}

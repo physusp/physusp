@@ -67,7 +67,7 @@ public class EnergySystemsContributionsController {
 					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionPostExerciseSeries.values()), 
 					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries.keySet()), 
 					aerobicCalculator.getAverageRestConsumption(), 
-					0);
+					(int)parameters.getTimeDelayPost());
 			
 			energyConsumption.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
 			energyConsumption.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
