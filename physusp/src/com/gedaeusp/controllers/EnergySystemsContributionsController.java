@@ -63,7 +63,7 @@ public class EnergySystemsContributionsController {
 					new ArrayList<Integer>(oxygenConsumptionDuringExerciseSeries.keySet()), 
 					new ArrayList<Integer>(oxygenConsumptionRestSeries.keySet()));
 			
-			UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateBiexponential(
+			UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateEnergyWithBiExponential(
 					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionPostExerciseSeries.values()), 
 					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries.keySet()), 
 					aerobicCalculator.getAverageRestConsumption(), 

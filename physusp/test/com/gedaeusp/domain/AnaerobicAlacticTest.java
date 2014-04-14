@@ -120,7 +120,7 @@ public class AnaerobicAlacticTest {
 		}
 
 		// guess initial values
-		double[] init = AnaerobicAlacticCalculator.guessExponentialParameters(
+		double[] init = AnaerobicAlacticCalculator.guessExponentialInitialParameters(
 				consumption, times, baselineOxygenVol, (int) t0,
 				FlowUnit.mlPerMinute);
 
@@ -190,7 +190,7 @@ public class AnaerobicAlacticTest {
 		// guess initial values
 		// - we will not pass in an initial value for t0 parameter
 		double[] init = AnaerobicAlacticCalculator
-				.guessBiexponentialParameters(consumption, times,
+				.guessBiexponentialInitialParameters(consumption, times,
 						baselineOxygenVol, (int) t0, FlowUnit.mlPerMinute);
 
 		for (double d : init) {
@@ -250,7 +250,7 @@ public class AnaerobicAlacticTest {
 			times.add(i);
 		}
 
-		double actual = AnaerobicAlacticCalculator.calculateBiexponential(
+		double actual = AnaerobicAlacticCalculator.calculateEnergyWithBiExponential(
 				consumption, times,
 				new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), (int) t0)
 				.getValue(EnergyUnit.Kcal);
@@ -286,7 +286,7 @@ public class AnaerobicAlacticTest {
 			times.add(i);
 		}
 
-		double actual = AnaerobicAlacticCalculator.calculateExponential(
+		double actual = AnaerobicAlacticCalculator.calculateEnergyWithMonoExponential(
 				consumption, times,
 				new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), (int) t0)
 				.getValue(EnergyUnit.Kcal);
