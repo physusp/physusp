@@ -8,16 +8,18 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.math3.fitting.CurveFitter;
-import org.apache.commons.math3.optim.nonlinear.vector.jacobian.LevenbergMarquardtOptimizer;
 import org.apache.commons.math3.util.FastMath;
 import org.junit.Test;
 
-public class AnaerobicAlacticTest {
+public class AnaerobicAlacticCalculatorTest {
 
 	private static final double ERROR = 0.1;
 
 	private Log log = LogFactory.getLog(this.getClass());
+
+	private NonlinearCurveFitter fitter = new NonlinearCurveFitter();
+	
+	private AnaerobicAlacticCalculator calculator = new AnaerobicAlacticCalculator(fitter);
 
 	@Test
 	public void testExponentialFunction() {
@@ -55,34 +57,30 @@ public class AnaerobicAlacticTest {
 
 	@Test
 	public void testExponentialCurveFit() {
-		double vo2 = 170;
+		double v0 = 170;
 		double a = 1300;
 		double tau = 70;
 
-		Exponential exp = new Exponential(vo2, a, tau);
+		double[] v = new double[300];
+		double[] t = new double[300];
 
-		CurveFitter<Exponential.Parametric> fitter = new CurveFitter<Exponential.Parametric>(
-				new LevenbergMarquardtOptimizer());
+		Exponential exp = new Exponential(v0, a, tau);
 
 		System.out.println("Observed points:");
-		for (int i = 0; i <= 300; i++) {
-			double value = exp.value(i);
-			fitter.addObservedPoint(i, value);
-			log.debug("(" + i + ", " + value + ")");
+		for (int i = 0; i < 300; i++) {
+			t[i] = i;
+			v[i] = exp.value(i);
+			log.debug("(" + t[i] + ", " + v[i] + ")");
 		}
 
-		double[] init = { vo2, 1, 1 };
-
-		Exponential.ParametricBuilder builder = new Exponential.ParametricBuilder()
-				.fixedV0(true);
-		double[] best = fitter.fit(builder.build(), init);
+		double[] best = fitter.doExponentialFit(v, t, v0);
 
 		log.debug("Resultados da regressão:");
 		log.debug("VO2_base = " + best[Exponential.PARAM_v0]);
 		log.debug("A = " + best[Exponential.PARAM_a]);
 		log.debug("tau = " + best[Exponential.PARAM_tau]);
 
-		assertEquals(vo2, best[Exponential.PARAM_v0],
+		assertEquals(v0, best[Exponential.PARAM_v0],
 				Constants.ANAEROBIC_ALACTIC_EPS);
 		assertEquals(a, best[Exponential.PARAM_a],
 				Constants.ANAEROBIC_ALACTIC_EPS);
@@ -90,11 +88,6 @@ public class AnaerobicAlacticTest {
 				Constants.ANAEROBIC_ALACTIC_EPS);
 	}
 
-	/**
-	 * This test is initialized with a simple exponential fitting, and then we
-	 * use the result as the initial parameters for the delayed exponential
-	 * curve fitting.
-	 */
 	@Test
 	public void testDelayedExponentialCurveFit() {
 		double v0 = 170;
@@ -102,43 +95,26 @@ public class AnaerobicAlacticTest {
 		double a = 1300;
 		double tau = 70;
 
-		// Initialize points and baseline value
-		List<Integer> times = new ArrayList<Integer>();
-		List<UnitValue<FlowUnit>> consumption = new ArrayList<UnitValue<FlowUnit>>();
-		UnitValue<FlowUnit> baselineOxygenVol = new UnitValue<FlowUnit>(v0,
-				FlowUnit.mlPerMinute);
+		double[] v = new double[600];
+		double[] t = new double[600];
 
 		DelayedExponential exp = new DelayedExponential(v0, a, tau, t0);
 
 		System.out.println("Observed points:");
-		for (int i = 0; i <= 600; i++) {
-			double value = exp.value(i);
-			log.debug("(" + i + ", " + value + ")");
-			times.add(i);
-			consumption
-					.add(new UnitValue<FlowUnit>(value, FlowUnit.mlPerMinute));
+		for (int i = 0; i < 600; i++) {
+			t[i] = i;
+			v[i] = exp.value(i);
+			log.debug("(" + t[i] + ", " + v[i] + ")");
 		}
 
 		// guess initial values
-		double[] init = AnaerobicAlacticCalculator.guessExponentialInitialParameters(
-				consumption, times, baselineOxygenVol, (int) t0,
-				FlowUnit.mlPerMinute);
-
+		double[] init = fitter.guessExponentialInitialParameters(v, t, v0, t0);
 		for (double d : init) {
 			log.debug(d);
 		}
 
 		// do the curve fitting
-		CurveFitter<DelayedExponential.Parametric> fitter = new CurveFitter<DelayedExponential.Parametric>(
-				new LevenbergMarquardtOptimizer());
-
-		AnaerobicAlacticCalculator.addObservedPointsToFitter(consumption,
-				times, fitter, FlowUnit.mlPerMinute);
-
-		DelayedExponential.ParametricBuilder builder = new DelayedExponential.ParametricBuilder()
-				.fixedT0(true).fixedV0(true);
-
-		double[] best = fitter.fit(builder.build(), init);
+		double[] best = fitter.doDelayedExponentialFit(v, t, init);
 
 		log.debug("Resultados da regressão:");
 		log.debug("VO2_base = " + best[DelayedExponential.PARAM_v0]);
@@ -171,44 +147,27 @@ public class AnaerobicAlacticTest {
 		double tau2 = 140;
 
 		// Initialize points and baseline value
-		List<Integer> times = new ArrayList<Integer>();
-		List<UnitValue<FlowUnit>> consumption = new ArrayList<UnitValue<FlowUnit>>();
-		UnitValue<FlowUnit> baselineOxygenVol = new UnitValue<FlowUnit>(v0,
-				FlowUnit.mlPerMinute);
+		double[] v = new double[600];
+		double[] t = new double[600];
 
 		Biexponential exp = new Biexponential(v0, t0, a1, a2, tau1, tau2);
 
 		System.out.println("Observed points:");
-		for (int i = 0; i <= 600; i++) {
-			double value = exp.value(i);
-			log.debug("(" + i + ", " + value + ")");
-			times.add(400+i);
-			consumption
-					.add(new UnitValue<FlowUnit>(value, FlowUnit.mlPerMinute));
+		for (int i = 0; i < 600; i++) {
+			t[i] = i;
+			v[i] = exp.value(i);
+			log.debug("(" + t[i] + ", " + v[i] + ")");
 		}
 
 		// guess initial values
-		// - we will not pass in an initial value for t0 parameter
-		double[] init = AnaerobicAlacticCalculator
-				.guessBiexponentialInitialParameters(consumption, times,
-						baselineOxygenVol, (int) t0, FlowUnit.mlPerMinute);
-
+		double[] init = fitter
+				.guessBiexponentialInitialParameters(v, t, v0, t0);
 		for (double d : init) {
 			log.debug(d);
 		}
 
 		// do the curve fitting
-		// - we will try to find t0 without giving an initial guess
-		Biexponential.ParametricBuilder builder = new Biexponential.ParametricBuilder()
-				.fixedT0(true).fixedV0(true);
-
-		CurveFitter<Biexponential.Parametric> fitter = new CurveFitter<Biexponential.Parametric>(
-				new LevenbergMarquardtOptimizer());
-
-		AnaerobicAlacticCalculator.addObservedPointsToFitter(consumption,
-				times, fitter, FlowUnit.mlPerMinute);
-
-		double[] best = fitter.fit(builder.build(), init);
+		double[] best = fitter.doBixponentialFit(v, t, init);
 
 		log.debug("Resultados da regressão:");
 		log.debug("VO2_base = " + best[Biexponential.PARAM_v0]);
@@ -250,7 +209,7 @@ public class AnaerobicAlacticTest {
 			times.add(i);
 		}
 
-		double actual = AnaerobicAlacticCalculator.calculateEnergyWithBiExponential(
+		double actual = calculator.calculateEnergyWithBiExponential(
 				consumption, times,
 				new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), (int) t0)
 				.getValue(EnergyUnit.Kcal);
@@ -263,7 +222,7 @@ public class AnaerobicAlacticTest {
 		assertEquals("Expected and Actual energy values in KCal are different",
 				expected, actual, Constants.ANAEROBIC_ALACTIC_EPS);
 	}
-	
+
 	/**
 	 * Simulate points in a curve, and then calculate the off-exercise energy in
 	 * Kcal using a monoexponential fitting.
@@ -286,15 +245,13 @@ public class AnaerobicAlacticTest {
 			times.add(i);
 		}
 
-		double actual = AnaerobicAlacticCalculator.calculateEnergyWithMonoExponential(
+		double actual = calculator.calculateEnergyWithMonoExponential(
 				consumption, times,
 				new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), (int) t0)
 				.getValue(EnergyUnit.Kcal);
 
 		double expected = (new UnitValue<FlowUnit>(a, FlowUnit.mlPerMinute))
-				.getValue(FlowUnit.lPerSecond)
-				* tau
-				* Constants.OXYGEN_TO_KCAL;
+				.getValue(FlowUnit.lPerSecond) * tau * Constants.OXYGEN_TO_KCAL;
 
 		assertEquals("Expected and Actual energy values in KCal are different",
 				expected, actual, Constants.ANAEROBIC_ALACTIC_EPS);

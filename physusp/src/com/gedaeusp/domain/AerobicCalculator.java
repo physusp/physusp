@@ -2,6 +2,9 @@ package com.gedaeusp.domain;
 
 import java.util.List;
 
+import br.com.caelum.vraptor.ioc.Component;
+
+@Component
 public class AerobicCalculator {
 	
 	private UnitValue<FlowUnit> averageRestConsumption;

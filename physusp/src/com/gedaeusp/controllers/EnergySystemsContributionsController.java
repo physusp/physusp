@@ -26,8 +26,18 @@ import com.gedaeusp.models.Parameters;
 @Path("/esc")
 public class EnergySystemsContributionsController {
 	private final Result result;
-	public EnergySystemsContributionsController(Result result) {
+	private final AnaerobicAlacticCalculator alacticCalculator;
+	private final AerobicCalculator aerobicCalculator;
+	private final AnaerobicLacticCalculator anaerobicLactic;
+	
+	public EnergySystemsContributionsController(Result result,
+			AnaerobicAlacticCalculator alacticCalculator,
+			AerobicCalculator aerobicCalculator,
+			AnaerobicLacticCalculator anaerobicLactic) {
 		this.result = result;
+		this.alacticCalculator = alacticCalculator;
+		this.aerobicCalculator = aerobicCalculator;
+		this.anaerobicLactic = anaerobicLactic;
 	}
 	
 	@Path("")
@@ -36,8 +46,6 @@ public class EnergySystemsContributionsController {
 	
 	@Post
 	public void calculate(Parameters parameters){
-		
-		AnaerobicLacticCalculator anaerobicLactic = new AnaerobicLacticCalculator();
 		
 		UnitValue<MolarConcentrationUnit> restLactic = new UnitValue<MolarConcentrationUnit>(parameters.getRestLactateConcentration(), MolarConcentrationUnit.MiliMolPerLiter);
 		UnitValue<MolarConcentrationUnit> maxLactic = new UnitValue<MolarConcentrationUnit>(parameters.getMaxLactateConcentration(), MolarConcentrationUnit.MiliMolPerLiter);
@@ -56,14 +64,13 @@ public class EnergySystemsContributionsController {
 			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser.parse(parameters.getOxygenConsumptionDuringExercise(), FlowUnit.mlPerMinute);
 			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser.parse(parameters.getOxygenConsumptionPostExercise(), FlowUnit.mlPerMinute);
 			
-			AerobicCalculator aerobicCalculator = new AerobicCalculator();
 			UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator.calculateEnergyConsumption(
 					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionDuringExerciseSeries.values()), 
 					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionRestSeries.values()), 
 					new ArrayList<Integer>(oxygenConsumptionDuringExerciseSeries.keySet()), 
 					new ArrayList<Integer>(oxygenConsumptionRestSeries.keySet()));
 			
-			UnitValue<EnergyUnit> anaerobicAlacticEnergy = AnaerobicAlacticCalculator.calculateEnergyWithBiExponential(
+			UnitValue<EnergyUnit> anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithBiExponential(
 					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionPostExerciseSeries.values()), 
 					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries.keySet()), 
 					aerobicCalculator.getAverageRestConsumption(), 
