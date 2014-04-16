@@ -14,7 +14,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<h1>Energy Systems Contributions</h1>
-						<p>Fill out the fields below with... </p>
+						<p>Fill out the fields below:</p>
 						<div class="form-group">
 							<label class="col-md-7 control-label">Rest lactate concentration (mmol/L)</label> 
 							<div class="col-md-5">
@@ -61,12 +61,19 @@
 				<div class="row" style="margin-top: 15px">
 					<div class="col-md-12">
 						<button type="submit" class="btn btn-primary btn-lg pull-right">Create chart</button>
+						<button type="button" class="btn btn-default btn-lg pull-right" onclick="exportToImage()">
+							Export to image
+						</button>
+						<button type="button" class="btn btn-default btn-lg pull-right" onclick="exportToPdf()">
+							Export to PDF
+						</button>
 					</div>
 				</div>
 			</form>
 		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script type="text/javascript" src="<c:url value="/js/lib/highcharts.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/js/lib/exporting.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/energysystemscontributions.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/js/lib/jquery.handsontable.full.js"/>"></script>
 	</body>

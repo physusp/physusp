@@ -26,7 +26,7 @@ function showChart(data) {
             plotShadow: false
 	    },
 	    title: {
-	        text: 'Energy system contribuitions'
+	        text: 'Energy system contributions'
 	    },
 	    tooltip: {
 	    	pointFormat: '{series.name}: <b>{point.y:.1f} kcal</b> <br/><b>{point.percentage:.1f}%</b>'
@@ -51,10 +51,23 @@ function showChart(data) {
 	});
 }
 
+function exportToImage() {
+	var chart = $('#results').highcharts();
+	chart.exportChart({
+		filename: 'energy systems contributions ' + new Date()
+	});
+}
+
+function exportToPdf() {
+	var chart = $('#results').highcharts();
+	chart.exportChart({
+		type: 'application/pdf',
+		filename: 'energy systems contributions ' + new Date()
+	});
+}
+
 $(function(){
-	
 	$("#data").submit(function(){
-		
 		var input = $(this).serialize();
 		var url = $(this).attr("action");
 		
@@ -95,5 +108,4 @@ $(function(){
 	    data: [[null, null]],
 	    height: 300
 	});
-	
 });
