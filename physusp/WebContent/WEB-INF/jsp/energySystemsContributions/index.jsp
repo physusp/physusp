@@ -64,7 +64,7 @@
 						<button type="button" class="btn btn-default btn-lg pull-right" style="margin-left:25px;" onclick="exportToImage()">
 							Export to image
 						</button>
-						<button type="button" class="btn btn-default btn-lg pull-right" style="margin-left:50px;" onclick="exportToPdf()">
+						<button type="button" class="btn btn-default btn-lg pull-right" onclick="exportToPdf()">
 							Export to PDF
 						</button>
 					</div>
