@@ -49,6 +49,8 @@ function showChart(data) {
             data: data
         }]
 	});
+	$('#exp-image').show();
+	$('#exp-pdf').show();
 }
 
 function exportToImage() {
@@ -108,4 +110,6 @@ $(function(){
 	    data: [[null, null]],
 	    height: 300
 	});
+	$('#exp-image').hide();
+	$('#exp-pdf').hide();
 });

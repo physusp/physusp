@@ -61,10 +61,10 @@
 				<div class="row" style="margin-top: 15px">
 					<div class="col-md-12">
 						<button type="submit" class="btn btn-primary btn-lg pull-right" style="margin-left:50px;">Create chart</button>
-						<button type="button" class="btn btn-default btn-lg pull-right" style="margin-left:25px;" onclick="exportToImage()">
+						<button id="exp-image" type="button" class="btn btn-default btn-lg pull-right" style="margin-left:25px;" onclick="exportToImage()">
 							Export to image
 						</button>
-						<button type="button" class="btn btn-default btn-lg pull-right" onclick="exportToPdf()">
+						<button id="exp-pdf" type="button" class="btn btn-default btn-lg pull-right" onclick="exportToPdf()">
 							Export to PDF
 						</button>
 					</div>
