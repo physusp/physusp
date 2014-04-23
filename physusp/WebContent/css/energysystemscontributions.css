@@ -1,3 +1,6 @@
+h2 {font-size: 18px}
+label {font-weight: normal}
+
 #controls {margin-top: 15px}
 	#controls button {margin-left: 25px}
 	#exp-svg, #exp-png, #exp-jpg {display: none}

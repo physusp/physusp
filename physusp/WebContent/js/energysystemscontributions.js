@@ -88,27 +88,27 @@ $(function(){
 		return false;
 	});
 	
-	var headers = ["Time (hh:mm:ss)", "Consumption (ml/min)"];
+	var headers = ["Time <strong>(hh:mm:ss)</strong>", "VO<sub>2</sub> <strong>(ml/min)</strong>"];
 	
 	$('#oxygenConsumptionRest').handsontable({
 	    minSpareRows: 1,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
-	    height: 300
+	    height: 100
 	});
 	$('#oxygenConsumptionDuringExercise').handsontable({
 	    minSpareRows: 1,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
-	    height: 300
+	    height: 100
 	});
 	$('#oxygenConsumptionPostExercise').handsontable({
 	    minSpareRows: 1,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
-	    height: 300
+	    height: 100
 	});
 });
