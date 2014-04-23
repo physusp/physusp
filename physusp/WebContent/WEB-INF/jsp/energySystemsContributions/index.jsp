@@ -33,32 +33,41 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label">Peak <strong>(mmol/L)</strong></label>
 						<div class="col-md-8">
-							<input type="text" name="parameters.maxLactateConcentration" class="form-control col-md-6" />
+							<input type="text" name="parameters.maxLactateConcentration" class="form-control" />
 						</div>
 					</div>
-					<!--
-					<label class="col-md-7 control-label">Post-Exercise time delay &delta; (s)</label>
-					<div class="col-md-5">
-						<input type="text" name="parameters.timeDelayPost" class="form-control col-md-6" />
+					<div class="form-group">
+						<label class="col-md-4 control-label">Time delay <strong>(s)</strong></label>
+						<div class="col-md-8">
+							<input type="text" name="parameters.timeDelayPost" class="form-control" />
+						</div>
 					</div>
-					-->
 				</div>
 				<div class="col-md-4">
 					<h2>Oxygen Uptake</h2>
 					<h6>Note: You can copy and paste the data (.txt or .xls)</h6>
 					<div class="form-group">
 						<label class="col-md-3 control-label">Rest</label>
-						<div id="oxygenConsumptionRest" class="col-md-9"></div>
+						<div id="oxygenConsumptionRest" class="col-md-6"></div>
 						<!-- opções adicionais aqui -->
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">Exercise</label>
-						<div id="oxygenConsumptionDuringExercise" class="col-md-9"></div>
+						<div id="oxygenConsumptionDuringExercise" class="col-md-6"></div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">Recovery</label>
-						<div id="oxygenConsumptionPostExercise" class="col-md-9"></div>
-						<!-- opções adicionais aqui -->
+						<div id="oxygenConsumptionPostExercise" class="col-md-6"></div>
+						<div class="radio col-md-3">
+							<label class="control-label">
+								<input type="radio" name="parameters.exponentialType" value="1" checked />
+								Monoexponential
+							</label>
+							<label class="control-label">
+								<input type="radio" name="parameters.exponentialType" value="2" />
+								Biexponential
+							</label>
+						</div>
 					</div>
 				</div>
 			</div>

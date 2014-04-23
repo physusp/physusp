@@ -9,6 +9,7 @@ public class Parameters {
 	private double timeDelayPost;
 	private String oxygenConsumptionRest;
 	private String oxygenConsumptionPostExercise;
+	private int exponentialType;
 	
 	
 	public double getWeight() {
@@ -52,5 +53,11 @@ public class Parameters {
 	}
 	public void setTimeDelayPost(double timeDelayPost) {
 		this.timeDelayPost = timeDelayPost;
+	}
+	public int getExponentialType() {
+		return exponentialType;
+	}
+	public void setExponentialType(int exponentialType) {
+		this.exponentialType = exponentialType;
 	}
 }

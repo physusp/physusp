@@ -70,11 +70,14 @@ public class EnergySystemsContributionsController {
 					new ArrayList<Integer>(oxygenConsumptionDuringExerciseSeries.keySet()), 
 					new ArrayList<Integer>(oxygenConsumptionRestSeries.keySet()));
 			
-			UnitValue<EnergyUnit> anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithBiExponential(
+			alacticCalculator.setExponentialInput(
 					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionPostExerciseSeries.values()), 
 					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries.keySet()), 
 					aerobicCalculator.getAverageRestConsumption(), 
 					(int)parameters.getTimeDelayPost());
+			
+			UnitValue<EnergyUnit> anaerobicAlacticEnergy = parameters.getExponentialType() == 1 ? alacticCalculator.calculateEnergyWithMonoExponential() :
+				alacticCalculator.calculateEnergyWithBiExponential();
 			
 			energyConsumption.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
 			energyConsumption.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
