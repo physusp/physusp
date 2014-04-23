@@ -6,6 +6,7 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="<c:url value="/css/lib/jquery.handsontable.full.css"/>"/>
+		<link rel="stylesheet" href="<c:url value="/css/energysystemscontributions.css"/>"/>
 		<title>PhysUSP</title>
 	</head>
 	<body>
@@ -58,14 +59,17 @@
 						<div id="oxygenConsumptionPostExercise"></div>
 					</div>
 				</div>
-				<div class="row" style="margin-top: 15px">
+				<div id="controls" class="row">
 					<div class="col-md-12">
-						<button type="submit" class="btn btn-primary btn-lg pull-right" style="margin-left:50px;">Create chart</button>
-						<button id="exp-image" type="button" class="btn btn-default btn-lg pull-right" style="margin-left:25px;" onclick="exportToImage()">
-							Export to image
+						<button type="submit" class="btn btn-primary btn-lg pull-right">Calculate</button>
+						<button id="exp-svg" type="button" class="btn btn-default btn-lg pull-right" onclick="exportChart('image/svg+xml')">
+							Export to SVG
 						</button>
-						<button id="exp-pdf" type="button" class="btn btn-default btn-lg pull-right" onclick="exportToPdf()">
-							Export to PDF
+						<button id="exp-png" type="button" class="btn btn-default btn-lg pull-right" onclick="exportChart('image/png')">
+							Export to PNG
+						</button>
+						<button id="exp-jpg" type="button" class="btn btn-default btn-lg pull-right" onclick="exportChart('image/jpeg')">
+							Export to JPG
 						</button>
 					</div>
 				</div>

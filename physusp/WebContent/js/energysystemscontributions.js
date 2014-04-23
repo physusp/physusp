@@ -43,27 +43,28 @@ function showChart(data) {
                 }
             }
         },
+        exporting: {
+        	buttons: {
+        		contextButton: {
+        			enabled: false
+        		}
+        	}
+        },
         series: [{
             type: 'pie',
             name: 'Contribution',
             data: data
         }]
 	});
-	$('#exp-image').show();
-	$('#exp-pdf').show();
+	$('#exp-svg').show();
+	$('#exp-png').show();
+	$('#exp-jpg').show();
 }
 
-function exportToImage() {
+function exportChart(fileType) {
 	var chart = $('#results').highcharts();
 	chart.exportChart({
-		filename: 'energy systems contributions ' + new Date()
-	});
-}
-
-function exportToPdf() {
-	var chart = $('#results').highcharts();
-	chart.exportChart({
-		type: 'application/pdf',
+		type: fileType,
 		filename: 'energy systems contributions ' + new Date()
 	});
 }
@@ -110,6 +111,4 @@ $(function(){
 	    data: [[null, null]],
 	    height: 300
 	});
-	$('#exp-image').hide();
-	$('#exp-pdf').hide();
 });
