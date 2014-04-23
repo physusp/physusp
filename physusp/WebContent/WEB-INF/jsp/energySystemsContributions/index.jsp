@@ -34,6 +34,16 @@
 								<input type="text" name="parameters.weight" class="form-control col-md-6" />
 							</div>
 						</div>
+						<div class="radio">
+							<label class="col-md-7 control-label">
+								<input type="radio" name="parameters.exponentialType" value="1" checked />
+								Monoexponential
+							</label>
+							<label class="col-md-7 control-label">
+								<input type="radio" name="parameters.exponentialType" value="2" />
+								Biexponential
+							</label>
+						</div>
 						<div class="form-group">
 							<label class="col-md-7 control-label">Post-Exercise time delay &delta; (s)</label>
 							<div class="col-md-5">

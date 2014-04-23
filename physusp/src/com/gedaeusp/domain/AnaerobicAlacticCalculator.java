@@ -11,6 +11,10 @@ public class AnaerobicAlacticCalculator {
 	// .getLog(AnaerobicAlacticCalculator.class);
 
 	private final NonlinearCurveFitter fitter;
+	private double[] consumptionArray;
+	private double[] timesArray;
+	private Integer timeDelay;
+	private UnitValue<FlowUnit> baselineOxygenVol;
 	
 	public AnaerobicAlacticCalculator(NonlinearCurveFitter fitter) {
 		this.fitter = fitter;
@@ -38,21 +42,25 @@ public class AnaerobicAlacticCalculator {
 		return array;
 	}
 
-	public UnitValue<EnergyUnit> calculateEnergyWithBiExponential(
-			List<UnitValue<FlowUnit>> consumption, List<Integer> times,
-			UnitValue<FlowUnit> baselineOxygenVol, Integer timeDelay) {
+	public void setExponentialInput(List<UnitValue<FlowUnit>> consumption, List<Integer> times,
+			UnitValue<FlowUnit> baselineOxygenVol, Integer time){
+		consumptionArray = toArray(consumption, FlowUnit.lPerSecond);
+		timesArray = toArray(times);
+		timeDelay = time;
+		this.baselineOxygenVol = baselineOxygenVol;
+			}
+	
+	public UnitValue<EnergyUnit> calculateEnergyWithBiExponential() {
 
-		double[] consumptionArr = toArray(consumption, FlowUnit.lPerSecond);
-		double[] timesArr = toArray(times);
-
+		
 		// Guess the initial parameters for the curve fitting
 		double[] init = fitter.guessBiexponentialInitialParameters(
-				consumptionArr, timesArr,
+				consumptionArray, timesArray,
 				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
 
 		// Do the biexponential fitting using the initial guessed parameters
 		double[] best = fitter
-				.doBixponentialFit(consumptionArr, timesArr, init);
+				.doBixponentialFit(consumptionArray, timesArray, init);
 
 		double a = best[Biexponential.PARAM_a1];
 		double tau = best[Biexponential.PARAM_tau1];
@@ -61,21 +69,16 @@ public class AnaerobicAlacticCalculator {
 		return new UnitValue<EnergyUnit>(energy, EnergyUnit.Kcal);
 	}
 
-	public UnitValue<EnergyUnit> calculateEnergyWithMonoExponential(
-			List<UnitValue<FlowUnit>> consumption, List<Integer> times,
-			UnitValue<FlowUnit> baselineOxygenVol, Integer timeDelay) {
-
-		double[] consumptionArr = toArray(consumption, FlowUnit.lPerSecond);
-		double[] timesArr = toArray(times);
+	public UnitValue<EnergyUnit> calculateEnergyWithMonoExponential() {
 
 		// Guess the initial parameters for the curve fitting
 		double[] init = fitter.guessExponentialInitialParameters(
-				consumptionArr, timesArr,
+				consumptionArray, timesArray,
 				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
 
 		// Do the monoexponential fitting using the initial guessed parameters
-		double[] best = fitter.doDelayedExponentialFit(consumptionArr,
-				timesArr, init);
+		double[] best = fitter.doDelayedExponentialFit(consumptionArray,
+				timesArray, init);
 
 		double a = best[DelayedExponential.PARAM_a];
 		double tau = best[DelayedExponential.PARAM_tau];
