@@ -13,13 +13,47 @@
 		<h1 class="text-center">Energy Systems Contributions</h1>
 		<form id="data" class="form-horizontal" action="<c:url value="/esc/calculate"/>">
 			<ul>
-				<li class="active"><a href="#anaerobicLactic" data-toggle="tab">Anaerobic Lactic</a></li>
+				<li><a href="#options" data-toggle="tab">Options</a></li>
 				<li><a href="#aerobic" data-toggle="tab">Aerobic</a></li>
+				<li class="active"><a href="#anaerobicLactic" data-toggle="tab">Anaerobic Lactic</a></li>
 				<li><a href="#anaerobicAlactic" data-toggle="tab">Anaerobic Alactic</a></li>
 				<li><a href="#results" data-toggle="tab">Results</a></li>
 			</ul>
 			
 			<div class="tab-content">
+				<div id="options" class="tab-pane">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="parameters.calculateAerobic" value="true" checked />
+							Calculate Aerobic
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="parameters.calculateAnaerobicLactic" value="true" checked />
+							Calculate Anaerobic Lactic
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="parameters.calculateAnaerobicAlactic" value="true" checked />
+							Calculate Anaerobic Alactic
+						</label>
+					</div>
+				</div>
+				
+				<div id="aerobic" class="tab-pane">
+					<div class="form-group">
+						<label class="col-md-3 control-label">Rest</label>
+						<div id="oxygenConsumptionRest" class="col-md-6"></div>
+						<!-- opções adicionais aqui -->
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Exercise</label>
+						<div id="oxygenConsumptionDuringExercise" class="col-md-6"></div>
+					</div>
+				</div>
+				
 				<div id="anaerobicLactic" class="tab-pane active">
 					<div class="form-group">
 						<label class="col-md-4 control-label">Body Mass <strong>(kg)</strong></label>
@@ -38,18 +72,6 @@
 						<div class="col-md-8">
 							<input type="text" name="parameters.maxLactateConcentration" class="form-control" />
 						</div>
-					</div>
-				</div>
-				
-				<div id="aerobic" class="tab-pane">
-					<div class="form-group">
-						<label class="col-md-3 control-label">Rest</label>
-						<div id="oxygenConsumptionRest" class="col-md-6"></div>
-						<!-- opções adicionais aqui -->
-					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">Exercise</label>
-						<div id="oxygenConsumptionDuringExercise" class="col-md-6"></div>
 					</div>
 				</div>
 				
