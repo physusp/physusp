@@ -117,4 +117,10 @@ $(function(){
 	    data: [[null, null]],
 	    height: 100
 	});
+	
+	$('#calculateAverageRestConsumptionFromTable').click(function() {
+		$("#aerobicRestTable").toggle(this.checked);
+		$("#aerobicRestAvg").toggle(!this.checked);
+	});
+
 });

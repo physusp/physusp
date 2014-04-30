@@ -83,5 +83,33 @@ public class AerobicCalculatorTest {
 				consumption, restConsumptionCalculator.getAverageRestConsumption(), time);
 		assertEquals(energyConsumption.getValue(EnergyUnit.Kcal), 673.5900925925926, EPSILON);
 	}
+	
+	@Test
+	public void aerobicEnergyComsumptionWithFixedRestConsumptionTest() {
+		List<UnitValue<FlowUnit>> consumption = new ArrayList<UnitValue<FlowUnit>>();
+		List<Integer> time = new ArrayList<Integer>();
+		consumption.add(new UnitValue<FlowUnit>((double) 2992.44,
+				FlowUnit.lPerMinute));
+		consumption.add(new UnitValue<FlowUnit>((double) 2672.82,
+				FlowUnit.lPerMinute));
+		consumption.add(new UnitValue<FlowUnit>((double) 2610.53,
+				FlowUnit.lPerMinute));
+		consumption.add(new UnitValue<FlowUnit>((double) 2521.70,
+				FlowUnit.lPerMinute));
+		consumption.add(new UnitValue<FlowUnit>((double) 2313.76,
+				FlowUnit.lPerMinute));
+		time.add((int) 1);
+		time.add((int) 2);
+		time.add((int) 3);
+		time.add((int) 4);
+		time.add((int) 5);
+
+		UnitValue<FlowUnit> restConsumption = new UnitValue<FlowUnit>(593.76722222222222, FlowUnit.lPerMinute);
+		
+		AerobicCalculator aerobicCalculator = new AerobicCalculator();
+		UnitValue<EnergyUnit> energyConsumption = aerobicCalculator.calculateEnergyConsumption(
+				consumption, restConsumption, time);
+		assertEquals(energyConsumption.getValue(EnergyUnit.Kcal), 673.5900925925926, EPSILON);
+	}
 
 }
