@@ -10,6 +10,9 @@ public class Parameters {
 	private String oxygenConsumptionRest;
 	private String oxygenConsumptionPostExercise;
 	private int exponentialType;
+	private boolean calculateAerobic;
+	private boolean calculateAnaerobicLactic;
+	private boolean calculateAnaerobicAlactic;
 	
 	
 	public double getWeight() {
@@ -59,5 +62,23 @@ public class Parameters {
 	}
 	public void setExponentialType(int exponentialType) {
 		this.exponentialType = exponentialType;
+	}
+	public boolean getCalculateAnaerobicAlactic() {
+		return calculateAnaerobicAlactic;
+	}
+	public void setCalculateAnaerobicAlactic(boolean calculateAnaerobicAlactic) {
+		this.calculateAnaerobicAlactic = calculateAnaerobicAlactic;
+	}
+	public boolean getCalculateAnaerobicLactic() {
+		return calculateAnaerobicLactic;
+	}
+	public void setCalculateAnaerobicLactic(boolean calculateAnaerobicLactic) {
+		this.calculateAnaerobicLactic = calculateAnaerobicLactic;
+	}
+	public boolean getCalculateAerobic() {
+		return calculateAerobic;
+	}
+	public void setCalculateAerobic(boolean calculateAerobic) {
+		this.calculateAerobic = calculateAerobic;
 	}
 }

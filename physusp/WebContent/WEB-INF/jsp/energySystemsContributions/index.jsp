@@ -23,9 +23,9 @@
 				
 				<div id="containerPanes" class="tab-content">
 					<div id="options" class="tab-pane">
-						<input type="checkbox" name="parameters.calculateAerobic" />
-						<input type="checkbox" name="parameters.calculateAnaerobicLactic" checked />
-						<input type="checkbox" name="parameters.calculateAnaerobicAlactic" />
+						<input type="checkbox" name="parameters.calculateAerobic" value="true" />
+						<input type="checkbox" name="parameters.calculateAnaerobicLactic" value="true" checked />
+						<input type="checkbox" name="parameters.calculateAnaerobicAlactic" value="true" />
 					</div>
 					
 					<div id="aerobic" class="tab-pane">
