@@ -81,13 +81,13 @@ $(function(){
 		var url = $(this).attr("action");
 		
 		var oxygenConsumptionRest = $('#oxygenConsumptionRest').handsontable('getData');
-		input += "&parameters.oxygenConsumptionRest=" + prepareTableToSend(oxygenConsumptionRest);
+		input += "&restOxygenParameters.oxygenConsumptionRest=" + prepareTableToSend(oxygenConsumptionRest);
 		
 		var oxygenConsumptionDuringExercise = $('#oxygenConsumptionDuringExercise').handsontable('getData');
-		input += "&parameters.oxygenConsumptionDuringExercise=" + prepareTableToSend(oxygenConsumptionDuringExercise);
+		input += "&aerobicParameters.oxygenConsumptionDuringExercise=" + prepareTableToSend(oxygenConsumptionDuringExercise);
 		
 		var oxygenConsumptionPostExercise = $('#oxygenConsumptionPostExercise').handsontable('getData');
-		input += "&parameters.oxygenConsumptionPostExercise=" + prepareTableToSend(oxygenConsumptionPostExercise);
+		input += "&anaerobicAlacticParameters.oxygenConsumptionPostExercise=" + prepareTableToSend(oxygenConsumptionPostExercise);
 		
 		sendFormData(url, input);
 		

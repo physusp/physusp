@@ -19,9 +19,9 @@
 		action="<c:url value="/esc/calculate"/>">
 		<div class="container">
 			<ul id="containerTabs" class="nav nav-tabs">
-				<li><a href="#options" data-toggle="tab">Options</a></li>
+				<li class="active"><a href="#options" data-toggle="tab">Options</a></li>
 				<li><a href="#aerobic" data-toggle="tab">Aerobic</a></li>
-				<li class="active"><a href="#anaerobicLactic" data-toggle="tab">Anaerobic
+				<li><a href="#anaerobicLactic" data-toggle="tab">Anaerobic
 						Lactic</a></li>
 				<li><a href="#anaerobicAlactic" data-toggle="tab">Anaerobic
 						Alactic</a></li>
@@ -29,7 +29,7 @@
 			</ul>
 
 			<div id="containerPanes" class="tab-content">
-				<div id="options" class="tab-pane">
+				<div id="options" class="tab-pane active">
 					<input type="checkbox" name="parameters.calculateAerobic"
 						value="true" /> <input type="checkbox"
 						name="parameters.calculateAnaerobicLactic" value="true" checked />
@@ -37,12 +37,12 @@
 						value="true" />
 				</div>
 
-				<div id="aerobic" class="tab-pane active">
+				<div id="aerobic" class="tab-pane">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="checkbox">
 								<label> <input type="checkbox" checked
-									name="parameters.calculateAverageRestConsumptionFromTable" id="calculateAverageRestConsumptionFromTable">
+									name="aerobicParameters.calculateAverageRestConsumptionFromTable" id="calculateAverageRestConsumptionFromTable">
 									Calculate average rest O<sub>2</sub> consumption from table
 								</label>
 							</div>
@@ -52,9 +52,8 @@
 								<!-- opções adicionais aqui -->
 							</div>
 							<div class="form-group" style="display:none" id='aerobicRestAvg'>
-							<label class="col-md-4 control-label">Rest <strong>(ml/min)</strong></label>
-								<div id="oxygenConsumptionAverage" class="col-md-8"></div>
-								<input type="text" name="parameters.oxygenConsumptionAvg" class="form-control" />
+								<label class="col-md-4 control-label">Rest <strong>(ml/min)</strong></label>
+								<input type="text" name="aerobicParameters.oxygenConsumptionAvg" class="form-control" />
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -72,25 +71,21 @@
 					<div class="col-md-3"></div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label class="col-md-4 control-label">Body Mass <strong>(kg)</strong></label>
-							<div class="col-md-8">
-								<input type="text" name="parameters.weight" class="form-control" />
+								<label class="col-md-4 control-label">Body Mass <strong>(kg)</strong></label>
+								<div class="col-md-8">
+									<input type="text" name="anaerobicLacticParameters.weight" class="form-control" />
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label">Rest <strong>(mmol/L)</strong></label>
-							<div class="col-md-8">
-								<input type="text" name="parameters.restLactateConcentration"
-									class="form-control" />
+							<div class="form-group">
+								<label class="col-md-4 control-label">Rest <strong>(mmol/L)</strong></label> 
+								<div class="col-md-8">
+									<input type="text" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
+								</div>
+								<label class="col-md-4 control-label">Peak <strong>(mmol/L)</strong></label>
+								<div class="col-md-8">
+									<input type="text" name="anaerobicLacticParameters.maxLactateConcentration" class="form-control" />
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label">Peak <strong>(mmol/L)</strong></label>
-							<div class="col-md-8">
-								<input type="text" name="parameters.maxLactateConcentration"
-									class="form-control" />
-							</div>
-						</div>
 					</div>
 					<div class="col-md-3"></div>
 				</div>
@@ -105,15 +100,16 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label">Time delay <strong>(s)</strong></label>
 						<div class="col-md-8">
-							<input type="text" name="parameters.timeDelayPost"
-								class="form-control" />
+							<input type="text" name="anaerobicAlacticparameters.timeDelayPost" class="form-control" />
 						</div>
 					</div>
-					<label class="control-label"> <input type="radio"
-						name="parameters.exponentialType" value="1" checked />
+					<label class="control-label">
+						<input type="radio" name="anaerobicAlacticparameters.exponentialType" value="1" checked />
 						Monoexponential
-					</label> <label class="control-label"> <input type="radio"
-						name="parameters.exponentialType" value="2" /> Biexponential
+					</label>
+					<label class="control-label">
+						<input type="radio" name="anaerobicAlacticparameters.exponentialType" value="2" />
+						Biexponential
 					</label>
 				</div>
 
