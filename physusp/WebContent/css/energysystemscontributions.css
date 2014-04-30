@@ -1,6 +1,16 @@
 h2 {font-size: 18px}
 label {font-weight: normal}
 
+#containerTabs li a {font-size: 20px; color: #bbb}
+#containerTabs li.active a {color: black; border-top: 4px green solid}
+#containerTabs li#tabResults.active a {border-top: 4px red solid}
+
+#containerPanes {margin-top: 15px; float: left; width: 100%}
+
 #controls {margin-top: 15px}
 	#controls button {margin-left: 25px}
 	#exp-svg, #exp-png, #exp-jpg {display: none}
+
+@media (min-width: 1200px) {
+	.container {width: 970px}
+}

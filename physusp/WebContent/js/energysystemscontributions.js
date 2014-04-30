@@ -59,6 +59,7 @@ function showChart(data) {
 	$('#exp-svg').show();
 	$('#exp-png').show();
 	$('#exp-jpg').show();
+	$('#tabResults a').tab('show');
 }
 
 function exportChart(fileType) {
@@ -70,6 +71,11 @@ function exportChart(fileType) {
 }
 
 $(function(){
+	$('#containerTabs a').click(function (e) {
+		e.preventDefault();
+		$(this).tab('show');
+	});
+	
 	$("#data").submit(function(){
 		var input = $(this).serialize();
 		var url = $(this).attr("action");
