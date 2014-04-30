@@ -16,6 +16,7 @@ import com.gedaeusp.domain.AnaerobicLacticCalculator;
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.FlowUnit;
 import com.gedaeusp.domain.MolarConcentrationUnit;
+import com.gedaeusp.domain.RestOxygenConsumptionCalculator;
 import com.gedaeusp.domain.TimeSeriesParser;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.WeightUnit;
@@ -50,61 +51,83 @@ public class EnergySystemsContributionsController {
 		EnergyConsumptionResponse response = new EnergyConsumptionResponse();
 
 		if (parameters.getCalculateAnaerobicLactic()) {
-			UnitValue<MolarConcentrationUnit> restLactic = new UnitValue<MolarConcentrationUnit>(parameters.getRestLactateConcentration(),
+			UnitValue<MolarConcentrationUnit> restLactic = new UnitValue<MolarConcentrationUnit>(
+					parameters.getRestLactateConcentration(),
 					MolarConcentrationUnit.MiliMolPerLiter);
-			UnitValue<MolarConcentrationUnit> maxLactic = new UnitValue<MolarConcentrationUnit>(parameters.getMaxLactateConcentration(),
+			UnitValue<MolarConcentrationUnit> maxLactic = new UnitValue<MolarConcentrationUnit>(
+					parameters.getMaxLactateConcentration(),
 					MolarConcentrationUnit.MiliMolPerLiter);
-			UnitValue<WeightUnit> weight = new UnitValue<WeightUnit>(parameters.getWeight(), WeightUnit.Kg);
-			UnitValue<EnergyUnit> anaerobicLacticEnergy = anaerobicLactic.calculate(restLactic, maxLactic, weight);
-			response.setAnaerobicLactic(anaerobicLacticEnergy.getValue(EnergyUnit.Kcal));
+			UnitValue<WeightUnit> weight = new UnitValue<WeightUnit>(
+					parameters.getWeight(), WeightUnit.Kg);
+			UnitValue<EnergyUnit> anaerobicLacticEnergy = anaerobicLactic
+					.calculate(restLactic, maxLactic, weight);
+			response.setAnaerobicLactic(anaerobicLacticEnergy
+					.getValue(EnergyUnit.Kcal));
 		}
-		
+
 		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
 		try {
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser
-					.parse(parameters.getOxygenConsumptionRest(),
-							FlowUnit.mlPerMinute);
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser
-					.parse(parameters.getOxygenConsumptionDuringExercise(),
-							FlowUnit.mlPerMinute);
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser
-					.parse(parameters.getOxygenConsumptionPostExercise(),
-							FlowUnit.mlPerMinute);
 
-			UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator
-					.calculateEnergyConsumption(
+			if (parameters.getCalculateAerobic()
+					|| parameters.getCalculateAnaerobicAlactic()) {
+				LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser
+						.parse(parameters.getOxygenConsumptionRest(),
+								FlowUnit.mlPerMinute);
+
+				RestOxygenConsumptionCalculator restOxygenConsumptionCalculator = new RestOxygenConsumptionCalculator(
+						new ArrayList<UnitValue<FlowUnit>>(
+								oxygenConsumptionRestSeries.values()),
+						new ArrayList<Integer>(oxygenConsumptionRestSeries
+								.keySet()));
+				
+				if (parameters.getCalculateAerobic()){
+
+					LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser
+							.parse(parameters.getOxygenConsumptionDuringExercise(),
+									FlowUnit.mlPerMinute);
+					UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator
+							.calculateEnergyConsumption(
+									new ArrayList<UnitValue<FlowUnit>>(
+											oxygenConsumptionDuringExerciseSeries
+													.values()),
+													restOxygenConsumptionCalculator.getAverageRestConsumption(),
+									new ArrayList<Integer>(
+											oxygenConsumptionDuringExerciseSeries
+													.keySet()));
+					
+					response.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
+				}
+				if (parameters.getCalculateAnaerobicAlactic()) {
+					
+					LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser
+							.parse(parameters.getOxygenConsumptionPostExercise(),
+									FlowUnit.mlPerMinute);
+	
+					alacticCalculator.setExponentialInput(
 							new ArrayList<UnitValue<FlowUnit>>(
-									oxygenConsumptionDuringExerciseSeries
-											.values()),
-							new ArrayList<UnitValue<FlowUnit>>(
-									oxygenConsumptionRestSeries.values()),
+									oxygenConsumptionPostExerciseSeries.values()),
 							new ArrayList<Integer>(
-									oxygenConsumptionDuringExerciseSeries
-											.keySet()), new ArrayList<Integer>(
-									oxygenConsumptionRestSeries.keySet()));
+									oxygenConsumptionPostExerciseSeries.keySet()),
+						restOxygenConsumptionCalculator.getAverageRestConsumption(),
+							(int) parameters.getTimeDelayPost());
+	
+					UnitValue<EnergyUnit> anaerobicAlacticEnergy = parameters
+							.getExponentialType() == 1 ? alacticCalculator
+							.calculateEnergyWithMonoExponential()
+							: alacticCalculator.calculateEnergyWithBiExponential();
+	
+					
+					response.setAnaerobicAlactic(anaerobicAlacticEnergy
+							.getValue(EnergyUnit.Kcal));
+				
+				}
+			}
 
-			alacticCalculator.setExponentialInput(
-					new ArrayList<UnitValue<FlowUnit>>(
-							oxygenConsumptionPostExerciseSeries.values()),
-					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries
-							.keySet()), aerobicCalculator
-							.getAverageRestConsumption(), (int) parameters
-							.getTimeDelayPost());
-
-			UnitValue<EnergyUnit> anaerobicAlacticEnergy = parameters
-					.getExponentialType() == 1 ? alacticCalculator
-					.calculateEnergyWithMonoExponential() : alacticCalculator
-					.calculateEnergyWithBiExponential();
-
-			response.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
-			response.setAnaerobicAlactic(anaerobicAlacticEnergy
-					.getValue(EnergyUnit.Kcal));
-
-			this.result.use(Results.json()).from(response).serialize();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.result.use(Results.json()).from(response).serialize();
 	}
 
 }
