@@ -21,6 +21,24 @@
 							<input type="text" name="parameters.weight" class="form-control" />
 						</div>
 					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="parameters.calculateAerobic" value="true" checked />
+							Calculate Aerobic
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="parameters.calculateAnaerobicLactic" value="true" checked />
+							Calculate Anaerobic Lactic
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="parameters.calculateAnaerobicAlactic" value="true" checked />
+							Calculate Anaerobic Alactic
+						</label>
+					</div>
 				</div>
 				<div class="col-md-4">
 					<h2>Blood Lactate Concentration</h2>

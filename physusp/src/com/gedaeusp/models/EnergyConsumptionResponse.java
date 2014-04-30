@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("consumption")
-public class EnergyConsumption implements Serializable {
+public class EnergyConsumptionResponse implements Serializable {
 
 	@XStreamAlias("aerobic")
 	private double aerobic;

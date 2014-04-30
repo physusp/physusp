@@ -19,7 +19,7 @@ import com.gedaeusp.domain.MolarConcentrationUnit;
 import com.gedaeusp.domain.TimeSeriesParser;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.WeightUnit;
-import com.gedaeusp.models.EnergyConsumption;
+import com.gedaeusp.models.EnergyConsumptionResponse;
 import com.gedaeusp.models.Parameters;
 
 @Resource
@@ -29,7 +29,7 @@ public class EnergySystemsContributionsController {
 	private final AnaerobicAlacticCalculator alacticCalculator;
 	private final AerobicCalculator aerobicCalculator;
 	private final AnaerobicLacticCalculator anaerobicLactic;
-	
+
 	public EnergySystemsContributionsController(Result result,
 			AnaerobicAlacticCalculator alacticCalculator,
 			AerobicCalculator aerobicCalculator,
@@ -39,50 +39,68 @@ public class EnergySystemsContributionsController {
 		this.aerobicCalculator = aerobicCalculator;
 		this.anaerobicLactic = anaerobicLactic;
 	}
-	
+
 	@Path("")
 	public void index() {
 	}
-	
+
 	@Post
-	public void calculate(Parameters parameters){
-		
-		UnitValue<MolarConcentrationUnit> restLactic = new UnitValue<MolarConcentrationUnit>(parameters.getRestLactateConcentration(), MolarConcentrationUnit.MiliMolPerLiter);
-		UnitValue<MolarConcentrationUnit> maxLactic = new UnitValue<MolarConcentrationUnit>(parameters.getMaxLactateConcentration(), MolarConcentrationUnit.MiliMolPerLiter);
-		UnitValue<WeightUnit> weight = new UnitValue<WeightUnit>(parameters.getWeight(), WeightUnit.Kg);
-		
-		
-		UnitValue<EnergyUnit> anaerobicLacticEnergy = anaerobicLactic.calculate(restLactic, maxLactic, weight);
-		
-		EnergyConsumption energyConsumption = new EnergyConsumption();
+	public void calculate(Parameters parameters) {
 
-		energyConsumption.setAnaerobicLactic(anaerobicLacticEnergy.getValue(EnergyUnit.Kcal));
+		EnergyConsumptionResponse response = new EnergyConsumptionResponse();
 
+		if (parameters.getCalculateAnaerobicLactic()) {
+			UnitValue<MolarConcentrationUnit> restLactic = new UnitValue<MolarConcentrationUnit>(parameters.getRestLactateConcentration(),
+					MolarConcentrationUnit.MiliMolPerLiter);
+			UnitValue<MolarConcentrationUnit> maxLactic = new UnitValue<MolarConcentrationUnit>(parameters.getMaxLactateConcentration(),
+					MolarConcentrationUnit.MiliMolPerLiter);
+			UnitValue<WeightUnit> weight = new UnitValue<WeightUnit>(parameters.getWeight(), WeightUnit.Kg);
+			UnitValue<EnergyUnit> anaerobicLacticEnergy = anaerobicLactic.calculate(restLactic, maxLactic, weight);
+			response.setAnaerobicLactic(anaerobicLacticEnergy.getValue(EnergyUnit.Kcal));
+		}
+		
 		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
 		try {
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser.parse(parameters.getOxygenConsumptionRest(), FlowUnit.mlPerMinute);
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser.parse(parameters.getOxygenConsumptionDuringExercise(), FlowUnit.mlPerMinute);
-			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser.parse(parameters.getOxygenConsumptionPostExercise(), FlowUnit.mlPerMinute);
-			
-			UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator.calculateEnergyConsumption(
-					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionDuringExerciseSeries.values()), 
-					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionRestSeries.values()), 
-					new ArrayList<Integer>(oxygenConsumptionDuringExerciseSeries.keySet()), 
-					new ArrayList<Integer>(oxygenConsumptionRestSeries.keySet()));
-			
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser
+					.parse(parameters.getOxygenConsumptionRest(),
+							FlowUnit.mlPerMinute);
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionDuringExerciseSeries = parser
+					.parse(parameters.getOxygenConsumptionDuringExercise(),
+							FlowUnit.mlPerMinute);
+			LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser
+					.parse(parameters.getOxygenConsumptionPostExercise(),
+							FlowUnit.mlPerMinute);
+
+			UnitValue<EnergyUnit> aerobicEnergy = aerobicCalculator
+					.calculateEnergyConsumption(
+							new ArrayList<UnitValue<FlowUnit>>(
+									oxygenConsumptionDuringExerciseSeries
+											.values()),
+							new ArrayList<UnitValue<FlowUnit>>(
+									oxygenConsumptionRestSeries.values()),
+							new ArrayList<Integer>(
+									oxygenConsumptionDuringExerciseSeries
+											.keySet()), new ArrayList<Integer>(
+									oxygenConsumptionRestSeries.keySet()));
+
 			alacticCalculator.setExponentialInput(
-					new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionPostExerciseSeries.values()), 
-					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries.keySet()), 
-					aerobicCalculator.getAverageRestConsumption(), 
-					(int)parameters.getTimeDelayPost());
-			
-			UnitValue<EnergyUnit> anaerobicAlacticEnergy = parameters.getExponentialType() == 1 ? alacticCalculator.calculateEnergyWithMonoExponential() :
-				alacticCalculator.calculateEnergyWithBiExponential();
-			
-			energyConsumption.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
-			energyConsumption.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
-			
-			this.result.use(Results.json()).from(energyConsumption).serialize();
+					new ArrayList<UnitValue<FlowUnit>>(
+							oxygenConsumptionPostExerciseSeries.values()),
+					new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries
+							.keySet()), aerobicCalculator
+							.getAverageRestConsumption(), (int) parameters
+							.getTimeDelayPost());
+
+			UnitValue<EnergyUnit> anaerobicAlacticEnergy = parameters
+					.getExponentialType() == 1 ? alacticCalculator
+					.calculateEnergyWithMonoExponential() : alacticCalculator
+					.calculateEnergyWithBiExponential();
+
+			response.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
+			response.setAnaerobicAlactic(anaerobicAlacticEnergy
+					.getValue(EnergyUnit.Kcal));
+
+			this.result.use(Results.json()).from(response).serialize();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
