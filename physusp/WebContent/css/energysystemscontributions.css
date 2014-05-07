@@ -1,15 +1,22 @@
 h2 {font-size: 18px}
 label {font-weight: normal}
+button {margin-top: 30px}
 
+.nav > li > a {padding: 10px 14px}
 #containerTabs li a {font-size: 20px; color: #bbb; height: 50px; border-top: 4px transparent solid}
 #containerTabs li.active a {color: black; border-top-color: green}
 #containerTabs li#tabResults.active a {border-top-color: red}
+	#tab1, #tab2, #tab3, #tabResults {display: none}
 
 #containerPanes {margin-top: 15px; float: left; width: 100%}
+	#containerPanes div.tab-pane {font-size: 16px}
+	#containerPanes div.tab-pane p.information {font-weight: bold; font-size: 20px}
 
 #controls {margin-top: 15px}
 	#controls button {margin-left: 25px}
 	#exp-svg, #exp-png, #exp-jpg {display: none}
+
+#btnCalculate {display: none}
 
 @media (min-width: 1200px) {
 	.container {width: 970px}

@@ -14,18 +14,40 @@
 		<form id="data" class="form-horizontal" action="<c:url value="/esc/calculate"/>">
 			<div class="container">
 				<ul id="containerTabs" class="nav nav-tabs">
-					<li class="active"><a href="#options" data-toggle="tab">Options</a></li>
-					<li><a href="#aerobic" data-toggle="tab">Aerobic</a></li>
-					<li><a href="#anaerobicLactic" data-toggle="tab">Anaerobic Lactic</a></li>
-					<li><a href="#anaerobicAlactic" data-toggle="tab">Anaerobic Alactic</a></li>
+					<li id="tabOptions" class="active"><a href="#options" data-toggle="tab">Options</a></li>
+					<li id="tab1"><a href="#aerobic" data-toggle="tab">Aerobic</a></li>
+					<li id="tab2"><a href="#anaerobicLactic" data-toggle="tab">Anaerobic Lactic</a></li>
+					<li id="tab3"><a href="#anaerobicAlactic" data-toggle="tab">Anaerobic Alactic</a></li>
 					<li id="tabResults"><a href="#results" data-toggle="tab">Results</a></li>
 				</ul>
 				
 				<div id="containerPanes" class="tab-content">
-					<div id="options" class="tab-pane active">
-						<input type="checkbox" name="parameters.calculateAerobic" value="true" />
-						<input type="checkbox" name="parameters.calculateAnaerobicLactic" value="true" checked />
-						<input type="checkbox" name="parameters.calculateAnaerobicAlactic" value="true" />
+					<div id="options" class="tab-pane col-sm-12 active">
+						<p class="information">What do you wish to calculate?</p>
+						<div class="checkbox">
+							<label class="control-label">
+								<input type="checkbox" name="parameters.calculateAerobic" value="true" data-tab="1" checked />
+								Aerobic System
+							</label>
+						</div>
+						<div class="checkbox">
+							<label class="control-label">
+								<input type="checkbox" name="parameters.calculateAnaerobicLactic" value="true" data-tab="2" checked />
+								Anaerobic Lactic System
+							</label>
+						</div>
+						<div class="checkbox">
+							<label class="control-label">
+								<input type="checkbox" name="parameters.calculateAnaerobicAlactic" value="true" data-tab="3" checked />
+								Anaerobic Alactic System
+							</label>
+						</div>
+						<div id="validateSystems">
+							<label class="control-label"></label>
+						</div>
+						<button id="btnContinue" type="button" class="btn btn-lg btn-primary" onclick="setEnergySystems()">
+							Continue
+						</button>
 					</div>
 					
 					<div id="aerobic" class="tab-pane">
@@ -57,9 +79,9 @@
 						</div>
 					</div>
 					
-					<div id="anaerobicLactic" class="tab-pane">
-						<div class="col-md-3"></div>
-						<div class="col-md-6">
+					<div id="anaerobicLactic" class="tab-pane col-sm-12">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Body Mass <strong>(kg)</strong></label>
 								<div class="col-md-8">
@@ -79,10 +101,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3"></div>
+						<div class="col-sm-3"></div>
 					</div>
 					
-					<div id="anaerobicAlactic" class="tab-pane">
+					<div id="anaerobicAlactic" class="tab-pane col-sm-12">
 						<div class="form-group">
 							<label class="col-md-3 control-label">Recovery</label>
 							<div id="oxygenConsumptionPostExercise" class="col-md-9"></div>
@@ -105,7 +127,7 @@
 						</label>
 					</div>
 					
-					<div id="results" class="tab-pane">
+					<div id="results" class="tab-pane col-sm-12">
 						<button id="exp-jpg" type="button" class="btn btn-default btn-lg"
 							onclick="exportChart('image/jpeg')">Export to JPG</button>
 						<button id="exp-png" type="button" class="btn btn-default btn-lg"
@@ -115,7 +137,7 @@
 					</div>
 				</div>
 				
-				<button type="submit" class="btn btn-primary btn-lg">Calculate</button>
+				<button id="btnCalculate" type="submit" class="btn btn-primary btn-lg">Calculate</button>
 			</div>
 		</form>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

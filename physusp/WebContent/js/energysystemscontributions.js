@@ -1,3 +1,28 @@
+function setEnergySystems() {
+	var systems = 0;
+	$("#options").find("input").each(function(){
+		var input = $(this);
+		if (input.is(":checked")) {
+			$("#tab" + input.data("tab")).addClass("show");
+			systems++;
+		}
+		else
+			$("#tab" + input.data("tab")).removeClass("show");
+	});
+	
+	if (systems == 0) {
+		$("#validateSystems").addClass("has-error");
+		$("#validateSystems").find("label").text("Please select at least one energy system.");
+		return;
+	}
+	
+	$("#containerTabs").find("li.show").first().find("a").tab("show");
+	$("#btnCalculate").show();
+	
+	$("#validateSystems").removeClass("has-error");
+	$("#validateSystems").find("label").text("");
+}
+
 function prepareTableToSend(tableRows){
 	var toSend = "";
 	for(var i = 0; i < tableRows.length - 1; i++)
@@ -59,7 +84,9 @@ function showChart(data) {
 	$('#exp-svg').show();
 	$('#exp-png').show();
 	$('#exp-jpg').show();
+	$("#tabResults").show();
 	$('#tabResults a').tab('show');
+	$("#btnCalculate").hide();
 }
 
 function exportChart(fileType) {
@@ -71,9 +98,14 @@ function exportChart(fileType) {
 }
 
 $(function(){
-	$('#containerTabs a').click(function (e) {
+	$("#containerTabs a").click(function (e) {
 		e.preventDefault();
-		$(this).tab('show');
+		var link = $(this), tabId = link.parent().attr("id");
+		if (tabId == "tabOptions" || tabId == "tabResults")
+			$("#btnCalculate").hide();
+		else
+			$("#btnCalculate").show();
+		link.tab("show");
 	});
 	
 	$("#data").submit(function(){
@@ -122,5 +154,4 @@ $(function(){
 		$("#aerobicRestTable").toggle(this.checked);
 		$("#aerobicRestAvg").toggle(!this.checked);
 	});
-
 });
