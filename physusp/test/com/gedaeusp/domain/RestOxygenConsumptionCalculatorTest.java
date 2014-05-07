@@ -26,7 +26,7 @@ public class RestOxygenConsumptionCalculatorTest {
 		restTime.add((int) 14);
 		restTime.add((int) 19);
 		
-		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculator(restConsumption, restTime);
+		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculatorFromSeries(restConsumption, restTime);
 	
 		assertEquals(305.5555555, restConsumptionCalculator.getAverageRestConsumption().getValue(FlowUnit.lPerSecond), EPSILON);
 	}
@@ -51,7 +51,7 @@ public class RestOxygenConsumptionCalculatorTest {
 		restTime.add((int) 241);
 		restTime.add((int) 246);
 		
-		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculator(restConsumption, restTime);
+		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculatorFromSeries(restConsumption, restTime);
 		
 		assertEquals(restConsumptionCalculator.getAverageRestConsumption()
 				.getValue(FlowUnit.lPerSecond), 593.76722222222222, EPSILON);

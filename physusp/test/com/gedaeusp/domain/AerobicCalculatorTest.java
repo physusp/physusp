@@ -30,7 +30,7 @@ public class AerobicCalculatorTest {
 		restTime.add((int) 1);
 		restTime.add((int) 10);
 		
-		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculator(restConsumption, restTime);
+		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculatorFromSeries(restConsumption, restTime);
 		
 		AerobicCalculator aerobicCalculator = new AerobicCalculator();
 		UnitValue<VolumeUnit> oxygenConsumption = aerobicCalculator.calculateOxygenConsumptionDuringExercise(consumption, restConsumptionCalculator.getAverageRestConsumption(), time);
@@ -76,7 +76,7 @@ public class AerobicCalculatorTest {
 		restTime.add((int) 241);
 		restTime.add((int) 246);
 
-		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculator(restConsumption, restTime);
+		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculatorFromSeries(restConsumption, restTime);
 		
 		AerobicCalculator aerobicCalculator = new AerobicCalculator();
 		UnitValue<EnergyUnit> energyConsumption = aerobicCalculator.calculateEnergyConsumption(

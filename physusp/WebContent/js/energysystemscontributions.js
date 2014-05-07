@@ -1,16 +1,16 @@
 function setEnergySystems() {
-	var systems = 0;
+	var selectedCalculations = 0;
 	$("#options").find("input").each(function(){
 		var input = $(this);
 		if (input.is(":checked")) {
-			$("#tab" + input.data("tab")).addClass("show");
-			systems++;
+			$("#tab_" + input.data("tab")).addClass("show");
+			selectedCalculations++;
 		}
 		else
-			$("#tab" + input.data("tab")).removeClass("show");
+			$("#tab_" + input.data("tab")).removeClass("show");
 	});
 	
-	if (systems == 0) {
+	if (selectedCalculations == 0) {
 		$("#validateSystems").addClass("has-error");
 		$("#validateSystems").find("label").text("Please select at least one energy system.");
 		return;
@@ -26,7 +26,9 @@ function setEnergySystems() {
 function prepareTableToSend(tableRows){
 	var toSend = "";
 	for(var i = 0; i < tableRows.length - 1; i++)
-		toSend += tableRows[i][0] + "," + tableRows[i][1] + "\n";
+		if(tableRows[i][0] != null) {
+			toSend += tableRows[i][0] + "," + tableRows[i][1] + "\n";
+		}
 	return toSend;
 }
 
@@ -44,6 +46,7 @@ function sendFormData(url, formData) {
 }
 
 function showChart(data) {
+	
 	$("#results").highcharts({
 		chart: {
 			plotBackgroundColor: null,
@@ -98,6 +101,9 @@ function exportChart(fileType) {
 }
 
 $(function(){
+	
+	$("#btnContinue").click(setEnergySystems);
+	
 	$("#containerTabs a").click(function (e) {
 		e.preventDefault();
 		var link = $(this), tabId = link.parent().attr("id");
@@ -159,13 +165,13 @@ $(function(){
 	    height: 100
 	});
 	
-	$('#calculateAverageRestConsumptionFromTable').change(function() {
-		$("#aerobicRestTable").toggle($(this).val() == 1);
-		$("#aerobicRestAvg").toggle($(this).val() == 2);
+	$('#aerobic input:radio').change(function() {
+		$("#aerobicRestTable").toggle($(this).val() == "series");
+		$("#aerobicRestAvg").toggle($(this).val() == "fixed");
 	});
 	
 	$('#useTimeDelay').change(function() {
-		$("#TimeDelayDiv").toggle($(this).val() == !$(this).val());
+		$("#TimeDelayDiv").toggle();
 	});
 	
 });

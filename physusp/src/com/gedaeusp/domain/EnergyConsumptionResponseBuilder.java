@@ -84,16 +84,27 @@ public class EnergyConsumptionResponseBuilder {
 		if(restOxygenConsumptionCalculator != null)
 			return restOxygenConsumptionCalculator;
 		
-		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
-		LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser
-				.parse(parameters.getOxygenConsumptionRest(),
-						FlowUnit.mlPerMinute);
+		switch(parameters.getCalculateMethod()) {
+			case "fixed":
+				restOxygenConsumptionCalculator = new RestOxygenConsumptionCalculatorFixed(new UnitValue<FlowUnit>(parameters.getFixedValue(), FlowUnit.mlPerMinute));
+				break;
+			case "ignore":
+				restOxygenConsumptionCalculator = new RestOxygenConsumptionCalculatorFixed(new UnitValue<FlowUnit>(0, FlowUnit.mlPerMinute));
+				break;
+			case "series":
+				TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
+				LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionRestSeries = parser
+						.parse(parameters.getOxygenConsumptionRest(),
+								FlowUnit.mlPerMinute);
 
-		restOxygenConsumptionCalculator = new RestOxygenConsumptionCalculator(
-				new ArrayList<UnitValue<FlowUnit>>(
-						oxygenConsumptionRestSeries.values()),
-				new ArrayList<Integer>(oxygenConsumptionRestSeries
-						.keySet()));
+				restOxygenConsumptionCalculator = new RestOxygenConsumptionCalculatorFromSeries(
+						new ArrayList<UnitValue<FlowUnit>>(
+								oxygenConsumptionRestSeries.values()),
+						new ArrayList<Integer>(oxygenConsumptionRestSeries
+								.keySet()));
+				break;
+		}
+		
 		return restOxygenConsumptionCalculator;
 	}
 

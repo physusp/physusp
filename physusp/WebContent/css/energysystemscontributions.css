@@ -21,3 +21,12 @@ button {margin-top: 30px}
 @media (min-width: 1200px) {
 	.container {width: 970px}
 }
+
+#aerobicRestTable {
+	margin-top: 15px
+}
+
+#oxygenConsumptionRest {
+	overflow: scroll;
+	height: 100px
+}
