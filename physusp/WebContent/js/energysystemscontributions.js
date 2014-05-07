@@ -159,8 +159,13 @@ $(function(){
 	    height: 100
 	});
 	
-	$('#aerobic input:radio').change(function() {
+	$('#calculateAverageRestConsumptionFromTable').change(function() {
 		$("#aerobicRestTable").toggle($(this).val() == 1);
 		$("#aerobicRestAvg").toggle($(this).val() == 2);
 	});
+	
+	$('#useTimeDelay').change(function() {
+		$("#TimeDelayDiv").toggle($(this).val() == !$(this).val());
+	});
+	
 });
