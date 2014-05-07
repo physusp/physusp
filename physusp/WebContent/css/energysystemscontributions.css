@@ -1,9 +1,9 @@
 h2 {font-size: 18px}
 label {font-weight: normal}
 
-#containerTabs li a {font-size: 20px; color: #bbb}
-#containerTabs li.active a {color: black; border-top: 4px green solid}
-#containerTabs li#tabResults.active a {border-top: 4px red solid}
+#containerTabs li a {font-size: 20px; color: #bbb; height: 50px; border-top: 4px transparent solid}
+#containerTabs li.active a {color: black; border-top-color: green}
+#containerTabs li#tabResults.active a {border-top-color: red}
 
 #containerPanes {margin-top: 15px; float: left; width: 100%}
 
