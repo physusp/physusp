@@ -76,6 +76,15 @@ $(function(){
 		$(this).tab('show');
 	});
 	
+	$('#containerTabs a').on('shown.bs.tab', function (e) {
+		var tabName = $(this).attr('href');
+		$(tabName).find('.handsontable').each(function(index, element) {
+			for(var i = 0; i< 2; ++i) {
+				$(element).handsontable('render');
+			}
+		});
+	});
+	
 	$("#data").submit(function(){
 		var input = $(this).serialize();
 		var url = $(this).attr("action");
@@ -97,30 +106,30 @@ $(function(){
 	var headers = ["Time <strong>(hh:mm:ss)</strong>", "VO<sub>2</sub> <strong>(ml/min)</strong>"];
 	
 	$('#oxygenConsumptionRest').handsontable({
-	    minSpareRows: 1,
+	    minSpareRows: 10,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
 	    height: 100
 	});
 	$('#oxygenConsumptionDuringExercise').handsontable({
-	    minSpareRows: 1,
+	    minSpareRows: 10,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
 	    height: 100
 	});
 	$('#oxygenConsumptionPostExercise').handsontable({
-	    minSpareRows: 1,
+	    minSpareRows: 10,
 	    colHeaders: headers,
 	    contextMenu: true,
 	    data: [[null, null]],
 	    height: 100
 	});
 	
-	$('#calculateAverageRestConsumptionFromTable').click(function() {
-		$("#aerobicRestTable").toggle(this.checked);
-		$("#aerobicRestAvg").toggle(!this.checked);
+	$('#aerobic input:radio').change(function() {
+		$("#aerobicRestTable").toggle($(this).val() == 1);
+		$("#aerobicRestAvg").toggle($(this).val() == 2);
 	});
 
 });
