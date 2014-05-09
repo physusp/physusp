@@ -14,7 +14,7 @@ import com.gedaeusp.models.Parameters;
 import com.gedaeusp.models.RestOxygenParameters;
 
 @Resource
-@Path("/esc")
+@Path("/")
 public class EnergySystemsContributionsController {
 	private final Result result;
 

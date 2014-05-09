@@ -20,7 +20,6 @@ public class HomeController {
  		this.result = result;
  	}
 
- 	@Path("/")
  	public void index() {
  		result.include("variable", "Alfredo!");
  	}
