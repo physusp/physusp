@@ -30,13 +30,13 @@ public class NonlinearCurveFitter {
 		// Use a monoexponential curve fitter to guess good initial parameters
 		double[] exp = doExponentialFit(v, t, v0);
 
-		double initT0 = (t0 == 0) ? 1 : t0;
+		double initT0 = (t0 < 0) ? 1 : t0;
 		double initV0 = exp[Exponential.PARAM_v0];
 		double initTau = exp[Exponential.PARAM_tau];
 		double initA = exp[Exponential.PARAM_a] * 0.5
 				* FastMath.exp(-initT0 / initTau);
 
-		return new double[] { initV0, t0, initA, initA, initTau * 0.9,
+		return new double[] { initV0, initT0, initA, initA, initTau * 0.9,
 				initTau * 1.1 };
 	}
 
@@ -50,12 +50,12 @@ public class NonlinearCurveFitter {
 
 		// Use a monoexponential curve fitter to guess good initial parameters
 		double[] exp = doExponentialFit(v, t, v0);
-
+		double initT0 = (t0 < 0) ? 1 : t0;
 		double initV0 = exp[Exponential.PARAM_v0];
 		double initTau = exp[Exponential.PARAM_tau];
-		double initA = exp[Exponential.PARAM_a] * FastMath.exp(-t0 / initTau);
+		double initA = exp[Exponential.PARAM_a] * FastMath.exp(-initT0 / initTau);
 
-		return new double[] { initV0, initA, initTau, t0 };
+		return new double[] { initV0, initA, initTau, initT0 };
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class NonlinearCurveFitter {
 		DelayedExponential.ParametricBuilder builder = new DelayedExponential.ParametricBuilder()
 				.fixedV0(true) // We never optimize the given v0
 				// If a timeDalay was given, we won't optimize the parameter t0
-				.fixedT0(init[Biexponential.PARAM_t0] > 0);
+				.fixedT0(init[Biexponential.PARAM_t0] >= 0);
 
 		return fitter.fit(builder.build(), init);
 	}
@@ -112,7 +112,7 @@ public class NonlinearCurveFitter {
 		Biexponential.ParametricBuilder builder = new Biexponential.ParametricBuilder()
 				.fixedV0(true) // We never optimize the given v0
 				// If a timeDalay was given, we won't optimize the parameter t0
-				.fixedT0(init[Biexponential.PARAM_t0] > 0);
+				.fixedT0(init[Biexponential.PARAM_t0] >= 0);
 
 		return fitter.fit(builder.build(), init);
 	}
