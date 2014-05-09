@@ -41,6 +41,9 @@ public class EnergySystemsContributionsController {
 		}
 				
 		if (parameters.getCalculateAnaerobicAlactic()) {
+			
+			System.out.println("TESTETESTE\n"+anaerobicAlacticParameters.isUseTimeDelay()+"\n"+Double.toString(anaerobicAlacticParameters.getTimeDelayPost()));
+			
 			builder = builder.addAnaerobicAlactic(anaerobicAlacticParameters, restOxygenParameters);
 		}
 		this.result.use(Results.json()).from(builder.getResponse()).serialize();

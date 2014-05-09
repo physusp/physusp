@@ -45,6 +45,7 @@ public class EnergyConsumptionResponseBuilder {
 	public EnergyConsumptionResponseBuilder addAnaerobicAlactic(AnaerobicAlacticParameters parameters, RestOxygenParameters restParameters){
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
 		try {
+			if(!parameters.isUseTimeDelay()) parameters.setTimeDelayPost(-1);
 			anaerobicAlacticEnergy = getAnaerobicAlacticCalculator(parameters, getRestOxygenConsumptionCalculator(restParameters));
 			response.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
 		} catch (ParseException e) {
@@ -142,7 +143,7 @@ public class EnergyConsumptionResponseBuilder {
 				new ArrayList<Integer>(
 						oxygenConsumptionPostExerciseSeries.keySet()),
 			restOxygenConsumptionCalculator.getAverageRestConsumption(),
-				(int) parameters.getTimeDelayPost());
+				(double) parameters.getTimeDelayPost());
 
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy = parameters
 				.getExponentialType() == 1 ? alacticCalculator

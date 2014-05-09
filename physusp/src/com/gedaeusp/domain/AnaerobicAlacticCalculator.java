@@ -13,7 +13,7 @@ public class AnaerobicAlacticCalculator {
 	private final NonlinearCurveFitter fitter;
 	private double[] consumptionArray;
 	private double[] timesArray;
-	private Integer timeDelay;
+	private double timeDelay;
 	private UnitValue<FlowUnit> baselineOxygenVol;
 	
 	public AnaerobicAlacticCalculator(NonlinearCurveFitter fitter) {
@@ -43,7 +43,7 @@ public class AnaerobicAlacticCalculator {
 	}
 
 	public void setExponentialInput(List<UnitValue<FlowUnit>> consumption, List<Integer> times,
-			UnitValue<FlowUnit> baselineOxygenVol, Integer time){
+			UnitValue<FlowUnit> baselineOxygenVol, double time){
 		consumptionArray = toArray(consumption, FlowUnit.lPerSecond);
 		timesArray = toArray(times);
 		timeDelay = time;

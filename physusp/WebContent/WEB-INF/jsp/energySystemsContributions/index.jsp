@@ -121,20 +121,20 @@
 					<div class="col-md-6">
 						<div>
 							<label class="control-label"> <input type="radio"
-								name="anaerobicAlacticparameters.exponentialType" value="1"
+								name="anaerobicAlacticParameters.exponentialType" value="1"
 								checked /> Monoexponential
 							</label>
 						</div>
 						<div>
 							<label class="control-label"> <input type="radio"
-								name="anaerobicAlacticparameters.exponentialType" value="2" />
+								name="anaerobicAlacticParameters.exponentialType" value="2" />
 								Biexponential
 							</label>
 						</div>
 
 						<div class="checkbox">
 							<label> <input
-								id="useTimeDelay" type="checkbox" value="true"> Use custom time delay
+								id="useTimeDelay" type="checkbox" name="anaerobicAlacticParameters.useTimeDelay" value="true"> Use custom time delay
 							</label>
 						</div>
 
@@ -143,7 +143,7 @@
 							<label class="col-md-4 control-label">Time delay <strong>(s)</strong></label>
 							<div class="col-md-4">
 								<input type="text"
-									name="anaerobicAlacticparameters.timeDelayPost"
+									name="anaerobicAlacticParameters.timeDelayPost"
 									class="form-control" />
 							</div>
 						</div>
