@@ -109,16 +109,16 @@
 				</div>
 
 				<div id="anaerobicAlactic" class="tab-pane">
-					<div class="col-md-12">
+					<div class="col-sm-12">
 						<label class="control-label">Recovery</label>
 					</div>
-					<div class="col-md-5">
+					<div class="col-sm-6">
 						<div class="form-group">
-							<div id="oxygenConsumptionPostExercise" class="col-md-12"></div>
+							<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
 						</div>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-sm-6">
 						<div>
 							<label class="control-label"> <input type="radio"
 								name="anaerobicAlacticParameters.exponentialType" value="1"
@@ -140,8 +140,8 @@
 
 						<!-- opções avançadas -->
 						<div id="TimeDelayDiv" class="form-group" style="display: none">
-							<label class="col-md-4 control-label">Time delay <strong>(s)</strong></label>
-							<div class="col-md-4">
+							<label class="col-sm-4 control-label">Time delay <strong>(s)</strong></label>
+							<div class="col-sm-4">
 								<input type="text"
 									name="anaerobicAlacticParameters.timeDelayPost"
 									class="form-control" />
