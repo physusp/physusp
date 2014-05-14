@@ -102,7 +102,7 @@ public class NonlinearCurveFitter {
 	 * 
 	 * @return { v0, t0, A1, A2, tau1, tau2 }
 	 */
-	public double[] doBixponentialFit(double[] v, double[] t, double[] init) {
+	public double[] doBiexponentialFit(double[] v, double[] t, double[] init) {
 
 		CurveFitter<Biexponential.Parametric> fitter = new CurveFitter<Biexponential.Parametric>(
 				new LevenbergMarquardtOptimizer());
