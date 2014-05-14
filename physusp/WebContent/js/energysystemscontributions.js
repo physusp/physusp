@@ -51,8 +51,10 @@
 			data: formData
 		})
 		.done(function(result){
-			var data = []; 
-			$.each(result.consumption, function(key, value) { data.push([key, value]);});
+			var data = [];
+			data.push(["aerobic", result.consumption.aerobic]);
+			data.push(["anaerobicLactic", result.consumption.anaerobicLactic]);
+			data.push(["anaerobicAlactic", result.consumption.anaerobicAlactic]);
 			showChart(data);
 		});
 	}
