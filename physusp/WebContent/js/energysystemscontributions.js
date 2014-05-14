@@ -128,21 +128,17 @@
 		return $("[name='restOxygenParameters.calculateMethod']:checked").val();
 	}
 	
-	function isRestOxygenFixe(){
+	function isRestOxygenFixed(){
 		return getRestOxygenCalculateMethod() == "fixed";
 	}
 	
 	$(function(){
 		
-		$.validator.addMethod("greaterOrEqualThan", 
+		$.validator.addMethod("greaterThan", 
 				function(value, element, params) {
 
-				    if (!/Invalid|NaN/.test(new Date(value))) {
-				        return new Date(value) >= new Date($(params).val());
-				    }
-
 				    return isNaN(value) && isNaN($(params).val()) 
-				        || (Number(value) >= Number($(params).val())); 
+				        || (Number(value) > Number($(params).val())); 
 				},'Must be greater than {0}.');
 		
 		$("#btnContinue").click(setEnergySystems);
@@ -198,7 +194,7 @@
 				},
 				"anaerobicLacticParameters.weight": {
 					required: hasSelectedAnaerobicLactic,
-					min: 0
+					min: 0.0001
 				},
 				"anaerobicLacticParameters.restLactateConcentration": {
 					required: hasSelectedAnaerobicLactic,
@@ -206,15 +202,20 @@
 				},
 				"anaerobicLacticParameters.maxLactateConcentration": {
 					required: hasSelectedAnaerobicLactic,
-					greaterOrEqualThan: "#anaerobicLacticParameters\\.restLactateConcentration"
+					greaterThan: "#anaerobicLacticParameters\\.restLactateConcentration"
 				},
 				"restOxygenParameters.fixedValue": {
-					required: function() { return (hasSelectedAerobic() || hasSelectedAnaerobicAlactic()) && isRestOxygenFixe() }
+					required: function() { return (hasSelectedAerobic() || hasSelectedAnaerobicAlactic()) && isRestOxygenFixed(); },
+					min: 0
 				}
 			},
 			messages:{
+				"anaerobicLacticParameters.weight": {
+					required: hasSelectedAnaerobicLactic,
+					min: "Please enter a value greater than or equal to 0."
+				},
 				"anaerobicLacticParameters.maxLactateConcentration": {
-					greaterOrEqualThan: "Must be greater than or equal to rest concentration."
+					greaterThan: "Must be greater than rest concentration."
 				}
 			}
 		});
