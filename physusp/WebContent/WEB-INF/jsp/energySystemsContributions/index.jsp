@@ -30,18 +30,21 @@
 						<p class="information">What do you wish to calculate?</p>
 						<div class="checkbox">
 							<label class="control-label"> <input type="checkbox"
+								id="parameters.calculateAerobic"
 								name="parameters.calculateAerobic" value="true" 
 								data-tab="aerobic" checked /> Aerobic System
 							</label>
 						</div>
 						<div class="checkbox">
 							<label class="control-label"> <input type="checkbox"
+								id="parameters.calculateAnaerobicLactic"
 								name="parameters.calculateAnaerobicLactic" value="true"
 								data-tab="anaerobicLactic" checked /> Anaerobic Lactic System
 							</label>
 						</div>
 						<div class="checkbox">
 							<label class="control-label"> <input type="checkbox"
+								id="parameters.calculateAnaerobicLactic"
 								name="parameters.calculateAnaerobicAlactic" value="true"
 								data-tab="anaerobicAlactic" checked /> Anaerobic Alactic System
 							</label>
@@ -58,7 +61,7 @@
 						<label>How would you like to determine the rest O<sub>2</sub> consumption?</label>
 						<div class="radio">
 							<label class="control-label">
-								<input type="radio" name="restOxygenParameters.calculateMethod" value="ignore" checked />
+								<input type="radio" name="restOxygenParameters.calculateMethod" value="ignore" />
 								I want to ignore the rest O<sub>2</sub> consumption
 							</label>
 						</div>
@@ -81,7 +84,7 @@
 							</div>
 							<div class="form-group" id="aerobicRestAvg">
 								<label class="control-label">Rest O<sub>2</sub> consumption <strong>(ml/min)</strong></label>
-								<input type="text" name="restOxygenParameters.fixedValue" class="form-control" />
+								<input type="text" id="restOxygenParameters.fixedValue" name="restOxygenParameters.fixedValue" class="form-control" />
 							</div>
 						</div>
 					</div>
@@ -95,15 +98,15 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="control-label">Body Mass <strong>(kg)</strong></label>
-							<input type="text" name="anaerobicLacticParameters.weight" class="form-control" />
+							<input type="text" id="anaerobicLacticParameters.weight" name="anaerobicLacticParameters.weight" class="form-control" />
 						</div>
 						<div class="form-group">
 							<label class="control-label">Rest <strong>(mmol/L)</strong></label>
-							<input type="text" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
+							<input type="text" id="anaerobicLacticParameters.restLactateConcentration" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
 						</div>
 						<div class="form-group">
 							<label class="control-label">Peak <strong>(mmol/L)</strong></label>
-							<input type="text" name="anaerobicLacticParameters.maxLactateConcentration" class="form-control" />
+							<input type="text" id="anaerobicLacticParameters.maxLactateConcentration" name="anaerobicLacticParameters.maxLactateConcentration" class="form-control" />
 						</div>
 					</div>
 				</div>
@@ -143,6 +146,7 @@
 							<label class="col-sm-4 control-label">Time delay <strong>(s)</strong></label>
 							<div class="col-sm-4">
 								<input type="text"
+									id="anaerobicAlacticParameters.timeDelayPost"
 									name="anaerobicAlacticParameters.timeDelayPost"
 									class="form-control" />
 							</div>
@@ -180,5 +184,7 @@
 		src="<c:url value="/js/energysystemscontributions.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/jquery.handsontable.full.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/lib/jquery.validate.min.js"/>"></script>
 </body>
 </html>

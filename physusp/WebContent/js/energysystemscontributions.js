@@ -1,4 +1,5 @@
 (function() {
+	
 	var _chartOptions = null;
 	
 	function setEnergySystems() {
@@ -104,7 +105,45 @@
 		$("#btnCalculate").hide();
 	}
 	
+	function greaterThanZero(value, callback){
+		if(value >= 0)
+			callback(true);
+		else
+			callback(false);
+	}
+	
+	function hasSelectedAnaerobicLactic(){
+		return $("#parameters\\.calculateAnaerobicLactic").is(":checked");
+	}
+	
+	function hasSelectedAnaerobicAlactic(){
+		return $("#parameters\\.calculateAnaerobicAlactic").is(":checked");
+	}
+	
+	function hasSelectedAerobic(){
+		return $("#parameters\\.calculateAerobic").is(":checked");
+	}
+	
+	function getRestOxygenCalculateMethod(){
+		return $("[name='restOxygenParameters.calculateMethod']:checked").val();
+	}
+	
+	function isRestOxygenFixe(){
+		return getRestOxygenCalculateMethod() == "fixed";
+	}
+	
 	$(function(){
+		
+		$.validator.addMethod("greaterOrEqualThan", 
+				function(value, element, params) {
+
+				    if (!/Invalid|NaN/.test(new Date(value))) {
+				        return new Date(value) >= new Date($(params).val());
+				    }
+
+				    return isNaN(value) && isNaN($(params).val()) 
+				        || (Number(value) >= Number($(params).val())); 
+				},'Must be greater than {0}.');
 		
 		$("#btnContinue").click(setEnergySystems);
 		
@@ -131,6 +170,10 @@
 		});
 		
 		$("#data").submit(function(){
+			
+			if(!$(this).valid())
+				return false;
+			
 			var input = $(this).serialize();
 			var url = $(this).attr("action");
 			
@@ -148,6 +191,34 @@
 			return false;
 		});
 		
+		$("#data").validate({
+			rules: {
+				"anaerobicAlacticParameters.timeDelayPost": {
+					required: function() { return $("#useTimeDelay").is(":checked"); }
+				},
+				"anaerobicLacticParameters.weight": {
+					required: hasSelectedAnaerobicLactic,
+					min: 0
+				},
+				"anaerobicLacticParameters.restLactateConcentration": {
+					required: hasSelectedAnaerobicLactic,
+					min: 0
+				},
+				"anaerobicLacticParameters.maxLactateConcentration": {
+					required: hasSelectedAnaerobicLactic,
+					greaterOrEqualThan: "#anaerobicLacticParameters\\.restLactateConcentration"
+				},
+				"restOxygenParameters.fixedValue": {
+					required: function() { return (hasSelectedAerobic() || hasSelectedAnaerobicAlactic()) && isRestOxygenFixe() }
+				}
+			},
+			messages:{
+				"anaerobicLacticParameters.maxLactateConcentration": {
+					greaterOrEqualThan: "Must be greater than or equal to rest concentration."
+				}
+			}
+		});
+		
 		var headers = ["Time <strong>(hh:mm:ss)</strong>", "VO<sub>2</sub> <strong>(ml/min)</strong>"];
 		
 		$('#oxygenConsumptionRest').handsontable({
@@ -157,7 +228,20 @@
 		    data: [[null, null]],
 		    height: 260,
 		    colWidths: [1, 1],
-		    stretchH: "all"
+		    stretchH: "all",
+		    columns: [
+        	  {
+        		  type: 'text',
+        		  validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+        		  allowInvalid: false
+        	  },
+        	  { 	  	
+            	  type: 'numeric',
+            	  format: '0,0.00',
+            	  validator: greaterThanZero,
+            	  allowInvalid: false
+        	  },
+		    ]
 		});
 		$('#oxygenConsumptionDuringExercise').handsontable({
 		    minSpareRows: 10,
@@ -166,7 +250,20 @@
 		    data: [[null, null]],
 		    height: 260,
 		    colWidths: [1, 1],
-		    stretchH: "all"
+		    stretchH: "all",
+		    columns: [
+        	  {
+        		  type: 'text',
+        		  validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+        		  allowInvalid: false
+        	  },
+        	  { 	  	
+            	  type: 'numeric',
+            	  format: '0,0.00',
+            	  validator: greaterThanZero,
+            	  allowInvalid: false
+        	  },
+		    ]
 		});
 		$('#oxygenConsumptionPostExercise').handsontable({
 		    minSpareRows: 10,
@@ -175,7 +272,20 @@
 		    data: [[null, null]],
 		    height: 260,
 		    colWidths: [1, 1],
-		    stretchH: "all"
+		    stretchH: "all",
+		    columns: [
+        	  {
+        		  type: 'text',
+        		  validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+        		  allowInvalid: false
+        	  },
+        	  { 	  	
+            	  type: 'numeric',
+            	  format: '0,0.00',
+            	  validator: greaterThanZero,
+            	  allowInvalid: false
+        	  },
+		    ]
 		});
 		
 		$('#aerobic input:radio').change(function() {
