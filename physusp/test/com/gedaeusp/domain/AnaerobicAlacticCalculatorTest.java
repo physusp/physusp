@@ -167,7 +167,7 @@ public class AnaerobicAlacticCalculatorTest {
 		}
 
 		// do the curve fitting
-		double[] best = fitter.doBixponentialFit(v, t, init);
+		double[] best = fitter.doBiexponentialFit(v, t, init);
 
 		log.debug("Resultados da regressão:");
 		log.debug("VO2_base = " + best[Biexponential.PARAM_v0]);
@@ -211,16 +211,14 @@ public class AnaerobicAlacticCalculatorTest {
 
 		calculator.setExponentialInput(consumption, times, new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), t0);
 		
-		double actual = calculator.calculateEnergyWithBiExponential()
-				.getValue(EnergyUnit.Kcal);
+		BiexponentialFitData biexponentialFitData = new BiexponentialFitData();
+		double actual = calculator.calculateEnergyWithBiexponential(biexponentialFitData).getValue(EnergyUnit.Kcal);
 
 		double expected = (new UnitValue<FlowUnit>(a1, FlowUnit.mlPerMinute))
 				.getValue(FlowUnit.lPerSecond)
 				* tau1
 				* Constants.OXYGEN_TO_KCAL;
-
-		assertEquals("Expected and Actual energy values in KCal are different",
-				expected, actual, Constants.ANAEROBIC_ALACTIC_EPS);
+		assertEquals("Expected and Actual energy values in KCal are different", expected, actual, Constants.ANAEROBIC_ALACTIC_EPS);
 	}
 
 	/**
@@ -244,12 +242,12 @@ public class AnaerobicAlacticCalculatorTest {
 					FlowUnit.mlPerMinute));
 			times.add(i);
 		}
-
+		
 		calculator.setExponentialInput(consumption, times, new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), t0);
 		
-		double actual = calculator.calculateEnergyWithMonoExponential()
-				.getValue(EnergyUnit.Kcal);
-
+		MonoexponentialFitData monoexponentialFitData = new MonoexponentialFitData();
+		double actual = calculator.calculateEnergyWithMonoexponential(monoexponentialFitData).getValue(EnergyUnit.Kcal);
+		
 		double expected = (new UnitValue<FlowUnit>(a, FlowUnit.mlPerMinute))
 				.getValue(FlowUnit.lPerSecond) * tau * Constants.OXYGEN_TO_KCAL;
 
