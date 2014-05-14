@@ -209,7 +209,7 @@ public class AnaerobicAlacticCalculatorTest {
 			times.add(i);
 		}
 
-		calculator.setExponentialInput(consumption, times, new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), (int) t0);
+		calculator.setExponentialInput(consumption, times, new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), t0);
 		
 		double actual = calculator.calculateEnergyWithBiExponential()
 				.getValue(EnergyUnit.Kcal);
@@ -245,7 +245,7 @@ public class AnaerobicAlacticCalculatorTest {
 			times.add(i);
 		}
 
-		calculator.setExponentialInput(consumption, times, new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), (int) t0);
+		calculator.setExponentialInput(consumption, times, new UnitValue<FlowUnit>(v0, FlowUnit.mlPerMinute), t0);
 		
 		double actual = calculator.calculateEnergyWithMonoExponential()
 				.getValue(EnergyUnit.Kcal);
