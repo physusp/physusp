@@ -26,3 +26,8 @@ button {margin-top: 30px}
 	margin-top: 15px
 }
 #aerobicRestAvg {display: none}
+
+.error {
+	color: #f00;
+	float: left
+}
