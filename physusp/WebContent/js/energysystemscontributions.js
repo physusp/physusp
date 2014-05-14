@@ -188,6 +188,7 @@
 		});
 		
 		$("#data").validate({
+			errorClass: "error",
 			rules: {
 				"anaerobicAlacticParameters.timeDelayPost": {
 					required: function() { return $("#useTimeDelay").is(":checked"); }
