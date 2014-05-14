@@ -12,7 +12,7 @@
 <body>
 	<h1 class="text-center">Energy Systems Contributions</h1>
 	<form id="data" class="form-horizontal"
-		action="<c:url value="/esc/calculate"/>">
+		action="<c:url value="/calculate"/>">
 		<div class="container">
 			<ul id="containerTabs" class="nav nav-tabs">
 				<li id="tabOptions" class="active"><a href="#options" data-toggle="tab">Options</a></li>

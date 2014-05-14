@@ -14,19 +14,20 @@ import com.gedaeusp.models.Parameters;
 import com.gedaeusp.models.RestOxygenParameters;
 
 @Resource
-@Path("/")
+@Path("")
 public class EnergySystemsContributionsController {
 	private final Result result;
 
 	public EnergySystemsContributionsController(Result result) {
 		this.result = result;
 	}
-
+	
 	@Path("")
 	public void index() {
 	}
 
 	@Post
+	@Path("calculate")
 	public void calculate(Parameters parameters, AerobicParameters aerobicParameters, AnaerobicLacticParameters anaerobicLacticParameters,
 			AnaerobicAlacticParameters anaerobicAlacticParameters, RestOxygenParameters restOxygenParameters) {
 
