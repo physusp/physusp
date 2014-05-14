@@ -144,11 +144,23 @@ public class EnergyConsumptionResponseBuilder {
 						oxygenConsumptionPostExerciseSeries.keySet()),
 			restOxygenConsumptionCalculator.getAverageRestConsumption(),
 				(double) parameters.getTimeDelayPost());
-
-		UnitValue<EnergyUnit> anaerobicAlacticEnergy = parameters
-				.getExponentialType() == 1 ? alacticCalculator
-				.calculateEnergyWithMonoExponential()
-				: alacticCalculator.calculateEnergyWithBiExponential();
+		
+		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
+		if (parameters.getExponentialType() == 1) {
+			MonoexponentialFitData monoexponentialFitData = new MonoexponentialFitData();
+			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithMonoexponential(monoexponentialFitData);
+			response.setExpectedOxygenConsumption(monoexponentialFitData.getExpectedOxygenConsumption());
+			response.setRSquared(monoexponentialFitData.getRSquared());
+		
+		}
+		else {
+			BiexponentialFitData biexponentialFitData = new BiexponentialFitData();
+			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithBiexponential(biexponentialFitData);
+			//response.setExpectedOxygenConsumption(biexponentialFitData.get);
+			response.setExpectedOxygenConsumption(biexponentialFitData.getExpectedOxygenConsumption());
+			response.setRSquared(biexponentialFitData.getRSquared());
+		}
+		
 		return anaerobicAlacticEnergy;
 	}
 }
