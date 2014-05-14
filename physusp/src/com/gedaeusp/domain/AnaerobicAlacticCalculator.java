@@ -43,34 +43,50 @@ public class AnaerobicAlacticCalculator {
 	}
 
 	public void setExponentialInput(List<UnitValue<FlowUnit>> consumption, List<Integer> times,
-			UnitValue<FlowUnit> baselineOxygenVol, double time){
+			UnitValue<FlowUnit> baselineOxygenVol, double time) {
 		consumptionArray = toArray(consumption, FlowUnit.lPerSecond);
 		timesArray = toArray(times);
 		timeDelay = time;
 		this.baselineOxygenVol = baselineOxygenVol;
-			}
+	}
 	
-	public UnitValue<EnergyUnit> calculateEnergyWithBiExponential() {
-
-		
+	public UnitValue<EnergyUnit> calculateEnergyWithBiexponential(BiexponentialFitData biexponentialFitData) {
 		// Guess the initial parameters for the curve fitting
 		double[] init = fitter.guessBiexponentialInitialParameters(
 				consumptionArray, timesArray,
 				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
 
 		// Do the biexponential fitting using the initial guessed parameters
-		double[] best = fitter
-				.doBixponentialFit(consumptionArray, timesArray, init);
-
-		double a = best[Biexponential.PARAM_a1];
-		double tau = best[Biexponential.PARAM_tau1];
-		double energy = a * tau * Constants.OXYGEN_TO_KCAL;
-
-		return new UnitValue<EnergyUnit>(energy, EnergyUnit.Kcal);
+		double[] best = fitter.doBiexponentialFit(consumptionArray, timesArray, init);
+		
+		double v0 = best[Biexponential.PARAM_v0];
+		double t0 = best[Biexponential.PARAM_t0];
+		double a1 = best[Biexponential.PARAM_a1];
+		double a2 = best[Biexponential.PARAM_a2];
+		double tau1 = best[Biexponential.PARAM_tau1];
+		double tau2 = best[Biexponential.PARAM_tau2];
+		
+		biexponentialFitData.setV0(v0);
+		biexponentialFitData.setT0(t0);
+		biexponentialFitData.setA1(a1);
+		biexponentialFitData.setA2(a2);
+		biexponentialFitData.setTau1(tau1);
+		biexponentialFitData.setTau2(tau2);
+		
+		Biexponential biexponentialCalculator = new Biexponential(v0, t0, a1, a2, tau1, tau2);
+		double[] expectedOxygenConsumption = new double[timesArray.length];
+		for (int i = 0; i < timesArray.length; i++)
+			expectedOxygenConsumption[i] = biexponentialCalculator.value(timesArray[i]);
+		biexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
+		
+		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
+		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumption);
+		biexponentialFitData.setRSquared(rSquared);
+		
+		return calculateEnergy(best[Biexponential.PARAM_a1], best[Biexponential.PARAM_tau1]);
 	}
-
-	public UnitValue<EnergyUnit> calculateEnergyWithMonoExponential() {
-
+	
+	public UnitValue<EnergyUnit> calculateEnergyWithMonoexponential(MonoexponentialFitData monoexponentialFitData){
 		// Guess the initial parameters for the curve fitting
 		double[] init = fitter.guessExponentialInitialParameters(
 				consumptionArray, timesArray,
@@ -80,11 +96,31 @@ public class AnaerobicAlacticCalculator {
 		double[] best = fitter.doDelayedExponentialFit(consumptionArray,
 				timesArray, init);
 
+		double v0 = best[DelayedExponential.PARAM_v0];
+		double t0 = best[DelayedExponential.PARAM_t0];
 		double a = best[DelayedExponential.PARAM_a];
 		double tau = best[DelayedExponential.PARAM_tau];
-		double energy = a * tau * Constants.OXYGEN_TO_KCAL;
 
-		return new UnitValue<EnergyUnit>(energy, EnergyUnit.Kcal);
+		monoexponentialFitData.setV0(v0);
+		monoexponentialFitData.setT0(t0);
+		monoexponentialFitData.setA(a);
+		monoexponentialFitData.setTau(tau);
+		
+		DelayedExponential monoexponentialCalculator = new DelayedExponential(v0, a, tau, t0);
+		double[] expectedOxygenConsumption = new double[timesArray.length];
+		for (int i = 0; i < timesArray.length; i++)
+			expectedOxygenConsumption[i] = monoexponentialCalculator.value(timesArray[i]);
+		monoexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
+		
+		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
+		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumption);
+		monoexponentialFitData.setRSquared(rSquared);
+		
+		return calculateEnergy(best[DelayedExponential.PARAM_a], best[DelayedExponential.PARAM_tau]);
 	}
 
+	public UnitValue<EnergyUnit> calculateEnergy(double a, double tau) {
+		double energy = a * tau * Constants.OXYGEN_TO_KCAL;
+		return new UnitValue<EnergyUnit>(energy, EnergyUnit.Kcal);
+	}
 }
