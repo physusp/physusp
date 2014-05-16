@@ -3,6 +3,7 @@ package com.gedaeusp.models;
 import java.io.Serializable;
 import java.util.List;
 
+import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.VolumeUnit;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -11,13 +12,13 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class EnergyConsumptionResponse implements Serializable {
 
 	@XStreamAlias("aerobic")
-	private double aerobic;
+	private UnitValue<EnergyUnit> aerobic;
 	
 	@XStreamAlias("anaerobicLactic")
-	private double anaerobicLactic;
+	private UnitValue<EnergyUnit> anaerobicLactic;
 	
 	@XStreamAlias("anaerobicAlactic")
-	private double anaerobicAlactic;
+	private UnitValue<EnergyUnit> anaerobicAlactic;
 	
 	@XStreamAlias("expectedOxygenConsumption")
 	private double[] expectedOxygenConsumption;
@@ -31,22 +32,22 @@ public class EnergyConsumptionResponse implements Serializable {
 	@XStreamAlias("monoexponentialFitCoefficients")
 	private double[] monoexponentialFitCoefficients;
 	
-	public double getAerobic() {
+	public UnitValue<EnergyUnit> getAerobic() {
 		return aerobic;
 	}
-	public void setAerobic(double aerobic) {
+	public void setAerobic(UnitValue<EnergyUnit> aerobic) {
 		this.aerobic = aerobic;
 	}
-	public double getAnaerobicLactic() {
+	public UnitValue<EnergyUnit> getAnaerobicLactic() {
 		return anaerobicLactic;
 	}
-	public void setAnaerobicLactic(double anaerobicLactic) {
+	public void setAnaerobicLactic(UnitValue<EnergyUnit> anaerobicLactic) {
 		this.anaerobicLactic = anaerobicLactic;
-	}
-	public double getAnaerobicAlactic() {
+	} 	
+	public UnitValue<EnergyUnit> getAnaerobicAlactic() {
 		return anaerobicAlactic;
 	}
-	public void setAnaerobicAlactic(double anaerobicAlactic) {
+	public void setAnaerobicAlactic(UnitValue<EnergyUnit> anaerobicAlactic) {
 		this.anaerobicAlactic = anaerobicAlactic;
 	}
 	public double[] getExpectedOxygenConsumption() {
