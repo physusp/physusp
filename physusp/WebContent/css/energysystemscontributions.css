@@ -36,3 +36,18 @@ button {margin-top: 30px}
 	border: 1px #eee solid; border-radius: 10px; background-color: white; padding: 10px}
 
 #btnAdvancedResults:not(.active):focus {background-color: white} 
+
+.title-area {
+	width: 100%;
+	text-align: center;
+	font-weight: bold
+}
+
+.handsontable {
+	padding-top: 10px
+}
+
+#aerobicRestAvg {
+	padding-top: 1px
+}
+
