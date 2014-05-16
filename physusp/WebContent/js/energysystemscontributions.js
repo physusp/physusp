@@ -49,14 +49,14 @@
 		$.ajax({
 			url: url,
 			type: "POST",
-			data: formData
-		})
-		.done(function(result){
-			var data = [];
-			data.push(["aerobic", result.consumption.aerobic]);
-			data.push(["anaerobicLactic", result.consumption.anaerobicLactic]);
-			data.push(["anaerobicAlactic", result.consumption.anaerobicAlactic]);
-			showChart(data);
+			data: formData,
+			success: function(result){
+				var data = [];
+				data.push(["aerobic", result.consumption.aerobic]);
+				data.push(["anaerobicLactic", result.consumption.anaerobicLactic]);
+				data.push(["anaerobicAlactic", result.consumption.anaerobicAlactic]);
+				showChart(data);
+			}
 		});
 	}
 	

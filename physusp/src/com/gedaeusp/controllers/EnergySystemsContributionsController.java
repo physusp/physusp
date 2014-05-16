@@ -45,7 +45,7 @@ public class EnergySystemsContributionsController {
 						
 			builder = builder.addAnaerobicAlactic(anaerobicAlacticParameters, restOxygenParameters);
 		}
-		this.result.use(Results.json()).from(builder.getResponse()).serialize();
+		this.result.use(Results.json()).from(builder.getResponse()).recursive().serialize();
 	}
 
 	

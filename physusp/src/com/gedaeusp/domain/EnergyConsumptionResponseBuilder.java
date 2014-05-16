@@ -150,6 +150,12 @@ public class EnergyConsumptionResponseBuilder {
 			MonoexponentialFitData monoexponentialFitData = new MonoexponentialFitData();
 			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithMonoexponential(monoexponentialFitData);
 			response.setExpectedOxygenConsumption(monoexponentialFitData.getExpectedOxygenConsumption());
+			response.setMonoexponentialFitCoefficients(new double[] {
+					monoexponentialFitData.getV0(),
+					monoexponentialFitData.getT0(),
+					monoexponentialFitData.getA(),
+					monoexponentialFitData.getTau()
+			});
 			response.setRSquared(monoexponentialFitData.getRSquared());
 		
 		}
@@ -159,6 +165,14 @@ public class EnergyConsumptionResponseBuilder {
 			//response.setExpectedOxygenConsumption(biexponentialFitData.get);
 			response.setExpectedOxygenConsumption(biexponentialFitData.getExpectedOxygenConsumption());
 			response.setRSquared(biexponentialFitData.getRSquared());
+			response.setBiexponentialFitCoefficients(new double[] {
+					biexponentialFitData.getV0(),
+					biexponentialFitData.getT0(),
+					biexponentialFitData.getA1(),
+					biexponentialFitData.getA2(),
+					biexponentialFitData.getTau1(),
+					biexponentialFitData.getTau2()
+			});
 		}
 		
 		return anaerobicAlacticEnergy;
