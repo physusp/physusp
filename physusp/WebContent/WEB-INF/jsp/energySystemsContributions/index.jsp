@@ -32,21 +32,21 @@
 							<label class="control-label"> <input type="checkbox"
 								id="parameters.calculateAerobic"
 								name="parameters.calculateAerobic" value="true" 
-								data-tab="aerobic" checked /> Aerobic System
+								data-tab="aerobic" /> Aerobic System
 							</label>
 						</div>
 						<div class="checkbox">
 							<label class="control-label"> <input type="checkbox"
 								id="parameters.calculateAnaerobicLactic"
 								name="parameters.calculateAnaerobicLactic" value="true"
-								data-tab="anaerobicLactic" checked /> Anaerobic Lactic System
+								data-tab="anaerobicLactic" /> Anaerobic Lactic System
 							</label>
 						</div>
 						<div class="checkbox">
 							<label class="control-label"> <input type="checkbox"
 								id="parameters.calculateAnaerobicLactic"
 								name="parameters.calculateAnaerobicAlactic" value="true"
-								data-tab="anaerobicAlactic" checked /> Anaerobic Alactic System
+								data-tab="anaerobicAlactic" /> Anaerobic Alactic System
 							</label>
 						</div>
 						<div id="validateSystems">
@@ -58,23 +58,23 @@
 
 				<div id="aerobic" class="tab-pane">
 					<div id="restData" class="col-sm-6">
-						<label>How would you like to determine the rest O<sub>2</sub> consumption?</label>
+						<label class="title-area">Rest VO<sub>2</sub></label>
 						<div class="radio">
 							<label class="control-label">
 								<input type="radio" name="restOxygenParameters.calculateMethod" value="ignore" />
-								I want to ignore the rest O<sub>2</sub> consumption
+								Ignore rest VO<sub>2</sub>
 							</label>
 						</div>
 						<div class="radio">
 							<label class="control-label">
 								<input type="radio" name="restOxygenParameters.calculateMethod" value="series" checked />
-								I have a table with values
+								Measured values
 							</label>
 						</div>
 						<div class="radio">
 							<label class="control-label">
 								<input type="radio" name="restOxygenParameters.calculateMethod" value="fixed" />
-								I want to use a fixed value
+								Fixed value
 							</label>
 						</div>
 						
@@ -83,13 +83,13 @@
 								<div id="oxygenConsumptionRest"></div>
 							</div>
 							<div class="form-group" id="aerobicRestAvg">
-								<label class="control-label">Rest O<sub>2</sub> consumption <strong>(ml/min)</strong></label>
+								<label class="control-label">Rest VO<sub>2</sub> <strong>(ml/min)</strong></label>
 								<input type="text" id="restOxygenParameters.fixedValue" name="restOxygenParameters.fixedValue" class="form-control" />
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<label>O<sub>2</sub> consumption during exercise</label>
+						<label class="title-area">Exercise VO<sub>2</sub></label>
 						<div id="oxygenConsumptionDuringExercise"></div>
 					</div>
 				</div>
@@ -101,31 +101,24 @@
 							<input type="text" id="anaerobicLacticParameters.weight" name="anaerobicLacticParameters.weight" class="form-control" />
 						</div>
 						<div class="form-group">
-							<label class="control-label">Rest <strong>(mmol/L)</strong></label>
-							<input type="text" id="anaerobicLacticParameters.restLactateConcentration" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
-						</div>
-						<div class="form-group">
 							<label class="control-label">Peak <strong>(mmol/L)</strong></label>
 							<input type="text" id="anaerobicLacticParameters.maxLactateConcentration" name="anaerobicLacticParameters.maxLactateConcentration" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Rest <strong>(mmol/L)</strong></label>
+							<input type="text" id="anaerobicLacticParameters.restLactateConcentration" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
 						</div>
 					</div>
 				</div>
 
 				<div id="anaerobicAlactic" class="tab-pane">
-					<div class="col-sm-12">
-						<label class="control-label">Recovery</label>
-					</div>
 					<div class="col-sm-6">
-						<div class="form-group">
-							<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
-						</div>
-					</div>
-
-					<div class="col-sm-6">
+						<label class="title-area">Recovery</label>
 						<div>
-							<label class="control-label"> <input type="radio"
-								name="anaerobicAlacticParameters.exponentialType" value="1"
-								checked /> Monoexponential
+							<label class="control-label"> 
+								<input type="radio"
+									name="anaerobicAlacticParameters.exponentialType" value="1"
+									checked /> Monoexponential
 							</label>
 						</div>
 						<div>
@@ -141,17 +134,20 @@
 							</label>
 						</div>
 
-						<!-- opções avançadas -->
-						<div id="TimeDelayDiv" class="form-group" style="display: none">
-							<label class="col-sm-4 control-label">Time delay <strong>(s)</strong></label>
-							<div class="col-sm-4">
-								<input type="text"
-									id="anaerobicAlacticParameters.timeDelayPost"
-									name="anaerobicAlacticParameters.timeDelayPost"
-									class="form-control" />
+						<div class="col-sm-12">
+							<div id="TimeDelayDiv" class="form-group" style="display: none">
+								<label class="control-label">Time delay <strong>(s)</strong></label>
+								<div>
+									<input type="text"
+										id="anaerobicAlacticParameters.timeDelayPost"
+										name="anaerobicAlacticParameters.timeDelayPost"
+										class="form-control" />
+								</div>
 							</div>
 						</div>
-
+						<div class="form-group">
+							<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
+						</div>
 					</div>
 				</div>
 
