@@ -1,10 +1,12 @@
-package com.gedaeusp.domain;
+package com.gedaeusp.models;
 
-public class MonoexponentialFitData {
+public class BiexponentialFitData {
 	private double v0;
 	private double t0;
-	private double a;
-	private double tau;
+	private double a1;
+	private double a2;
+	private double tau1;
+	private double tau2;
 	private double rSquared;
 	private double[] expectedOxygenConsumption;
 	
@@ -20,17 +22,29 @@ public class MonoexponentialFitData {
 	public void setT0(double t0) {
 		this.t0 = t0;
 	}
-	public double getA() {
-		return a;
+	public double getA1() {
+		return a1;
 	}
-	public void setA(double a) {
-		this.a = a;
+	public void setA1(double a1) {
+		this.a1 = a1;
 	}
-	public double getTau() {
-		return tau;
+	public double getA2() {
+		return a2;
 	}
-	public void setTau(double tau) {
-		this.tau = tau;
+	public void setA2(double a2) {
+		this.a2 = a2;
+	}
+	public double getTau1() {
+		return tau1;
+	}
+	public void setTau1(double tau1) {
+		this.tau1 = tau1;
+	}
+	public double getTau2() {
+		return tau2;
+	}
+	public void setTau2(double tau2) {
+		this.tau2 = tau2;
 	}
 	public double getRSquared() {
 		return rSquared;
@@ -44,6 +58,7 @@ public class MonoexponentialFitData {
 	public void setExpectedOxygenConsumption(double[] expectedOxygenConsumption) {
 		this.expectedOxygenConsumption = expectedOxygenConsumption;
 	}
+	
 	
 	
 }

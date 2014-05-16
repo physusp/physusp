@@ -11,6 +11,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.math3.util.FastMath;
 import org.junit.Test;
 
+import com.gedaeusp.models.BiexponentialFitData;
+import com.gedaeusp.models.MonoexponentialFitData;
+
 public class AnaerobicAlacticCalculatorTest {
 
 	private static final double ERROR = 0.1;

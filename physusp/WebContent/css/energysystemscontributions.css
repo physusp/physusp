@@ -31,3 +31,8 @@ button {margin-top: 30px}
 	color: #f00;
 	float: left
 }
+
+#advancedResults {display: none; position: absolute; z-index: 1;
+	border: 1px #eee solid; border-radius: 10px; background-color: white; padding: 10px}
+
+#btnAdvancedResults:not(.active):focus {background-color: white} 

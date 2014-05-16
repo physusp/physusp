@@ -7,7 +7,9 @@ import java.util.LinkedHashMap;
 import com.gedaeusp.models.AerobicParameters;
 import com.gedaeusp.models.AnaerobicAlacticParameters;
 import com.gedaeusp.models.AnaerobicLacticParameters;
+import com.gedaeusp.models.BiexponentialFitData;
 import com.gedaeusp.models.EnergyConsumptionResponse;
+import com.gedaeusp.models.MonoexponentialFitData;
 import com.gedaeusp.models.RestOxygenParameters;
 
 public class EnergyConsumptionResponseBuilder {

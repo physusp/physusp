@@ -56,6 +56,7 @@
 				data.push(["anaerobicLactic", result.consumption.anaerobicLactic]);
 				data.push(["anaerobicAlactic", result.consumption.anaerobicAlactic]);
 				showChart(data);
+				showAdvancedResults(result);
 			}
 		});
 	}
@@ -105,6 +106,33 @@
 		$("#tabResults").show();
 		$('#tabResults a').tab('show');
 		$("#btnCalculate").hide();
+	}
+	
+	function showAdvancedResults(result) {
+		if ($("#parameters\\.calculateAnaerobicAlactic").is(":checked")) {
+			if ($("#monoexponential").is(":checked"))
+				$("#advancedResults").html(
+					"<p>" +
+						"<strong>v<sub>0</sub><strong>: " + result.consumption.monoexponentialFitCoefficients[0] + "<br>" +
+						"<strong>t<sub>0</sub><strong>: " + result.consumption.monoexponentialFitCoefficients[1] + "<br>" +
+						"<strong>A</strong>: " + result.consumption.monoexponentialFitCoefficients[2] + "<br>" +
+						"<strong>&tau;</strong>: " + result.consumption.monoexponentialFitCoefficients[3] + "<br>" +
+						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
+					"</p>"
+				);
+			else
+				$("#advancedResults").html(
+					"<p>" +
+						"<strong>v<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[0] + "<br>" +
+						"<strong>t<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[1] + "<br>" +
+						"<strong>A<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[2] + "<br>" +
+						"<strong>A<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[3] + "<br>" +
+						"<strong>&tau;<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[4] + "<br>" +
+						"<strong>&tau;<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[5] + "<br>" +
+						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
+					"</p>"
+				);
+		}
 	}
 	
 	function greaterThanZero(value, callback){
@@ -308,6 +336,13 @@
 				type: format,
 				filename: 'energy systems contributions ' + new Date()
 			});
+		});
+		
+		$("#btnAdvancedResults").click(function(){
+			$("#advancedResults").fadeToggle();
+			var button = $(this);
+			if (button.hasClass("active")) button.removeClass("active");
+			else button.addClass("active");
 		});
 		
 	});

@@ -44,7 +44,7 @@
 						</div>
 						<div class="checkbox">
 							<label class="control-label"> <input type="checkbox"
-								id="parameters.calculateAnaerobicLactic"
+								id="parameters.calculateAnaerobicAlactic"
 								name="parameters.calculateAnaerobicAlactic" value="true"
 								data-tab="anaerobicAlactic" checked /> Anaerobic Alactic System
 							</label>
@@ -123,13 +123,13 @@
 
 					<div class="col-sm-6">
 						<div>
-							<label class="control-label"> <input type="radio"
+							<label class="control-label"> <input type="radio" id="monoexponential"
 								name="anaerobicAlacticParameters.exponentialType" value="1"
 								checked /> Monoexponential
 							</label>
 						</div>
 						<div>
-							<label class="control-label"> <input type="radio"
+							<label class="control-label"> <input type="radio" id="biexponential"
 								name="anaerobicAlacticParameters.exponentialType" value="2" />
 								Biexponential
 							</label>
@@ -156,8 +156,31 @@
 				</div>
 
 				<div id="results" class="tab-pane">
-					<div id="containerChart"></div>
-					<div class="text-center">
+					<div id="containerChart" class="col-sm-8"></div>
+					<div class="col-sm-4">
+						<div id="other-units">
+							<table class="table">
+								<tr>
+									<td>Valor</td>
+									<td>Valor</td>
+									<td>Valor</td>
+								</tr>
+								<tr>
+									<td>Valor</td>
+									<td>Valor</td>
+									<td>Valor</td>
+								</tr>
+								<tr>
+									<td>Valor</td>
+									<td>Valor</td>
+									<td>Valor</td>
+								</tr>
+							</table>
+						</div>
+						<button id="btnAdvancedResults" type="button" class="btn btn-default">Advanced</button>
+						<div id="advancedResults"></div>
+					</div>
+					<div class="col-sm-12 text-center">
 						<button id="exp-jpg" type="button" class="exportButton btn btn-default btn-lg"
 							data-format="image/jpeg">Export to JPG</button>
 						<button id="exp-png" type="button" class="exportButton btn btn-default btn-lg"

@@ -2,6 +2,9 @@ package com.gedaeusp.domain;
 
 import java.util.List;
 
+import com.gedaeusp.models.BiexponentialFitData;
+import com.gedaeusp.models.MonoexponentialFitData;
+
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
