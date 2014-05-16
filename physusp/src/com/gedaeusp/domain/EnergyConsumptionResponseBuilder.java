@@ -28,7 +28,7 @@ public class EnergyConsumptionResponseBuilder {
 	
 	public EnergyConsumptionResponseBuilder addAnaerobicLactic(AnaerobicLacticParameters parameters){
 		UnitValue<EnergyUnit> anaerobicLacticEnergy = getAnaerobicLacticCalculator(parameters);
-		response.setAnaerobicLactic(anaerobicLacticEnergy.getValue(EnergyUnit.Kcal));
+		response.setAnaerobicLactic(anaerobicLacticEnergy);
 		return this;
 	}
 	
@@ -36,7 +36,7 @@ public class EnergyConsumptionResponseBuilder {
 		UnitValue<EnergyUnit> aerobicEnergy;
 		try {
 			aerobicEnergy = getAerobicCalculator(parameters, getRestOxygenConsumptionCalculator(restParameters));
-			response.setAerobic(aerobicEnergy.getValue(EnergyUnit.Kcal));
+			response.setAerobic(aerobicEnergy);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class EnergyConsumptionResponseBuilder {
 		try {
 			if(!parameters.isUseTimeDelay()) parameters.setTimeDelayPost(-1);
 			anaerobicAlacticEnergy = getAnaerobicAlacticCalculator(parameters, getRestOxygenConsumptionCalculator(restParameters));
-			response.setAnaerobicAlactic(anaerobicAlacticEnergy.getValue(EnergyUnit.Kcal));
+			response.setAnaerobicAlactic(anaerobicAlacticEnergy);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
