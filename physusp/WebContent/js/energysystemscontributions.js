@@ -82,6 +82,12 @@
 		});
 	}
 	
+	function convertTimeStringToSeconds(str)
+	{
+		var tt = str.split(":");
+		return ( tt[0] * 3600 + tt[1] * 60 + tt[2] * 1 ) * 1000;
+	}
+	
 	function showChart(data) {
 		
 		_chartOptions = {
@@ -136,25 +142,86 @@
 			if ($("#monoexponential").is(":checked"))
 				$("#advancedResults").html(
 					"<p>" +
-						"<strong>v<sub>0</sub><strong>: " + result.consumption.monoexponentialFitCoefficients[0] + "<br>" +
-						"<strong>t<sub>0</sub><strong>: " + result.consumption.monoexponentialFitCoefficients[1] + "<br>" +
-						"<strong>A</strong>: " + result.consumption.monoexponentialFitCoefficients[2] + "<br>" +
-						"<strong>&tau;</strong>: " + result.consumption.monoexponentialFitCoefficients[3] + "<br>" +
-						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
+						"<strong>v<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[0].toFixed(5) + "<br>" +
+						"<strong>t<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[1].toFixed(5) + "<br>" +
+						"<strong>A</strong>: " + result.consumption.monoexponentialFitCoefficients[2].toFixed(5) + "<br>" +
+						"<strong>&tau;</strong>: " + result.consumption.monoexponentialFitCoefficients[3].toFixed(5) + "<br>" +
+						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
 					"</p>"
 				);
 			else
 				$("#advancedResults").html(
 					"<p>" +
-						"<strong>v<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[0] + "<br>" +
-						"<strong>t<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[1] + "<br>" +
-						"<strong>A<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[2] + "<br>" +
-						"<strong>A<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[3] + "<br>" +
-						"<strong>&tau;<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[4] + "<br>" +
-						"<strong>&tau;<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[5] + "<br>" +
-						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
+						"<strong>v<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[0].toFixed(5) + "<br>" +
+						"<strong>t<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[1].toFixed(5) + "<br>" +
+						"<strong>A<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[2].toFixed(5) + "<br>" +
+						"<strong>A<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[3].toFixed(5) + "<br>" +
+						"<strong>&tau;<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[4].toFixed(5) + "<br>" +
+						"<strong>&tau;<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[5].toFixed(5) + "<br>" +
+						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
 					"</p>"
 				);
+			$("#advancedResults").append('<div id="advancedChart"></div>');
+			var input = $('#oxygenConsumptionPostExercise').handsontable('getData');
+			var series1 = [];
+			for(var i = 0 ; i < input.length ; i++) {
+				if (input[i][0] == null) break;
+				series1.push([convertTimeStringToSeconds(input[i][0]), input[i][1]]);
+			}
+			
+			var series2 = [];
+			for(var i = 0; i < series1.length; i++)
+				series2.push([series1[i][0],result.consumption.expectedOxygenConsumption[i]]);
+			
+			$("#advancedChart").highcharts({
+				chart: {
+					plotBackgroundColor: null,
+		            plotBorderWidth: null,
+		            plotShadow: false
+			    },
+			    title: {
+			        text: 'Exponential Fit'
+			    },
+			    plotOptions: {
+			    	line: {
+			    		marker: {
+			    			radius: 0
+			    		}
+			    	},
+			    	scatter: {
+			    		marker: {
+			    			radius: 2
+			    		}
+			    	}
+			    },
+		        exporting: {
+		        	buttons: {
+		        		contextButton: {
+		        			enabled: false
+		        		}
+		        	}
+		        },
+		        xAxis: {
+		        	type: "datetime",
+		        	title: {
+		        		text: "Time (minutes)"
+		        	},
+		        	dateTimeLabelFormats: {
+		        		minute: "%M"
+		        	}
+		        },
+		        yAxis: {
+		        	min: 0
+		        },
+		        series: [{
+		            data: series1,
+		            type: "scatter"
+		        },{
+		            data: series2,
+		            type: "line"
+		        }]
+			});
+			
 		}
 	}
 	
@@ -368,5 +435,10 @@
 			else button.addClass("active");
 		});
 		
+		Highcharts.setOptions({
+			lang: {
+		        numericSymbols: null
+		    }
+		});
 	});
 })();
