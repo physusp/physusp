@@ -159,16 +159,20 @@
 		            plotBorderWidth: null,
 		            plotShadow: false
 			    },
-			    plotOptions: {
-			    	line: {
-				    	lineWidth: 0,
-				    	marker: {
-				    		radius: 2
-				    	}
-			    	}
-			    },
 			    title: {
 			        text: 'Exponential Fit'
+			    },
+			    plotOptions: {
+			    	line: {
+			    		marker: {
+			    			radius: 0
+			    		}
+			    	},
+			    	scatter: {
+			    		marker: {
+			    			radius: 2
+			    		}
+			    	}
 			    },
 		        exporting: {
 		        	buttons: {
@@ -178,12 +182,23 @@
 		        	}
 		        },
 		        xAxis: {
-		        	type: "datetime"
+		        	type: "datetime",
+		        	title: {
+		        		text: "Time (minutes)"
+		        	},
+		        	dateTimeLabelFormats: {
+		        		minute: "%M"
+		        	}
+		        },
+		        yAxis: {
+		        	min: 0
 		        },
 		        series: [{
-		            data: series1
+		            data: series1,
+		            type: "scatter"
 		        },{
-		            data: series2
+		            data: series2,
+		            type: "line"
 		        }]
 			});
 			
@@ -400,5 +415,10 @@
 			else button.addClass("active");
 		});
 		
+		Highcharts.setOptions({
+			lang: {
+		        numericSymbols: null
+		    }
+		});
 	});
 })();
