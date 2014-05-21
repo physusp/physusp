@@ -64,6 +64,12 @@
 		});
 	}
 	
+	function convertTimeStringToSeconds(str)
+	{
+		var tt = str.split(":");
+		return ( tt[0] * 3600 + tt[1] * 60 + tt[2] * 1 ) * 1000;
+	}
+	
 	function showChart(data) {
 		
 		_chartOptions = {
@@ -116,8 +122,8 @@
 			if ($("#monoexponential").is(":checked"))
 				$("#advancedResults").html(
 					"<p>" +
-						"<strong>v<sub>0</sub><strong>: " + result.consumption.monoexponentialFitCoefficients[0] + "<br>" +
-						"<strong>t<sub>0</sub><strong>: " + result.consumption.monoexponentialFitCoefficients[1] + "<br>" +
+						"<strong>v<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[0] + "<br>" +
+						"<strong>t<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[1] + "<br>" +
 						"<strong>A</strong>: " + result.consumption.monoexponentialFitCoefficients[2] + "<br>" +
 						"<strong>&tau;</strong>: " + result.consumption.monoexponentialFitCoefficients[3] + "<br>" +
 						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
@@ -135,6 +141,52 @@
 						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
 					"</p>"
 				);
+			$("#advancedResults").append('<div id="advancedChart"></div>');
+			var input = $('#oxygenConsumptionPostExercise').handsontable('getData');
+			var series1 = [];
+			for(var i = 0 ; i < input.length ; i++) {
+				if (input[i][0] == null) break;
+				series1.push([convertTimeStringToSeconds(input[i][0]), input[i][1]]);
+			}
+			
+			var series2 = [];
+			for(var i = 0; i < series1.length; i++)
+				series2.push([series1[i][0],result.consumption.expectedOxygenConsumption[i]]);
+			
+			$("#advancedChart").highcharts({
+				chart: {
+					plotBackgroundColor: null,
+		            plotBorderWidth: null,
+		            plotShadow: false
+			    },
+			    plotOptions: {
+			    	line: {
+				    	lineWidth: 0,
+				    	marker: {
+				    		radius: 2
+				    	}
+			    	}
+			    },
+			    title: {
+			        text: 'Exponential Fit'
+			    },
+		        exporting: {
+		        	buttons: {
+		        		contextButton: {
+		        			enabled: false
+		        		}
+		        	}
+		        },
+		        xAxis: {
+		        	type: "datetime"
+		        },
+		        series: [{
+		            data: series1
+		        },{
+		            data: series2
+		        }]
+			});
+			
 		}
 	}
 	

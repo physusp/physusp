@@ -174,7 +174,8 @@
 							</table>
 						</div>
 						<button id="btnAdvancedResults" type="button" class="btn btn-default">Advanced</button>
-						<div id="advancedResults"></div>
+						<div id="advancedResults">
+						</div>
 					</div>
 					<div class="col-sm-12 text-center">
 						<button id="exp-jpg" type="button" class="exportButton btn btn-default btn-lg"
