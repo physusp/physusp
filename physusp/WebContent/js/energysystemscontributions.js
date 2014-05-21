@@ -52,9 +52,12 @@
 			data: formData,
 			success: function(result){
 				var data = [];
-				data.push(["aerobic", result.consumption.aerobic]);
-				data.push(["anaerobicLactic", result.consumption.anaerobicLactic]);
-				data.push(["anaerobicAlactic", result.consumption.anaerobicAlactic]);
+				if(typeof(result.consumption.aerobic) != "undefined")
+					data.push(["aerobic", parseFloat(result.consumption.aerobic.Kcal)]);
+				if(typeof(result.consumption.anaerobicLactic) != "undefined")
+					data.push(["anaerobicLactic", parseFloat(result.consumption.anaerobicLactic.Kcal)]);
+				if(typeof(result.consumption.anaerobicAlactic) != "undefined")
+					data.push(["anaerobicAlactic", parseFloat(result.consumption.anaerobicAlactic.Kcal)]);
 				showChart(data);
 				showAdvancedResults(result);
 			}

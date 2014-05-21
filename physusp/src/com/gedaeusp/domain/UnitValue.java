@@ -21,4 +21,8 @@ public class UnitValue<T extends Unit> {
 	public T getUnit(){
 		return unit;
 	}
+
+	public double getValue(Object expectedUnit) {
+		return getValue((T)expectedUnit);
+	}
 }
