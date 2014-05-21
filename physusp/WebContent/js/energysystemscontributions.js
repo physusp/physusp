@@ -122,23 +122,23 @@
 			if ($("#monoexponential").is(":checked"))
 				$("#advancedResults").html(
 					"<p>" +
-						"<strong>v<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[0] + "<br>" +
-						"<strong>t<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[1] + "<br>" +
-						"<strong>A</strong>: " + result.consumption.monoexponentialFitCoefficients[2] + "<br>" +
-						"<strong>&tau;</strong>: " + result.consumption.monoexponentialFitCoefficients[3] + "<br>" +
-						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
+						"<strong>v<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[0].toFixed(5) + "<br>" +
+						"<strong>t<sub>0</sub></strong>: " + result.consumption.monoexponentialFitCoefficients[1].toFixed(5) + "<br>" +
+						"<strong>A</strong>: " + result.consumption.monoexponentialFitCoefficients[2].toFixed(5) + "<br>" +
+						"<strong>&tau;</strong>: " + result.consumption.monoexponentialFitCoefficients[3].toFixed(5) + "<br>" +
+						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
 					"</p>"
 				);
 			else
 				$("#advancedResults").html(
 					"<p>" +
-						"<strong>v<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[0] + "<br>" +
-						"<strong>t<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[1] + "<br>" +
-						"<strong>A<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[2] + "<br>" +
-						"<strong>A<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[3] + "<br>" +
-						"<strong>&tau;<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[4] + "<br>" +
-						"<strong>&tau;<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[5] + "<br>" +
-						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared + "<br>" +
+						"<strong>v<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[0].toFixed(5) + "<br>" +
+						"<strong>t<sub>0</sub></strong>: " + result.consumption.biexponentialFitCoefficients[1].toFixed(5) + "<br>" +
+						"<strong>A<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[2].toFixed(5) + "<br>" +
+						"<strong>A<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[3].toFixed(5) + "<br>" +
+						"<strong>&tau;<sub>1</sub></strong>: " + result.consumption.biexponentialFitCoefficients[4].toFixed(5) + "<br>" +
+						"<strong>&tau;<sub>2</sub></strong>: " + result.consumption.biexponentialFitCoefficients[5].toFixed(5) + "<br>" +
+						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
 					"</p>"
 				);
 			$("#advancedResults").append('<div id="advancedChart"></div>');
