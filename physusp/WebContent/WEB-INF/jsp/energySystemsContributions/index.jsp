@@ -152,37 +152,52 @@
 				</div>
 
 				<div id="results" class="tab-pane">
-					<div id="containerChart" class="col-sm-8"></div>
-					<div class="col-sm-4">
+					<div id="chart" class="col-sm-6">
+						<div id="containerChart"></div>
+						<div class="col-sm-12 text-center">
+							<button id="exp-jpg" type="button" class="exportButton btn btn-default btn-lg"
+								data-format="image/jpeg">Export to JPG</button>
+							<button id="exp-png" type="button" class="exportButton btn btn-default btn-lg"
+								data-format="image/png">Export to PNG</button>
+							<button id="exp-svg" type="button" class="exportButton btn btn-default btn-lg"
+								data-format="image/svg+xml">Export to SVG</button>
+						</div>
+					</div>
+					<div class="col-sm-6">
 						<div id="other-units">
 							<table class="table">
-								<tr>
-									<td>Valor</td>
-									<td>Valor</td>
-									<td>Valor</td>
-								</tr>
-								<tr>
-									<td>Valor</td>
-									<td>Valor</td>
-									<td>Valor</td>
-								</tr>
-								<tr>
-									<td>Valor</td>
-									<td>Valor</td>
-									<td>Valor</td>
-								</tr>
+								<thead>
+									<tr>
+										<th>Systems</th>
+										<th>Kcal</th>
+										<th>kJ</th>
+										<th>LO<sub>2</sub></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id="aerobicRow" class="hide">
+										<td>Aerobic</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="anaerobicLacticRow" class="hide">
+										<td>Anaerobic Lactic</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="anaerobicAlacticRow" class="hide">
+										<td>Anaerobic Alactic</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
 							</table>
 						</div>
 						<button id="btnAdvancedResults" type="button" class="btn btn-default">Advanced</button>
 						<div id="advancedResults"></div>
-					</div>
-					<div class="col-sm-12 text-center">
-						<button id="exp-jpg" type="button" class="exportButton btn btn-default btn-lg"
-							data-format="image/jpeg">Export to JPG</button>
-						<button id="exp-png" type="button" class="exportButton btn btn-default btn-lg"
-							data-format="image/png">Export to PNG</button>
-						<button id="exp-svg" type="button" class="exportButton btn btn-default btn-lg"
-							data-format="image/svg+xml">Export to SVG</button>
 					</div>
 				</div>
 			</div>

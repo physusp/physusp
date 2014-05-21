@@ -51,3 +51,15 @@ button {margin-top: 30px}
 	padding-top: 1px
 }
 
+#other-units thead th {
+	background-color: #ccc;
+	color: #000
+}
+
+#other-units tbody tr td:first-child {
+	font-weight: bold
+}
+
+.exportButton {
+	margin-top: 5px;
+}

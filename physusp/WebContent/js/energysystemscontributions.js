@@ -52,12 +52,30 @@
 			data: formData,
 			success: function(result){
 				var data = [];
-				if(typeof(result.consumption.aerobic) != "undefined")
-					data.push(["aerobic", parseFloat(result.consumption.aerobic.Kcal)]);
-				if(typeof(result.consumption.anaerobicLactic) != "undefined")
-					data.push(["anaerobicLactic", parseFloat(result.consumption.anaerobicLactic.Kcal)]);
-				if(typeof(result.consumption.anaerobicAlactic) != "undefined")
-					data.push(["anaerobicAlactic", parseFloat(result.consumption.anaerobicAlactic.Kcal)]);
+				if(typeof(result.consumption.aerobic) != "undefined"){
+					data.push(["Aerobic", parseFloat(result.consumption.aerobic.Kcal)]);
+					var aerobicRow = $("#aerobicRow");
+					aerobicRow.removeClass("hide");
+					aerobicRow.find("td:nth-of-type(2)").text(parseFloat(result.consumption.aerobic.Kcal).toFixed(2));
+					aerobicRow.find("td:nth-of-type(3)").text(parseFloat(result.consumption.aerobic.KJ).toFixed(2));
+					aerobicRow.find("td:nth-of-type(4)").text(parseFloat(result.consumption.aerobic.LO2).toFixed(2));
+				}
+				if(typeof(result.consumption.anaerobicLactic) != "undefined"){
+					data.push(["Anaerobic Lactic", parseFloat(result.consumption.anaerobicLactic.Kcal)]);
+					var anaerobicLacticRow = $("#anaerobicLacticRow");
+					anaerobicLacticRow.removeClass("hide");
+					anaerobicLacticRow.find("td:nth-of-type(2)").text(parseFloat(result.consumption.anaerobicLactic.Kcal).toFixed(2));
+					anaerobicLacticRow.find("td:nth-of-type(3)").text(parseFloat(result.consumption.anaerobicLactic.KJ).toFixed(2));
+					anaerobicLacticRow.find("td:nth-of-type(4)").text(parseFloat(result.consumption.anaerobicLactic.LO2).toFixed(2));
+				}
+				if(typeof(result.consumption.anaerobicAlactic) != "undefined"){
+					data.push(["Anaerobic Alactic", parseFloat(result.consumption.anaerobicAlactic.Kcal)]);
+					var anaerobicAlacticRow = $("#anaerobicAlacticRow");
+					anaerobicAlacticRow.removeClass("hide");
+					anaerobicAlacticRow.find("td:nth-of-type(2)").text(parseFloat(result.consumption.anaerobicAlactic.Kcal).toFixed(2));
+					anaerobicAlacticRow.find("td:nth-of-type(3)").text(parseFloat(result.consumption.anaerobicAlactic.KJ).toFixed(2));
+					anaerobicAlacticRow.find("td:nth-of-type(4)").text(parseFloat(result.consumption.anaerobicAlactic.LO2).toFixed(2));
+				}
 				showChart(data);
 				showAdvancedResults(result);
 			}
@@ -84,10 +102,12 @@
 	                cursor: 'pointer',
 	                dataLabels: {
 	                    enabled: true,
-	                    color: '#000000',
-	                    connectorColor: '#000000',
-	                    format: '<b>{point.name}</b>: {point.percentage:.1f} % ({point.y:.1f} kcal)'
-	                }
+	                    color: '#fff',
+	                    distance: -30,
+	                    format: '{point.percentage:.1f} %',
+	                    inside: true
+	                },
+	                showInLegend: true
 	            }
 	        },
 	        exporting: {
