@@ -187,6 +187,50 @@ public class AnaerobicAlacticCalculatorTest {
 		assertTrue("Error for estimated tau1 is too high", 1
 				- best[Biexponential.PARAM_tau1] / tau1 < ERROR);
 	}
+	
+	@Test
+	public void testBiexponentialCurveFitWithRSquared() {
+		double t0 = 5;
+		double v0 = 600;
+		double a1 = 1700;
+		double tau1 = 40;
+		double a2 = 200;
+		double tau2 = 140;
+
+		// Initialize points and baseline value
+		double[] expected = new double[600];
+		double[] t = new double[600];
+
+		Biexponential exp = new Biexponential(v0, t0, a1, a2, tau1, tau2);
+
+		System.out.println("Observed points:");
+		for (int i = 0; i < 600; i++) {
+			t[i] = i;
+			expected[i] = exp.value(i);
+			log.debug("(" + t[i] + ", " + expected[i] + ")");
+		}
+		
+		double[] init = fitter.guessBiexponentialInitialParameters(expected, t, v0, t0);
+		for (double d : init)
+			log.debug(d);
+		double[] best = fitter.doBiexponentialFit(expected, t, init);
+		
+		double vo2_obs = best[Biexponential.PARAM_v0];
+		double t0_obs  = best[Biexponential.PARAM_t0];
+		double a1_obs  = best[Biexponential.PARAM_a1];
+		double a2_obs  = best[Biexponential.PARAM_a2];
+		double tau1_obs= best[Biexponential.PARAM_tau1];
+		double tau2_obs= best[Biexponential.PARAM_tau2];
+				
+		double[] observed = new double[expected.length];
+		Biexponential obsBiexp = new Biexponential(vo2_obs, t0_obs, a1_obs, a2_obs, tau1_obs, tau2_obs);
+		for (int i = 0; i < 600; i++)
+			observed[i] = obsBiexp.value(t[i]);
+		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
+		double rSquared = rSquaredCalculator.calculate(observed, expected);
+		assertTrue(rSquared <= 1.0 + ERROR && rSquared >= 1.0 - ERROR);
+		log.debug("rSquared = " + rSquared);
+	}
 
 	/**
 	 * Simulate points in a curve, and then calculate the off-exercise energy in
