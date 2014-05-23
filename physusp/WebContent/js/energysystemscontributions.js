@@ -47,7 +47,10 @@
 	}
 	
 	function previousEnergySystem() {
-		$("#containerTabs").find("li.active").prevAll(".show:first").find("a").tab("show");
+		var tab = $("#containerTabs").find("li.active").prevAll(".show:first");
+		if (tab.attr("id") == "tabOptions")
+			$("#btnNext").off("click").click(setEnergySystems);
+		tab.find("a").tab("show");
 	}
 	
 	function calculateResults() {
