@@ -16,6 +16,7 @@ public class AnaerobicAlacticCalculator {
 	private final NonlinearCurveFitter fitter;
 	private double[] consumptionArray;
 	private double[] timesArray;
+	private double[] normalizedTimesArray;
 	private double timeDelay;
 	private UnitValue<FlowUnit> baselineOxygenVol;
 	
@@ -49,6 +50,11 @@ public class AnaerobicAlacticCalculator {
 			UnitValue<FlowUnit> baselineOxygenVol, double time) {
 		consumptionArray = toArray(consumption, FlowUnit.lPerSecond);
 		timesArray = toArray(times);
+		normalizedTimesArray = new double[timesArray.length];
+		for(int i = 0; i < timesArray.length; i++)
+		{
+			normalizedTimesArray[i] = timesArray[i]-timesArray[0];
+		}
 		timeDelay = time;
 		this.baselineOxygenVol = baselineOxygenVol;
 	}
@@ -56,11 +62,11 @@ public class AnaerobicAlacticCalculator {
 	public UnitValue<EnergyUnit> calculateEnergyWithBiexponential(BiexponentialFitData biexponentialFitData) {
 		// Guess the initial parameters for the curve fitting
 		double[] init = fitter.guessBiexponentialInitialParameters(
-				consumptionArray, timesArray,
+				consumptionArray, normalizedTimesArray,
 				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
 
 		// Do the biexponential fitting using the initial guessed parameters
-		double[] best = fitter.doBiexponentialFit(consumptionArray, timesArray, init);
+		double[] best = fitter.doBiexponentialFit(consumptionArray, normalizedTimesArray, init);
 		
 		double v0 = best[Biexponential.PARAM_v0];
 		double t0 = best[Biexponential.PARAM_t0];
@@ -77,14 +83,19 @@ public class AnaerobicAlacticCalculator {
 		biexponentialFitData.setTau2(tau2);
 		
 		Biexponential biexponentialCalculator = new Biexponential(v0, t0, a1, a2, tau1, tau2);
-		double[] expectedOxygenConsumption = new double[timesArray.length];
-		for (int i = 0; i < timesArray.length; i++)
-			expectedOxygenConsumption[i] = biexponentialCalculator.value(timesArray[i]);
+		double[] expectedOxygenConsumption = new double[normalizedTimesArray.length];
+		for (int i = 0; i < normalizedTimesArray.length; i++)
+			expectedOxygenConsumption[i] = biexponentialCalculator.value(normalizedTimesArray[i]);
 		biexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
 		
 		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
 		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumption);
 		biexponentialFitData.setRSquared(rSquared);
+		
+		for (int i = 0; i < normalizedTimesArray.length; i++)
+		{
+			expectedOxygenConsumption[i] *= 60000;
+		}
 		
 		return calculateEnergy(best[Biexponential.PARAM_a1], best[Biexponential.PARAM_tau1]);
 	}
@@ -92,12 +103,12 @@ public class AnaerobicAlacticCalculator {
 	public UnitValue<EnergyUnit> calculateEnergyWithMonoexponential(MonoexponentialFitData monoexponentialFitData){
 		// Guess the initial parameters for the curve fitting
 		double[] init = fitter.guessExponentialInitialParameters(
-				consumptionArray, timesArray,
+				consumptionArray, normalizedTimesArray,
 				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
 
 		// Do the monoexponential fitting using the initial guessed parameters
 		double[] best = fitter.doDelayedExponentialFit(consumptionArray,
-				timesArray, init);
+				normalizedTimesArray, init);
 
 		double v0 = best[DelayedExponential.PARAM_v0];
 		double t0 = best[DelayedExponential.PARAM_t0];
@@ -110,14 +121,19 @@ public class AnaerobicAlacticCalculator {
 		monoexponentialFitData.setTau(tau);
 		
 		DelayedExponential monoexponentialCalculator = new DelayedExponential(v0, a, tau, t0);
-		double[] expectedOxygenConsumption = new double[timesArray.length];
-		for (int i = 0; i < timesArray.length; i++)
-			expectedOxygenConsumption[i] = monoexponentialCalculator.value(timesArray[i]);
+		double[] expectedOxygenConsumption = new double[normalizedTimesArray.length];
+		for (int i = 0; i < normalizedTimesArray.length; i++)
+			expectedOxygenConsumption[i] = monoexponentialCalculator.value(normalizedTimesArray[i]);
 		monoexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
 		
 		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
 		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumption);
 		monoexponentialFitData.setRSquared(rSquared);
+		
+		for (int i = 0; i < normalizedTimesArray.length; i++)
+		{
+			expectedOxygenConsumption[i] = expectedOxygenConsumption[i]*60000;
+		}
 		
 		return calculateEnergy(best[DelayedExponential.PARAM_a], best[DelayedExponential.PARAM_tau]);
 	}
