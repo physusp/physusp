@@ -5,6 +5,7 @@ button {margin-top: 30px}
 .nav > li > a {padding: 10px 14px}
 #containerTabs li a {font-size: 20px; color: #bbb; height: 50px; border-top: 4px transparent solid}
 #containerTabs li.active a {color: black; border-top-color: green}
+#containerTabs li:not(.active) a:hover {background-color: inherit; cursor: default; border-color: transparent}
 #containerTabs li#tabResults.active a {border-top-color: red}
 	#tab_aerobic, #tab_anaerobicLactic, #tab_anaerobicAlactic, #tabResults {display: none}
 
@@ -15,8 +16,6 @@ button {margin-top: 30px}
 #controls {margin-top: 15px}
 	#controls button {margin-left: 25px}
 	#exp-svg, #exp-png, #exp-jpg {display: none}
-
-#btnCalculate {display: none}
 
 @media (min-width: 1200px) {
 	.container {width: 970px}
@@ -63,3 +62,5 @@ button {margin-top: 30px}
 .exportButton {
 	margin-top: 5px;
 }
+
+#btnPrevious {display: none}

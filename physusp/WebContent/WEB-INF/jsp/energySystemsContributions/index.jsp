@@ -11,17 +11,14 @@
 </head>
 <body>
 	<h1 class="text-center">Energy Systems Contributions</h1>
-	<form id="data" class="form-horizontal"
-		action="<c:url value="/calculate"/>">
+	<form id="data" class="form-horizontal" action="<c:url value="/calculate"/>">
 		<div class="container">
 			<ul id="containerTabs" class="nav nav-tabs">
-				<li id="tabOptions" class="active"><a href="#options" data-toggle="tab">Options</a></li>
-				<li id="tab_aerobic"><a href="#aerobic" data-toggle="tab">Aerobic</a></li>
-				<li id="tab_anaerobicLactic"><a href="#anaerobicLactic" data-toggle="tab">Anaerobic
-						Lactic</a></li>
-				<li id="tab_anaerobicAlactic"><a href="#anaerobicAlactic" data-toggle="tab">Anaerobic
-						Alactic</a></li>
-				<li id="tabResults"><a href="#results" data-toggle="tab">Results</a></li>
+				<li id="tabOptions" class="active show"><a href="#options">Options</a></li>
+				<li id="tab_aerobic"><a href="#aerobic">Aerobic</a></li>
+				<li id="tab_anaerobicLactic"><a href="#anaerobicLactic">Anaerobic Lactic</a></li>
+				<li id="tab_anaerobicAlactic"><a href="#anaerobicAlactic">Anaerobic Alactic</a></li>
+				<li id="tabResults"><a href="#results">Results</a></li>
 			</ul>
 
 			<div id="containerPanes" class="tab-content">
@@ -53,7 +50,6 @@
 							<label class="control-label"></label>
 						</div>
 					</div>
-					<button id="btnContinue" type="button" class="btn btn-lg btn-primary">Continue</button>
 				</div>
 
 				<div id="aerobic" class="tab-pane">
@@ -203,8 +199,8 @@
 				</div>
 			</div>
 
-			<button id="btnCalculate" type="submit"
-				class="btn btn-primary btn-lg">Calculate</button>
+			<button id="btnPrevious" type="button" class="btn btn-primary btn-lg">Previous</button>
+			<button id="btnNext" type="button" class="btn btn-primary btn-lg">Next</button>
 		</div>
 	</form>
 	<script type="text/javascript"

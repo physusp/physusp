@@ -29,11 +29,44 @@
 			$("#anaerobicAlactic").prepend(restData);
 		}
 		
-		$("#containerTabs").find("li.show").first().find("a").tab("show");
-		$("#btnCalculate").show();
+		$("#tabResults").addClass("show");
+		$("#containerTabs").find("li.show").eq(1).find("a").tab("show");
 		
 		$("#validateSystems").removeClass("has-error");
 		$("#validateSystems").find("label").text("");
+		
+		$("#btnNext").off("click").click(nextEnergySystem);
+	}
+	
+	function nextEnergySystem() {
+		var tab = $("#containerTabs").find("li.active").nextAll(".show:first");
+		if (tab.attr("id") == "tabResults")
+			calculateResults();
+		else
+			tab.find("a").tab("show");
+	}
+	
+	function previousEnergySystem() {
+		$("#containerTabs").find("li.active").prevAll(".show:first").find("a").tab("show");
+	}
+	
+	function calculateResults() {
+		var form = $("#data");
+		if(!form.valid()) return;
+		
+		var input = form.serialize();
+		var url = form.attr("action");
+		
+		var oxygenConsumptionRest = $('#oxygenConsumptionRest').handsontable('getData');
+		input += "&restOxygenParameters.oxygenConsumptionRest=" + prepareTableToSend(oxygenConsumptionRest);
+		
+		var oxygenConsumptionDuringExercise = $('#oxygenConsumptionDuringExercise').handsontable('getData');
+		input += "&aerobicParameters.oxygenConsumptionDuringExercise=" + prepareTableToSend(oxygenConsumptionDuringExercise);
+		
+		var oxygenConsumptionPostExercise = $('#oxygenConsumptionPostExercise').handsontable('getData');
+		input += "&anaerobicAlacticParameters.oxygenConsumptionPostExercise=" + prepareTableToSend(oxygenConsumptionPostExercise);
+		
+		sendFormData(url, input);
 	}
 	
 	function prepareTableToSend(tableRows){
@@ -82,8 +115,7 @@
 		});
 	}
 	
-	function convertTimeStringToSeconds(str)
-	{
+	function convertTimeStringToSeconds(str) {
 		var tt = str.split(":");
 		return ( tt[0] * 3600 + tt[1] * 60 + tt[2] * 1 ) * 1000;
 	}
@@ -252,6 +284,26 @@
 		return getRestOxygenCalculateMethod() == "fixed";
 	}
 	
+	function changeTab(e) {
+		var link = $(e.target), tabId = link.parent().attr("id");
+		if (tabId == "tabOptions")
+			$("#btnPrevious").hide();
+		else
+			$("#btnPrevious").show();
+		if (tabId == "tabResults") {
+			$("#btnNext").hide();
+			$("#containerChart").highcharts(_chartOptions);
+		}
+		else
+			$("#btnNext").show();
+		
+		$(link.attr("href")).find('.handsontable').each(function(index, element) {
+			for(var i = 0; i< 2; ++i) {
+				$(element).handsontable('render');
+			}
+		});
+	}
+	
 	$(function(){
 		
 		$.validator.addMethod("greaterThan", 
@@ -261,51 +313,10 @@
 				        || (Number(value) > Number($(params).val())); 
 				},'Must be greater than {0}.');
 		
-		$("#btnContinue").click(setEnergySystems);
+		$("#btnNext").click(setEnergySystems);
+		$("#btnPrevious").click(previousEnergySystem);
 		
-		$("#containerTabs a").click(function (e) {
-			e.preventDefault();
-			var link = $(this), tabId = link.parent().attr("id");
-			if (tabId == "tabOptions" || tabId == "tabResults")
-				$("#btnCalculate").hide();
-			else
-				$("#btnCalculate").show();
-			link.tab("show");
-		});
-		
-		$('#containerTabs a').on('shown.bs.tab', function (e) {
-			var $tab = $($(this).attr('href'));
-			$tab.find('.handsontable').each(function(index, element) {
-				for(var i = 0; i< 2; ++i) {
-					$(element).handsontable('render');
-				}
-			});
-			if ($tab.attr("id") == "results") {
-				$("#containerChart").highcharts(_chartOptions);
-			}
-		});
-		
-		$("#data").submit(function(){
-			
-			if(!$(this).valid())
-				return false;
-			
-			var input = $(this).serialize();
-			var url = $(this).attr("action");
-			
-			var oxygenConsumptionRest = $('#oxygenConsumptionRest').handsontable('getData');
-			input += "&restOxygenParameters.oxygenConsumptionRest=" + prepareTableToSend(oxygenConsumptionRest);
-			
-			var oxygenConsumptionDuringExercise = $('#oxygenConsumptionDuringExercise').handsontable('getData');
-			input += "&aerobicParameters.oxygenConsumptionDuringExercise=" + prepareTableToSend(oxygenConsumptionDuringExercise);
-			
-			var oxygenConsumptionPostExercise = $('#oxygenConsumptionPostExercise').handsontable('getData');
-			input += "&anaerobicAlacticParameters.oxygenConsumptionPostExercise=" + prepareTableToSend(oxygenConsumptionPostExercise);
-			
-			sendFormData(url, input);
-			
-			return false;
-		});
+		$("#containerTabs").find("a").on("shown.bs.tab", changeTab);
 		
 		$("#data").validate({
 			errorClass: "error",
