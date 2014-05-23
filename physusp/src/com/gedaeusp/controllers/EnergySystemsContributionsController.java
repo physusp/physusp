@@ -4,7 +4,6 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.restfulie.serialization.XStreamSerialize;
 import br.com.caelum.vraptor.view.Results;
 
 import com.gedaeusp.domain.EnergyConsumptionResponseBuilder;

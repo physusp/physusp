@@ -164,7 +164,6 @@ public class EnergyConsumptionResponseBuilder {
 		else {
 			BiexponentialFitData biexponentialFitData = new BiexponentialFitData();
 			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithBiexponential(biexponentialFitData);
-			//response.setExpectedOxygenConsumption(biexponentialFitData.get);
 			response.setExpectedOxygenConsumption(biexponentialFitData.getExpectedOxygenConsumption());
 			response.setRSquared(biexponentialFitData.getRSquared());
 			response.setBiexponentialFitCoefficients(new double[] {
