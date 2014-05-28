@@ -25,8 +25,9 @@ public class TimeSeriesParser<T extends Unit> {
 				int time = Time.convertDateToSeconds(data[0]);
 				result.put(time, new UnitValue<T>(Double.parseDouble(data[1]), unit));
 			}
-		} catch (NumberFormatException | IOException e) {
+		} catch (Exception e) {
 			log.error("Error reading file: " + e.getMessage());
+			throw new DomainException("Failed to read data points.");
 		}
 		return result;
 	}
