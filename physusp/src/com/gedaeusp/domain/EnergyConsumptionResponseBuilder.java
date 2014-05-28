@@ -152,13 +152,11 @@ public class EnergyConsumptionResponseBuilder {
 			MonoexponentialFitData monoexponentialFitData = new MonoexponentialFitData();
 			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithMonoexponential(monoexponentialFitData);
 			response.setExpectedOxygenConsumption(monoexponentialFitData.getExpectedOxygenConsumption());
-			response.setMonoexponentialFitCoefficients(new double[] {
-					monoexponentialFitData.getV0(),
-					monoexponentialFitData.getT0(),
-					monoexponentialFitData.getA(),
-					monoexponentialFitData.getTau()
-			});
 			response.setRSquared(monoexponentialFitData.getRSquared());
+			response.setV0(monoexponentialFitData.getV0());
+			response.setT0(monoexponentialFitData.getT0());
+			response.setA1(monoexponentialFitData.getA());
+			response.setTau1(monoexponentialFitData.getTau());
 		
 		}
 		else {
@@ -166,14 +164,12 @@ public class EnergyConsumptionResponseBuilder {
 			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithBiexponential(biexponentialFitData);
 			response.setExpectedOxygenConsumption(biexponentialFitData.getExpectedOxygenConsumption());
 			response.setRSquared(biexponentialFitData.getRSquared());
-			response.setBiexponentialFitCoefficients(new double[] {
-					biexponentialFitData.getV0(),
-					biexponentialFitData.getT0(),
-					biexponentialFitData.getA1(),
-					biexponentialFitData.getA2(),
-					biexponentialFitData.getTau1(),
-					biexponentialFitData.getTau2()
-			});
+			response.setV0(biexponentialFitData.getV0());
+			response.setT0(biexponentialFitData.getT0());
+			response.setA1(biexponentialFitData.getA1());
+			response.setA2(biexponentialFitData.getA2());
+			response.setTau1(biexponentialFitData.getTau1());
+			response.setTau2(biexponentialFitData.getTau2());
 		}
 		
 		return anaerobicAlacticEnergy;

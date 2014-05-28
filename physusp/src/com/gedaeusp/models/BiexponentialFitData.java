@@ -1,19 +1,22 @@
 package com.gedaeusp.models;
 
+import com.gedaeusp.domain.UnitValue;
+import com.gedaeusp.domain.VolumeUnit;
+
 public class BiexponentialFitData {
-	private double v0;
+	private UnitValue<VolumeUnit> v0;
 	private double t0;
-	private double a1;
-	private double a2;
+	private UnitValue<VolumeUnit> a1;
+	private UnitValue<VolumeUnit> a2;
 	private double tau1;
 	private double tau2;
 	private double rSquared;
-	private double[] expectedOxygenConsumption;
+	private UnitValue<VolumeUnit>[] expectedOxygenConsumption;
 	
-	public double getV0() {
+	public UnitValue<VolumeUnit> getV0() {
 		return v0;
 	}
-	public void setV0(double v0) {
+	public void setV0(UnitValue<VolumeUnit> v0) {
 		this.v0 = v0;
 	}
 	public double getT0() {
@@ -22,16 +25,16 @@ public class BiexponentialFitData {
 	public void setT0(double t0) {
 		this.t0 = t0;
 	}
-	public double getA1() {
+	public UnitValue<VolumeUnit> getA1() {
 		return a1;
 	}
-	public void setA1(double a1) {
+	public void setA1(UnitValue<VolumeUnit> a1) {
 		this.a1 = a1;
 	}
-	public double getA2() {
+	public UnitValue<VolumeUnit> getA2() {
 		return a2;
 	}
-	public void setA2(double a2) {
+	public void setA2(UnitValue<VolumeUnit> a2) {
 		this.a2 = a2;
 	}
 	public double getTau1() {
@@ -52,13 +55,11 @@ public class BiexponentialFitData {
 	public void setRSquared(double rSquared) {
 		this.rSquared = rSquared;
 	}
-	public double[] getExpectedOxygenConsumption() {
+	public UnitValue<VolumeUnit>[] getExpectedOxygenConsumption() {
 		return expectedOxygenConsumption;
 	}
-	public void setExpectedOxygenConsumption(double[] expectedOxygenConsumption) {
+	public void setExpectedOxygenConsumption(UnitValue<VolumeUnit>[] expectedOxygenConsumption) {
 		this.expectedOxygenConsumption = expectedOxygenConsumption;
 	}
-	
-	
 	
 }

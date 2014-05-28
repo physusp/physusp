@@ -21,16 +21,28 @@ public class EnergyConsumptionResponse implements Serializable {
 	private UnitValue<EnergyUnit> anaerobicAlactic;
 	
 	@XStreamAlias("expectedOxygenConsumption")
-	private double[] expectedOxygenConsumption;
+	private UnitValue<VolumeUnit>[] expectedOxygenConsumption;
 	
 	@XStreamAlias("rSquared")
 	private double rSquared;
 	
-	@XStreamAlias("biexponentialFitCoefficients")
-	private double[] biexponentialFitCoefficients;
+	@XStreamAlias("v0")
+	private UnitValue<VolumeUnit> v0;
 	
-	@XStreamAlias("monoexponentialFitCoefficients")
-	private double[] monoexponentialFitCoefficients;
+	@XStreamAlias("t0")
+	private double t0;
+	
+	@XStreamAlias("a1")
+	private UnitValue<VolumeUnit> a1;
+	
+	@XStreamAlias("a2")
+	private UnitValue<VolumeUnit> a2;
+	
+	@XStreamAlias("tau1")
+	private double tau1;
+	
+	@XStreamAlias("tau2")
+	private double tau2;
 	
 	public UnitValue<EnergyUnit> getAerobic() {
 		return aerobic;
@@ -50,10 +62,10 @@ public class EnergyConsumptionResponse implements Serializable {
 	public void setAnaerobicAlactic(UnitValue<EnergyUnit> anaerobicAlactic) {
 		this.anaerobicAlactic = anaerobicAlactic;
 	}
-	public double[] getExpectedOxygenConsumption() {
+	public UnitValue<VolumeUnit>[] getExpectedOxygenConsumption() {
 		return expectedOxygenConsumption;
 	}
-	public void setExpectedOxygenConsumption(double[] expectedOxygenConsumption) {
+	public void setExpectedOxygenConsumption(UnitValue<VolumeUnit>[] expectedOxygenConsumption) {
 		this.expectedOxygenConsumption = expectedOxygenConsumption;
 	}
 	public double getRSquared() {
@@ -62,19 +74,41 @@ public class EnergyConsumptionResponse implements Serializable {
 	public void setRSquared(double rSquared) {
 		this.rSquared = rSquared;
 	}
-	public double[] getBiexponentialFitCoefficients() {
-		return biexponentialFitCoefficients;
+	public UnitValue<VolumeUnit> getV0() {
+		return v0;
 	}
-	public void setBiexponentialFitCoefficients(
-			double[] biexponentialFitCoefficients) {
-		this.biexponentialFitCoefficients = biexponentialFitCoefficients;
+	public void setV0(UnitValue<VolumeUnit> v0) {
+		this.v0 = v0;
 	}
-	public double[] getMonoexponentialFitCoefficients() {
-		return monoexponentialFitCoefficients;
+	public double getT0() {
+		return t0;
 	}
-	public void setMonoexponentialFitCoefficients(
-			double[] monoexponentialFitCoefficients) {
-		this.monoexponentialFitCoefficients = monoexponentialFitCoefficients;
+	public void setT0(double t0) {
+		this.t0 = t0;
+	}
+	public UnitValue<VolumeUnit> getA1() {
+		return a1;
+	}
+	public void setA1(UnitValue<VolumeUnit> a1) {
+		this.a1 = a1;
+	}
+	public UnitValue<VolumeUnit> getA2() {
+		return a2;
+	}
+	public void setA2(UnitValue<VolumeUnit> a2) {
+		this.a2 = a2;
+	}
+	public double getTau1() {
+		return tau1;
+	}
+	public void setTau1(double tau1) {
+		this.tau1 = tau1;
+	}
+	public double getTau2() {
+		return tau2;
+	}
+	public void setTau2(double tau2) {
+		this.tau2 = tau2;
 	}
 	
 }
