@@ -39,6 +39,8 @@
 	}
 	
 	function nextEnergySystem() {
+		if(!$("#data").valid()) return;
+		
 		var tab = $("#containerTabs").find("li.active").nextAll(".show:first");
 		if (tab.attr("id") == "tabResults")
 			calculateResults();
@@ -127,7 +129,6 @@
 	}
 	
 	function showChart(data) {
-		
 		_chartOptions = {
 			chart: {
 				plotBackgroundColor: null,
@@ -314,11 +315,10 @@
 	$(function(){
 		
 		$.validator.addMethod("greaterThan", 
-				function(value, element, params) {
-
-				    return isNaN(value) && isNaN($(params).val()) 
-				        || (Number(value) > Number($(params).val())); 
-				},'Must be greater than {0}.');
+			function(value, element, params) {
+			    return isNaN(value) && isNaN($(params).val()) 
+			        || (Number(value) > Number($(params).val())); 
+			},'Must be greater than {0}.');
 		
 		$("#btnNext").click(setEnergySystems);
 		$("#btnPrevious").click(previousEnergySystem);
@@ -350,7 +350,6 @@
 			},
 			messages:{
 				"anaerobicLacticParameters.weight": {
-					required: hasSelectedAnaerobicLactic,
 					min: "Please enter a value greater than or equal to 0."
 				},
 				"anaerobicLacticParameters.maxLactateConcentration": {
@@ -369,19 +368,16 @@
 		    height: 260,
 		    colWidths: [1, 1],
 		    stretchH: "all",
-		    columns: [
-        	  {
-        		  type: 'text',
-        		  validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
-        		  allowInvalid: false
-        	  },
-        	  { 	  	
-            	  type: 'numeric',
-            	  format: '0,0.00',
-            	  validator: greaterThanZero,
-            	  allowInvalid: false
-        	  },
-		    ]
+			columns: [{
+				type: 'text',
+				validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+				allowInvalid: false
+			}, { 	  	
+				type: 'numeric',
+				format: '0,0.00',
+				validator: greaterThanZero,
+				allowInvalid: false
+			}]
 		});
 		$('#oxygenConsumptionDuringExercise').handsontable({
 		    minSpareRows: 10,
@@ -391,19 +387,16 @@
 		    height: 260,
 		    colWidths: [1, 1],
 		    stretchH: "all",
-		    columns: [
-        	  {
-        		  type: 'text',
-        		  validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
-        		  allowInvalid: false
-        	  },
-        	  { 	  	
-            	  type: 'numeric',
-            	  format: '0,0.00',
-            	  validator: greaterThanZero,
-            	  allowInvalid: false
-        	  },
-		    ]
+		    columns: [{
+				type: 'text',
+				validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+				allowInvalid: false
+			}, { 	  	
+				type: 'numeric',
+				format: '0,0.00',
+				validator: greaterThanZero,
+				allowInvalid: false
+			}]
 		});
 		$('#oxygenConsumptionPostExercise').handsontable({
 		    minSpareRows: 10,
@@ -413,19 +406,16 @@
 		    height: 260,
 		    colWidths: [1, 1],
 		    stretchH: "all",
-		    columns: [
-        	  {
-        		  type: 'text',
-        		  validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
-        		  allowInvalid: false
-        	  },
-        	  { 	  	
-            	  type: 'numeric',
-            	  format: '0,0.00',
-            	  validator: greaterThanZero,
-            	  allowInvalid: false
-        	  },
-		    ]
+			columns: [{
+				type: 'text',
+				validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+				allowInvalid: false
+			}, { 	  	
+				type: 'numeric',
+				format: '0,0.00',
+				validator: greaterThanZero,
+				allowInvalid: false
+			}]
 		});
 		
 		$('#aerobic input:radio').change(function() {
