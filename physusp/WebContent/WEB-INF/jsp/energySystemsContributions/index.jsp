@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-<link rel="stylesheet" href="<c:url value="/css/lib/jquery.handsontable.full.css"/>" />
-<link rel="stylesheet" href="<c:url value="/css/energysystemscontributions.css"/>" />
-<title>PhysUSP - Energy Systems Contributions</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="<c:url value="/css/lib/jquery.handsontable.full.css"/>" />
+	<link rel="stylesheet" href="<c:url value="/css/energysystemscontributions.css"/>" />
+	<title>PhysUSP - Energy Systems Contributions</title>
 </head>
 <body>
 	<h1 class="text-center">Energy Systems Contributions</h1>
@@ -150,14 +150,6 @@
 				<div id="results" class="tab-pane">
 					<div id="chart" class="col-sm-6">
 						<div id="containerChart"></div>
-						<div class="col-sm-12 text-center">
-							<button id="exp-jpg" type="button" class="exportButton btn btn-default btn-lg"
-								data-format="image/jpeg">Export to JPG</button>
-							<button id="exp-png" type="button" class="exportButton btn btn-default btn-lg"
-								data-format="image/png">Export to PNG</button>
-							<button id="exp-svg" type="button" class="exportButton btn btn-default btn-lg"
-								data-format="image/svg+xml">Export to SVG</button>
-						</div>
 					</div>
 					<div class="col-sm-6">
 						<div id="other-units">
@@ -193,14 +185,29 @@
 							</table>
 						</div>
 						<button id="btnAdvancedResults" type="button" class="btn btn-default">Advanced</button>
-						<div id="advancedResults">
-						</div>
+						<div id="advancedResults"></div>
 					</div>
 				</div>
 			</div>
-
-			<button id="btnPrevious" type="button" class="btn btn-primary btn-lg">Previous</button>
-			<button id="btnNext" type="button" class="btn btn-primary btn-lg">Next</button>
+			
+			<div id="containerButtons">
+				<button id="btnPrevious" type="button" class="btn btn-primary btn-lg">Previous</button>
+				<button id="btnNext" type="button" class="btn btn-primary btn-lg">Next</button>
+				<div class="dropdown">
+					<button id="exportDropdown" type="button" data-toggle="dropdown" class="btn btn-default btn-lg">Export</button>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#" class="exportButton" data-format="image/jpeg">To JPG</a>
+						</li>
+						<li>
+							<a href="#" class="exportButton" data-format="image/png">To PNG</a>
+						</li>
+						<li>
+							<a href="#" class="exportButton" data-format="image/svg+xml">To SVG</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</form>
 	<script type="text/javascript"

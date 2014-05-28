@@ -54,6 +54,7 @@
 			$("#btnNext").off("click").click(setEnergySystems);
 		if ($("#advancedResults").css("display") == "block")
 			$("#btnAdvancedResults").click();
+		$("#exportDropdown").hide();
 		$("#btnAdvancedResults").hide();
 		tab.find("a").tab("show");
 	}
@@ -168,12 +169,9 @@
 	            data: data
 	        }]
 		};
-		$('#exp-svg').show();
-		$('#exp-png').show();
-		$('#exp-jpg').show();
+		$('#exportDropdown').show();
 		$("#tabResults").show();
 		$('#tabResults a').tab('show');
-		$("#btnCalculate").hide();
 	}
 	
 	function showAdvancedResults(result) {
@@ -254,10 +252,12 @@
 		        },
 		        series: [{
 		            data: series1,
-		            type: "scatter"
+		            type: "scatter",
+		            name: "Input"
 		        },{
 		            data: series2,
-		            type: "line"
+		            type: "line",
+		            name: "Exponential Fit"
 		        }]
 			});
 			
@@ -313,7 +313,6 @@
 	}
 	
 	$(function(){
-		
 		$.validator.addMethod("greaterThan", 
 			function(value, element, params) {
 			    return isNaN(value) && isNaN($(params).val()) 
