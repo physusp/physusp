@@ -123,7 +123,9 @@
 			}
 		})
 		.error(function (data) {
-			$("#modal-error").find("#error-content").text(data.responseJSON.exceptionInfo.message);
+			$("#modal-error").find("#error-content").text("");
+			if(typeof data.responseJSON !== "undefined")
+				$("#modal-error").find("#error-content").text(data.responseJSON.exceptionInfo.message);
 			$("#modal-error").modal("show");
 		});
 	}

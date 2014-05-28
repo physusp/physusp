@@ -5,7 +5,7 @@ public class ExceptionInfo {
 	private String message;
 	private String name;
 	
-	public ExceptionInfo(Exception ex) {
+	public ExceptionInfo(Throwable ex) {
 		this.name = ex.getClass().getName();
 		this.message = ex.getMessage();
 	}

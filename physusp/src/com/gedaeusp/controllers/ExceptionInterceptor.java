@@ -1,5 +1,6 @@
 package com.gedaeusp.controllers;
 
+import com.gedaeusp.domain.DomainException;
 import com.gedaeusp.domain.ExceptionInfo;
 
 import br.com.caelum.vraptor.InterceptionException;
@@ -27,9 +28,14 @@ public class ExceptionInterceptor implements Interceptor {
 		{
 			stack.next(method, resourceInstance);
 		}
-		catch(Exception ex){
+		catch(InterceptionException ex) {
 			result.use(Results.http()).setStatusCode(500);
-			result.use(Results.json()).from(new ExceptionInfo(ex)).serialize();
+			Throwable causeException = ex.getCause();
+			
+			if(causeException instanceof DomainException) {
+				result.use(Results.json()).from(new ExceptionInfo(causeException)).serialize();
+			}
+			else throw ex;
 		}
 	}
 
