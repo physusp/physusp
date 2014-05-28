@@ -121,6 +121,10 @@
 				showChart(data);
 				showAdvancedResults(result);
 			}
+		})
+		.error(function (data) {
+			$("#modal-error").find("#error-content").text(data.responseJSON.exceptionInfo.message);
+			$("#modal-error").modal("show");
 		});
 	}
 	
