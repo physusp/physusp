@@ -315,7 +315,23 @@
 		});
 	}
 	
+	
 	$(function(){
+		$.fn.warning = function (isValid, message) {
+			var field = this;
+			var warningTimeout = null;
+			
+			$(this).keyup(function () {
+				clearTimeout(warningTimeout);
+				warningTimeout = setTimeout(function() {
+					$(field).next("div.has-warning").remove();
+					if (!isValid(field)) {
+						$(field).after("<div class=\"has-warning\"><label class=\"control-label\">" + message + "</label></div>");
+					}
+				}, 500);
+			});
+		};
+		
 		$.validator.addMethod("greaterThan", 
 			function(value, element, params) {
 			    return isNaN(value) && isNaN($(params).val()) 
@@ -359,6 +375,10 @@
 				}
 			}
 		});
+		
+		$("#anaerobicLacticParameters\\.weight").warning(function(field) {
+			return ($(field).val() == "" || $(field).val() > 40);
+		}, "Weight value is too low?");
 		
 		var headers = ["Time <strong>(hh:mm:ss)</strong>", "VO<sub>2</sub> <strong>(ml/min)</strong>"];
 		
