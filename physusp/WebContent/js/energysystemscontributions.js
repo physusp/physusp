@@ -185,9 +185,9 @@
 			if ($("#monoexponential").is(":checked"))
 				$("#advancedResults").html(
 					"<p>" +
-						"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.ml).toFixed(5) + "<br>" +
+						"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
 						"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(5) + "<br>" +
-						"<strong>A</strong>: " + parseFloat(result.consumption.a1.ml).toFixed(5) + "<br>" +
+						"<strong>A</strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(5) + "<br>" +
 						"<strong>&tau;</strong>: " + result.consumption.tau1.toFixed(5) + "<br>" +
 						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
 					"</p>"
@@ -195,10 +195,10 @@
 			else
 				$("#advancedResults").html(
 					"<p>" +
-						"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.ml).toFixed(5) + "<br>" +
+						"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
 						"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(5) + "<br>" +
-						"<strong>A<sub>1</sub></strong>: " + parseFloat(result.consumption.a1.ml).toFixed(5) + "<br>" +
-						"<strong>A<sub>2</sub></strong>: " + parseFloat(result.consumption.a2.ml).toFixed(5) + "<br>" +
+						"<strong>A<sub>1</sub></strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(5) + "<br>" +
+						"<strong>A<sub>2</sub></strong>: " + parseFloat(result.consumption.a2.mlPerMinute).toFixed(5) + "<br>" +
 						"<strong>&tau;<sub>1</sub></strong>: " + result.consumption.tau1.toFixed(5) + "<br>" +
 						"<strong>&tau;<sub>2</sub></strong>: " + result.consumption.tau2.toFixed(5) + "<br>" +
 						"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
@@ -214,7 +214,7 @@
 			
 			var series2 = [];
 			for(var i = 0; i < series1.length; i++)
-				series2.push([series1[i][0], 60 * parseFloat(result.consumption.expectedOxygenConsumption[i].ml)]);
+				series2.push([series1[i][0], parseFloat(result.consumption.expectedOxygenConsumption[i].ml)]);
 			
 			$("#advancedChart").highcharts({
 				chart: {

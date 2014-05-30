@@ -69,12 +69,12 @@ public class AnaerobicAlacticCalculator {
 		double[] best = fitter.doBiexponentialFit(consumptionArray, normalizedTimesArray, init);
 		
 		double v0 = best[Biexponential.PARAM_v0];
-		UnitValue<VolumeUnit> _v0 = new UnitValue<VolumeUnit>(v0, VolumeUnit.l);
+		UnitValue<FlowUnit> _v0 = new UnitValue<FlowUnit>(v0, FlowUnit.lPerSecond);
 		double t0 = best[Biexponential.PARAM_t0];
 		double a1 = best[Biexponential.PARAM_a1];
-		UnitValue<VolumeUnit> _a1 = new UnitValue<VolumeUnit>(a1, VolumeUnit.l);
+		UnitValue<FlowUnit> _a1 = new UnitValue<FlowUnit>(a1, FlowUnit.lPerSecond);
 		double a2 = best[Biexponential.PARAM_a2];
-		UnitValue<VolumeUnit> _a2 = new UnitValue<VolumeUnit>(a2, VolumeUnit.l);
+		UnitValue<FlowUnit> _a2 = new UnitValue<FlowUnit>(a2, FlowUnit.lPerSecond);
 		double tau1 = best[Biexponential.PARAM_tau1];
 		double tau2 = best[Biexponential.PARAM_tau2];
 		
@@ -87,10 +87,10 @@ public class AnaerobicAlacticCalculator {
 		
 		Biexponential biexponentialCalculator = new Biexponential(v0, t0, a1, a2, tau1, tau2);
 		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length];
-		UnitValue<VolumeUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
+		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
 		for (int i = 0; i < normalizedTimesArray.length; i++) {
 			expectedOxygenConsumptionValues[i] = biexponentialCalculator.value(normalizedTimesArray[i]);
-			expectedOxygenConsumption[i] = new UnitValue<VolumeUnit>(expectedOxygenConsumptionValues[i], VolumeUnit.l);
+			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
 		}
 		biexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
 		
@@ -113,14 +113,13 @@ public class AnaerobicAlacticCalculator {
 				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
 
 		// Do the monoexponential fitting using the initial guessed parameters
-		double[] best = fitter.doDelayedExponentialFit(consumptionArray,
-				normalizedTimesArray, init);
+		double[] best = fitter.doDelayedExponentialFit(consumptionArray, normalizedTimesArray, init);
 
 		double v0 = best[DelayedExponential.PARAM_v0];
-		UnitValue<VolumeUnit> _v0 = new UnitValue<VolumeUnit>(v0, VolumeUnit.l);
+		UnitValue<FlowUnit> _v0 = new UnitValue<FlowUnit>(v0, FlowUnit.lPerSecond);
 		double t0 = best[DelayedExponential.PARAM_t0];
 		double a = best[DelayedExponential.PARAM_a];
-		UnitValue<VolumeUnit> _a = new UnitValue<VolumeUnit>(a, VolumeUnit.l);
+		UnitValue<FlowUnit> _a = new UnitValue<FlowUnit>(a, FlowUnit.lPerSecond);
 		double tau = best[DelayedExponential.PARAM_tau];
 
 		monoexponentialFitData.setV0(_v0);
@@ -130,10 +129,10 @@ public class AnaerobicAlacticCalculator {
 		
 		DelayedExponential monoexponentialCalculator = new DelayedExponential(v0, a, tau, t0);
 		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length];
-		UnitValue<VolumeUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
+		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
 		for (int i = 0; i < normalizedTimesArray.length; i++) {
 			expectedOxygenConsumptionValues[i] = monoexponentialCalculator.value(normalizedTimesArray[i]);
-			expectedOxygenConsumption[i] = new UnitValue<VolumeUnit>(expectedOxygenConsumptionValues[i], VolumeUnit.l);
+			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
 		}
 		monoexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
 		
