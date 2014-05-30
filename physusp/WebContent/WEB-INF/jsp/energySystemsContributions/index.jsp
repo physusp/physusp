@@ -57,12 +57,6 @@
 						<label class="title-area">Rest VO<sub>2</sub></label>
 						<div class="radio">
 							<label class="control-label">
-								<input type="radio" name="restOxygenParameters.calculateMethod" value="ignore" />
-								Ignore rest VO<sub>2</sub>
-							</label>
-						</div>
-						<div class="radio">
-							<label class="control-label">
 								<input type="radio" name="restOxygenParameters.calculateMethod" value="series" checked />
 								Measured values
 							</label>
@@ -71,6 +65,12 @@
 							<label class="control-label">
 								<input type="radio" name="restOxygenParameters.calculateMethod" value="fixed" />
 								Fixed value
+							</label>
+						</div>
+						<div class="radio">
+							<label class="control-label">
+								<input type="radio" name="restOxygenParameters.calculateMethod" value="ignore" />
+								Ignore rest VO<sub>2</sub>
 							</label>
 						</div>
 						
@@ -93,23 +93,23 @@
 				<div id="anaerobicLactic" class="tab-pane col-sm-12">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="control-label">Body Mass <strong>(kg)</strong></label>
-							<input type="text" id="anaerobicLacticParameters.weight" name="anaerobicLacticParameters.weight" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label class="control-label">Peak <strong>(mmol/L)</strong></label>
+							<label class="control-label">Peak Blood Lactate <strong>(mmol/L)</strong></label>
 							<input type="text" id="anaerobicLacticParameters.maxLactateConcentration" name="anaerobicLacticParameters.maxLactateConcentration" class="form-control" />
 						</div>
 						<div class="form-group">
-							<label class="control-label">Rest <strong>(mmol/L)</strong></label>
+							<label class="control-label">Rest Blood Lactate <strong>(mmol/L)</strong></label>
 							<input type="text" id="anaerobicLacticParameters.restLactateConcentration" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Body Mass <strong>(kg)</strong></label>
+							<input type="text" id="anaerobicLacticParameters.weight" name="anaerobicLacticParameters.weight" class="form-control" />
 						</div>
 					</div>
 				</div>
 
 				<div id="anaerobicAlactic" class="tab-pane">
 					<div class="col-sm-6">
-						<label class="title-area">Recovery</label>
+						<label class="title-area">Recovery VO<sub>2</sub></label>
 						<div>
 							<label class="control-label"> <input type="radio" id="monoexponential"
 								name="anaerobicAlacticParameters.exponentialType" value="1"

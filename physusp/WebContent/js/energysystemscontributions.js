@@ -142,9 +142,6 @@
 	            plotBorderWidth: null,
 	            plotShadow: false
 		    },
-		    title: {
-		        text: 'Energy system contributions'
-		    },
 		    tooltip: {
 		    	pointFormat: '{series.name}: <b>{point.y:.1f} kcal</b> <br/><b>{point.percentage:.1f}%</b>'
 		    },
@@ -214,7 +211,7 @@
 			
 			var series2 = [];
 			for(var i = 0; i < series1.length; i++)
-				series2.push([series1[i][0], parseFloat(result.consumption.expectedOxygenConsumption[i].ml)]);
+				series2.push([series1[i][0], parseFloat(result.consumption.expectedOxygenConsumption[i].mlPerMinute)]);
 			
 			$("#advancedChart").highcharts({
 				chart: {
