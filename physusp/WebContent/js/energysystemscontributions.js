@@ -338,6 +338,10 @@
 			        || (Number(value) > Number($(params).val())); 
 			},'Must be greater than {0}.');
 		
+		$.validator.addMethod("empty", function(value, element, params) {
+			return !params || value === "";
+		}, 'Element must be empty.');
+		
 		$("#btnNext").click(setEnergySystems);
 		$("#btnPrevious").click(previousEnergySystem);
 		
@@ -345,6 +349,7 @@
 		
 		$("#data").validate({
 			errorClass: "error",
+			ignore: ":hidden:not(#oxygenConsumptionRestError,#oxygenConsumptionDuringExerciseError,#oxygenConsumptionPostExerciseError)",
 			rules: {
 				"anaerobicAlacticParameters.timeDelayPost": {
 					required: function() { return $("#useTimeDelay").is(":checked"); }
@@ -364,7 +369,16 @@
 				"restOxygenParameters.fixedValue": {
 					required: function() { return (hasSelectedAerobic() || hasSelectedAnaerobicAlactic()) && isRestOxygenFixed(); },
 					min: 0
-				}
+				},
+				"oxygenConsumptionRestError": {
+					empty: function() { return (hasSelectedAerobic() || hasSelectedAnaerobicAlactic()); }
+				},
+				"oxygenConsumptionDuringExerciseError": {
+					empty: hasSelectedAerobic
+				},
+				"oxygenConsumptionPostExerciseError": {
+					empty: hasSelectedAnaerobicAlactic
+				}   
 			},
 			messages:{
 				"anaerobicLacticParameters.weight": {
@@ -372,7 +386,16 @@
 				},
 				"anaerobicLacticParameters.maxLactateConcentration": {
 					greaterThan: "Must be greater than rest concentration."
-				}
+				},
+				"oxygenConsumptionRestError": {
+					empty: "Table is empty."
+				},
+				"oxygenConsumptionDuringExerciseError": {
+					empty: "Table is empty."
+				},
+				"oxygenConsumptionPostExerciseError": {
+					empty: "Table is empty."
+				} 
 			}
 		});
 		
@@ -399,7 +422,16 @@
 				format: '0,0.00',
 				validator: greaterThanZero,
 				allowInvalid: false
-			}]
+			}],
+			afterChange: function() {
+				var errorOutput = $('#oxygenConsumptionRestError');
+				var data = this.getData();
+				if(data.length <= 10)
+					errorOutput.val("Table is empty.");
+				else
+					errorOutput.val("");
+				errorOutput.change();
+			}
 		});
 		$('#oxygenConsumptionDuringExercise').handsontable({
 		    minSpareRows: 10,
