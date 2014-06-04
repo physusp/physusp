@@ -322,6 +322,16 @@
 		$(element).handsontable('render');
 		$(element).handsontable('render');
 	}
+		
+	function validateSeries(data) {
+		var lastTime = "0";
+		for(var i = 0; i < data.length - 10; ++i) {
+			if(data[i][0] <= lastTime)
+				return false;
+			lastTime = data[i][0];
+		}
+		return true;
+	}
 	
 	$(function(){
 		$.fn.warning = function (isValid, message) {
@@ -439,6 +449,8 @@
 				var data = this.getData();
 				if(data.length <= 10)
 					errorOutput.val("Table is empty.");
+				else if(!validateSeries(data))
+					errorOutput.val("Table time series is not valid.");
 				else
 					errorOutput.val("");
 				$('#data').validate().element(errorOutput);
@@ -467,6 +479,8 @@
 				var data = this.getData();
 				if(data.length <= 10)
 					errorOutput.val("Table is empty.");
+				else if(!validateSeries(data))
+					errorOutput.val("Table time series is not valid.");
 				else
 					errorOutput.val("");
 				$('#data').validate().element(errorOutput);
@@ -495,6 +509,8 @@
 				var data = this.getData();
 				if(data.length <= 10)
 					errorOutput.val("Table is empty.");
+				else if(!validateSeries(data))
+					errorOutput.val("Table time series is not valid.");
 				else
 					errorOutput.val("");
 				$('#data').validate().element(errorOutput);
