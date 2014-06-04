@@ -437,7 +437,7 @@
 					errorOutput.val("Table is empty.");
 				else
 					errorOutput.val("");
-				errorOutput.change();
+				$('#data').validate().element(errorOutput);
 			}
 		});
 		$('#oxygenConsumptionDuringExercise').handsontable({
@@ -457,7 +457,16 @@
 				format: '0,0.00',
 				validator: greaterThanZero,
 				allowInvalid: false
-			}]
+			}],
+			afterChange: function() {
+				var errorOutput = $('#oxygenConsumptionDuringExerciseError');
+				var data = this.getData();
+				if(data.length <= 10)
+					errorOutput.val("Table is empty.");
+				else
+					errorOutput.val("");
+				$('#data').validate().element(errorOutput);
+			}
 		});
 		$('#oxygenConsumptionPostExercise').handsontable({
 		    minSpareRows: 10,
@@ -476,7 +485,16 @@
 				format: '0,0.00',
 				validator: greaterThanZero,
 				allowInvalid: false
-			}]
+			}],
+			afterChange: function() {
+				var errorOutput = $('#oxygenConsumptionPostExerciseError');
+				var data = this.getData();
+				if(data.length <= 10)
+					errorOutput.val("Table is empty.");
+				else
+					errorOutput.val("");
+				$('#data').validate().element(errorOutput);
+			}
 		});
 		
 		$('#aerobic input:radio').change(function() {
