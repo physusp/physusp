@@ -84,7 +84,8 @@
 						<div id="restData" class="col-sm-6">
 							<div id="aerobicRestTable">
 								<div id="oxygenConsumptionRest"></div>
-								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." />
+								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." 
+								 data-table="oxygenConsumptionRest" />
 							</div>
 							<div id="aerobicRestAvg">
 								<label class="control-label">Rest VO<sub>2</sub> <strong>(ml/min)</strong></label>
@@ -93,7 +94,8 @@
 						</div>
 						<div class="col-sm-6">
 							<div id="oxygenConsumptionDuringExercise"></div>
-							<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." />
+							<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
+								data-table="oxygenConsumptionDuringExercise"/>
 						</div>
 					</div>
 				</div>
@@ -155,7 +157,8 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
-								<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." />
+								<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." 
+									data-table="oxygenConsumptionPostExercise"/>
 							</div>
 						</div>
 					</div>
@@ -208,7 +211,9 @@
 				<button id="btnPrevious" type="button" class="btn btn-primary btn-lg">Previous</button>
 				<button id="btnNext" type="button" class="btn btn-primary btn-lg">Next</button>
 				<div class="dropdown">
-					<button id="exportDropdown" type="button" data-toggle="dropdown" class="btn btn-default btn-lg">Export</button>
+					<button id="exportDropdown" type="button" data-toggle="dropdown" class="btn btn-default btn-lg">
+						Export <span class="caret"></span>
+					</button>
 					<ul class="dropdown-menu">
 						<li>
 							<a href="#" class="exportButton" data-format="image/jpeg">To JPG</a>
@@ -227,16 +232,16 @@
 	<div id="modal-error" class="modal">
 		<div class="modal-dialog">
 		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title">The server returned an error.</h4>
-		      </div>
-		      <div class="modal-body">
-		        <p id="error-content"></p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-		      </div>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">The server returned an error.</h4>
+				</div>
+				<div class="modal-body">
+					<p id="error-content"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
 		    </div>
   		</div>
 	</div>

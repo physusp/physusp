@@ -346,6 +346,10 @@
 			},'Must be greater than {0}.');
 		
 		$.validator.addMethod("empty", function(value, element, params) {
+			var tableId = $(element).data("table");
+			var table = $("#" + tableId);
+			if(table.is(":hidden"))
+				return true;
 			return !params || value === "";
 		}, 'Element must be empty.');
 		
@@ -395,13 +399,13 @@
 					greaterThan: "Must be greater than rest concentration."
 				},
 				"oxygenConsumptionRestError": {
-					empty: "Table is empty."
+					empty: function() { return $("#oxygenConsumptionRestError").val(); }
 				},
 				"oxygenConsumptionDuringExerciseError": {
-					empty: "Table is empty."
+					empty: function() { return $("#oxygenConsumptionDuringExerciseError").val(); }
 				},
 				"oxygenConsumptionPostExerciseError": {
-					empty: "Table is empty."
+					empty: function() { return $("#oxygenConsumptionPostExerciseError").val(); }
 				} 
 			}
 		});
