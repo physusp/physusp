@@ -339,6 +339,10 @@
 			},'Must be greater than {0}.');
 		
 		$.validator.addMethod("empty", function(value, element, params) {
+			var tableId = $(element).data("table");
+			var table = $("#" + tableId);
+			if(table.is(":hidden"))
+				return true;
 			return !params || value === "";
 		}, 'Element must be empty.');
 		

@@ -77,7 +77,8 @@
 						<div class="col-sm-12">
 							<div class="form-group" id='aerobicRestTable'>
 								<div id="oxygenConsumptionRest"></div>
-								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." />
+								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." 
+								 data-table="oxygenConsumptionRest" />
 							</div>
 							<div class="form-group" id="aerobicRestAvg">
 								<label class="control-label">Rest VO<sub>2</sub> <strong>(ml/min)</strong></label>
@@ -88,7 +89,8 @@
 					<div class="col-sm-6">
 						<label class="title-area">Exercise VO<sub>2</sub></label>
 						<div id="oxygenConsumptionDuringExercise"></div>
-						<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." />
+						<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
+						data-table="oxygenConsumptionDuringExercise"/>
 					</div>
 				</div>
 
@@ -145,7 +147,8 @@
 						</div>
 						<div class="form-group">
 							<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
-							<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." />
+							<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." 
+							data-table="oxygenConsumptionPostExercise"/>
 						</div>
 					</div>
 				</div>
