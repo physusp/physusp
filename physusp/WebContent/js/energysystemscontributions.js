@@ -388,13 +388,13 @@
 					greaterThan: "Must be greater than rest concentration."
 				},
 				"oxygenConsumptionRestError": {
-					empty: "Table is empty."
+					empty: function() { return $("#oxygenConsumptionRestError").val(); }
 				},
 				"oxygenConsumptionDuringExerciseError": {
-					empty: "Table is empty."
+					empty: function() { return $("#oxygenConsumptionDuringExerciseError").val(); }
 				},
 				"oxygenConsumptionPostExerciseError": {
-					empty: "Table is empty."
+					empty: function() { return $("#oxygenConsumptionPostExerciseError").val(); }
 				} 
 			}
 		});
