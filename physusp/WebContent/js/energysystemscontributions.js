@@ -452,7 +452,7 @@
 				allowInvalid: false
 			}],
 			afterChange: function() {
-				var errorOutput = $('#oxygenConsumptionRestError');
+				var errorOutput = $('#oxygenConsumptionDuringExerciseError');
 				var data = this.getData();
 				if(data.length <= 10)
 					errorOutput.val("Table is empty.");
@@ -480,7 +480,7 @@
 				allowInvalid: false
 			}],
 			afterChange: function() {
-				var errorOutput = $('#oxygenConsumptionRestError');
+				var errorOutput = $('#oxygenConsumptionPostExerciseError');
 				var data = this.getData();
 				if(data.length <= 10)
 					errorOutput.val("Table is empty.");
