@@ -430,7 +430,7 @@
 					errorOutput.val("Table is empty.");
 				else
 					errorOutput.val("");
-				errorOutput.trigger('keyup');
+				$('#data').validate().element(errorOutput);
 			}
 		});
 		$('#oxygenConsumptionDuringExercise').handsontable({
@@ -458,7 +458,7 @@
 					errorOutput.val("Table is empty.");
 				else
 					errorOutput.val("");
-				errorOutput.trigger('keyup');
+				$('#data').validate().element(errorOutput);
 			}
 		});
 		$('#oxygenConsumptionPostExercise').handsontable({
@@ -486,7 +486,7 @@
 					errorOutput.val("Table is empty.");
 				else
 					errorOutput.val("");
-				errorOutput.trigger('keyup');
+				$('#data').validate().element(errorOutput);
 			}
 		});
 		
