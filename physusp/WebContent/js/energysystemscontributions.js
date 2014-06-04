@@ -21,12 +21,16 @@
 		}
 		
 		if ($("#tab_aerobic").hasClass("show")) {
-			var restData = $("#restData").detach();
-			$("#aerobic").prepend(restData);
+			var restOptions = $("#restOptions").detach(), 
+				restData = $("#restData").detach();
+			$("#aerobicFirstRow").prepend(restOptions);
+			$("#aerobicSecondRow").prepend(restData);
 		}
 		else if ($("#tab_anaerobicAlactic").hasClass("show")) {
-			var restData = $("#restData").detach();
-			$("#anaerobicAlactic").prepend(restData);
+			var restOptions = $("#restOptions").detach(), 
+				restData = $("#restData").detach();
+			$("#anaerobicAlacticFirstRow").prepend(restOptions);
+			$("#anaerobicAlacticSecondRow").prepend(restData);
 		}
 		
 		$("#tabResults").addClass("show");
@@ -308,13 +312,16 @@
 		else
 			$("#btnNext").show();
 		
-		$(link.attr("href")).find('.handsontable').each(function(index, element) {
-			for(var i = 0; i< 2; ++i) {
-				$(element).handsontable('render');
-			}
+		$(link.attr("href")).find('.handsontable').each(function() {
+			fixHandsontableLayout(this);
 		});
 	}
 	
+	function fixHandsontableLayout(element) {
+		/* A renderização só funciona após a segunda chamada... */
+		$(element).handsontable('render');
+		$(element).handsontable('render');
+	}
 	
 	$(function(){
 		$.fn.warning = function (isValid, message) {
@@ -475,6 +482,7 @@
 		$('#aerobic input:radio').change(function() {
 			$("#aerobicRestTable").toggle($(this).val() == "series");
 			$("#aerobicRestAvg").toggle($(this).val() == "fixed");
+			fixHandsontableLayout("#oxygenConsumptionRest");
 		});
 		
 		$('#useTimeDelay').change(function() {

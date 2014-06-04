@@ -16,9 +16,6 @@ label {font-weight: normal}
 	.container {width: 970px}
 }
 
-#aerobicRestTable {
-	margin-top: 15px
-}
 #aerobicRestAvg {display: none}
 
 .error {

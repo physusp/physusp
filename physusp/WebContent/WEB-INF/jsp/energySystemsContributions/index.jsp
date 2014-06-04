@@ -53,42 +53,48 @@
 				</div>
 
 				<div id="aerobic" class="tab-pane">
-					<div id="restData" class="col-sm-6">
-						<label class="title-area">Rest VO<sub>2</sub></label>
-						<div class="radio">
-							<label class="control-label">
-								<input type="radio" name="restOxygenParameters.calculateMethod" value="series" checked />
-								Measured values
-							</label>
+					<div id="aerobicFirstRow" class="row">
+						<div id="restOptions" class="col-sm-6">
+							<label class="title-area">Rest VO<sub>2</sub></label>
+							<div class="radio">
+								<label class="control-label">
+									<input type="radio" name="restOxygenParameters.calculateMethod" value="series" checked />
+									Measured values
+								</label>
+							</div>
+							<div class="radio">
+								<label class="control-label">
+									<input type="radio" name="restOxygenParameters.calculateMethod" value="fixed" />
+									Fixed value
+								</label>
+							</div>
+							<div class="radio">
+								<label class="control-label">
+									<input type="radio" name="restOxygenParameters.calculateMethod" value="ignore" />
+									Ignore rest VO<sub>2</sub>
+								</label>
+							</div>
 						</div>
-						<div class="radio">
-							<label class="control-label">
-								<input type="radio" name="restOxygenParameters.calculateMethod" value="fixed" />
-								Fixed value
-							</label>
+						<div class="col-sm-6">
+							<label class="title-area">Exercise VO<sub>2</sub></label>
 						</div>
-						<div class="radio">
-							<label class="control-label">
-								<input type="radio" name="restOxygenParameters.calculateMethod" value="ignore" />
-								Ignore rest VO<sub>2</sub>
-							</label>
-						</div>
-						
-						<div class="col-sm-12">
-							<div class="form-group" id='aerobicRestTable'>
+					</div>
+					
+					<div id="aerobicSecondRow" class="row">
+						<div id="restData" class="col-sm-6">
+							<div id="aerobicRestTable">
 								<div id="oxygenConsumptionRest"></div>
 								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." />
 							</div>
-							<div class="form-group" id="aerobicRestAvg">
+							<div id="aerobicRestAvg">
 								<label class="control-label">Rest VO<sub>2</sub> <strong>(ml/min)</strong></label>
 								<input type="text" id="restOxygenParameters.fixedValue" name="restOxygenParameters.fixedValue" class="form-control" />
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<label class="title-area">Exercise VO<sub>2</sub></label>
-						<div id="oxygenConsumptionDuringExercise"></div>
-						<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." />
+						<div class="col-sm-6">
+							<div id="oxygenConsumptionDuringExercise"></div>
+							<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." />
+						</div>
 					</div>
 				</div>
 
@@ -110,42 +116,47 @@
 				</div>
 
 				<div id="anaerobicAlactic" class="tab-pane">
-					<div class="col-sm-6">
-						<label class="title-area">Recovery VO<sub>2</sub></label>
-						<div>
-							<label class="control-label"> <input type="radio" id="monoexponential"
-								name="anaerobicAlacticParameters.exponentialType" value="1"
-								checked /> Monoexponential
-
-							</label>
-						</div>
-						<div>
-							<label class="control-label"> <input type="radio" id="biexponential"
-								name="anaerobicAlacticParameters.exponentialType" value="2" />
-								Biexponential
-							</label>
-						</div>
-
-						<div class="checkbox">
-							<label> <input
-								id="useTimeDelay" type="checkbox" name="anaerobicAlacticParameters.useTimeDelay" value="true"> Use custom time delay
-							</label>
-						</div>
-
-						<div class="col-sm-12">
-							<div id="TimeDelayDiv" class="form-group" style="display: none">
-								<label class="control-label">Time delay <strong>(s)</strong></label>
-								<div>
-									<input type="text"
-										id="anaerobicAlacticParameters.timeDelayPost"
-										name="anaerobicAlacticParameters.timeDelayPost"
-										class="form-control" />
+					<div id="anaerobicAlacticFirstRow" class="row">
+						<div class="col-sm-6">
+							<label class="title-area">Recovery VO<sub>2</sub></label>
+							<div>
+								<label class="control-label">
+									<input type="radio" id="monoexponential" name="anaerobicAlacticParameters.exponentialType" value="1" checked />
+									Monoexponential
+								</label>
+							</div>
+							<div>
+								<label class="control-label">
+									<input type="radio" id="biexponential" name="anaerobicAlacticParameters.exponentialType" value="2" />
+									Biexponential
+								</label>
+							</div>
+	
+							<div class="checkbox">
+								<label>
+									<input id="useTimeDelay" type="checkbox" name="anaerobicAlacticParameters.useTimeDelay" value="true" />
+									Use custom time delay
+								</label>
+							</div>
+							<div class="col-sm-12">
+								<div id="TimeDelayDiv" class="form-group" style="display: none">
+									<label class="control-label">Time delay <strong>(s)</strong></label>
+									<div>
+										<input type="text"
+											id="anaerobicAlacticParameters.timeDelayPost"
+											name="anaerobicAlacticParameters.timeDelayPost"
+											class="form-control" />
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
-							<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." />
+					</div>
+					<div id="anaerobicAlacticSecondRow" class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
+								<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." />
+							</div>
 						</div>
 					</div>
 				</div>
