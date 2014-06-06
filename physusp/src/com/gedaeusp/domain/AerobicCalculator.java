@@ -17,16 +17,6 @@ public class AerobicCalculator {
 	}
 	
 	public UnitValue<EnergyUnit> calculateEnergyConsumption(List<UnitValue<FlowUnit>> consumptionDuringExercise,
-			UnitValue<FlowUnit> restConsumption, List<Integer> time, List<Integer> restTime, UnitValue<WeightUnit> weight) {
-		UnitValue<VolumeUnit> oxygenConsumption = calculateOxygenConsumptionDuringExercise(consumptionDuringExercise,
-			restConsumption, time);
-		UnitValue<EnergyUnit> result;
-		double energy = (oxygenConsumption.getValue(VolumeUnit.l)/weight.getValue(WeightUnit.Kg))*5;
-		result = new UnitValue<EnergyUnit>(energy,EnergyUnit.Kcal);
-		return result;
-	}
-	
-	public UnitValue<EnergyUnit> calculateEnergyConsumption(List<UnitValue<FlowUnit>> consumptionDuringExercise,
 			UnitValue<FlowUnit> restConsumption, List<Integer> time) {
 		UnitValue<VolumeUnit> oxygenConsumption = calculateOxygenConsumptionDuringExercise(consumptionDuringExercise,
 				restConsumption, time);

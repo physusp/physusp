@@ -15,15 +15,14 @@ import com.gedaeusp.models.RestOxygenParameters;
 public class EnergyConsumptionResponseBuilder {
 
 	private EnergyConsumptionResponse response;
-	public EnergyConsumptionResponse getResponse() {
-		return response;
-	}
-
-
 	private RestOxygenConsumptionCalculator restOxygenConsumptionCalculator;
 	
 	public EnergyConsumptionResponseBuilder(){
 		response = new EnergyConsumptionResponse();
+	}
+	
+	public EnergyConsumptionResponse getResponse() {
+		return response;
 	}
 	
 	public EnergyConsumptionResponseBuilder addAnaerobicLactic(AnaerobicLacticParameters parameters){
