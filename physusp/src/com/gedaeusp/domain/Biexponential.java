@@ -64,8 +64,7 @@ public class Biexponential implements UnivariateDifferentiableFunction {
 	}
 
 	@Override
-	public DerivativeStructure value(DerivativeStructure t)
-			throws MathIllegalArgumentException {
+	public DerivativeStructure value(DerivativeStructure t) throws MathIllegalArgumentException {
 		return t.exp();
 	}
 
