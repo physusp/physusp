@@ -1,6 +1,7 @@
 package com.gedaeusp.domain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -21,6 +22,19 @@ public class TimeSeriesParserTest {
 		LinkedHashMap<Integer, UnitValue<FlowUnit>> series = null;
 		try {
 			series = parser.parse("", FlowUnit.lPerMinute);
+		} catch (ParseException e) {
+			fail();
+		}
+		assertEquals(0, series.keySet().size());
+		assertEquals(0, series.values().size());
+	}
+
+	@Test
+	public void canReadBlankSeries(){
+		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
+		LinkedHashMap<Integer, UnitValue<FlowUnit>> series = null;
+		try {
+			series = parser.parse(" ", FlowUnit.lPerMinute);
 		} catch (ParseException e) {
 			fail();
 		}
@@ -68,5 +82,91 @@ public class TimeSeriesParserTest {
 			fail();
 		}
 	}
+
+	@Test
+	public void canReadNullSeries(){
+		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
+		LinkedHashMap<Integer, UnitValue<FlowUnit>> series = null;
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("null,\n")
+				.append("null,null\n")
+				.append(",null\n")
+				.append(" ,\n")
+				.append(", \n")
+				.append("00:00:01, \n")
+				.append("00:00:01,null\n");
+			series = parser.parse(sb.toString(), FlowUnit.lPerMinute);
+		} catch (ParseException e) {
+			fail();
+		}
+		assertEquals(0, series.keySet().size());
+		assertEquals(0, series.values().size());
+	}
 	
+	@Test
+	public void testWithGoodAndBadData(){
+		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
+		LinkedHashMap<Integer, UnitValue<FlowUnit>> series = null;
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("00:00:00,0\n")
+				.append("00:00:01,1\n")
+				.append("00:00:02,2\n")
+				.append("00:00:03,3\n")
+				.append(",null\n")
+				.append("00:00:04,4\n")
+				.append(",null\n");
+			series = parser.parse(sb.toString(), FlowUnit.lPerMinute);
+			assertEquals(0, series.keySet().toArray()[0]);
+			assertEquals(1, series.keySet().toArray()[1]);
+			assertEquals(2, series.keySet().toArray()[2]);
+			assertEquals(3, series.keySet().toArray()[3]);
+			assertEquals(4, series.keySet().toArray()[4]);
+			
+			List<UnitValue<FlowUnit>> values = new ArrayList<UnitValue<FlowUnit>>(series.values());
+			assertEquals(0, values.get(0).getValue(), 0.001);
+			assertEquals(1, values.get(1).getValue(), 0.001);
+			assertEquals(2, values.get(2).getValue(), 0.001);
+			assertEquals(3, values.get(3).getValue(), 0.001);
+			assertEquals(4, values.get(4).getValue(), 0.001);
+		} catch (ParseException e) {
+			fail();
+		}
+		assertEquals(5, series.keySet().size());
+		assertEquals(5, series.values().size());
+	}
+	
+	@Test
+	public void canReadEmptyWithCommaSeries(){
+		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
+		LinkedHashMap<Integer, UnitValue<FlowUnit>> series = null;
+		try {
+			series = parser.parse(",", FlowUnit.lPerMinute);
+		} catch (ParseException e) {
+			fail();
+		}
+		assertEquals(0, series.keySet().size());
+		assertEquals(0, series.values().size());
+	}
+	
+	@Test
+	public void canReadEmptyWithSpacesSeries(){
+		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
+		LinkedHashMap<Integer, UnitValue<FlowUnit>> series = null;
+		try {
+			series = parser.parse(" \t, \t", FlowUnit.lPerMinute);
+		} catch (ParseException e) {
+			fail();
+		}
+		assertEquals(0, series.keySet().size());
+		assertEquals(0, series.values().size());
+	}
+	
+	@Test(expected = DomainException.class)
+	public void testDomainException() throws ParseException{
+		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
+		LinkedHashMap<Integer, UnitValue<FlowUnit>> series = null;
+		series = parser.parse("banana,melancia", FlowUnit.lPerMinute);
+	}
 }

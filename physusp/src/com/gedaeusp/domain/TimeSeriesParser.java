@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
 
 public class TimeSeriesParser<T extends Unit> {
 
@@ -19,15 +20,21 @@ public class TimeSeriesParser<T extends Unit> {
 		String line;
 		try {
 			while ((line = reader.readLine()) != null) {
-				if(line.isEmpty())
+				if(StringUtils.isBlank(line))
 					continue;
 				String[] data = line.split(",");
+				if (data.length != 2)
+					continue;
+				if (StringUtils.isBlank(data[0]) || "null".equals(data[0]))
+					continue;
+				if (StringUtils.isBlank(data[1]) || "null".equals(data[1]))
+					continue;
 				int time = Time.convertDateToSeconds(data[0]);
 				result.put(time, new UnitValue<T>(Double.parseDouble(data[1]), unit));
 			}
 		} catch (Exception e) {
-			log.error("Error reading file: " + e.getMessage());
-			throw new DomainException("Failed to read data points.");
+			log.error("Error reading file: ", e);
+			throw new DomainException("Failed to read data points.", e);
 		}
 		return result;
 	}
