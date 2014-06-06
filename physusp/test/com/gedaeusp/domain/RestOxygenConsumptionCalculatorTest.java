@@ -57,4 +57,19 @@ public class RestOxygenConsumptionCalculatorTest {
 				.getValue(FlowUnit.lPerSecond), 593.76722222222222, EPSILON);
 	}
 
+	@Test
+	public void testRepeatedValues() {
+		List<UnitValue<FlowUnit>> restConsumption = new ArrayList<UnitValue<FlowUnit>>();
+		List<Integer> restTime = new ArrayList<Integer>();
+		restConsumption.add(new UnitValue<FlowUnit>(100.0, FlowUnit.lPerSecond));
+		restConsumption.add(new UnitValue<FlowUnit>(200.0, FlowUnit.lPerSecond));
+		restConsumption.add(new UnitValue<FlowUnit>(300.0, FlowUnit.lPerSecond));
+		restTime.add(10);
+		restTime.add(11);
+		restTime.add(11);
+		
+		RestOxygenConsumptionCalculator restConsumptionCalculator = new RestOxygenConsumptionCalculatorFromSeries(restConsumption, restTime);
+	
+		assertEquals(150.0, restConsumptionCalculator.getAverageRestConsumption().getValue(FlowUnit.lPerSecond), EPSILON);
+	}
 }
