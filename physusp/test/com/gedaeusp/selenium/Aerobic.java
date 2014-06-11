@@ -25,7 +25,7 @@ public class Aerobic {
 
   @Test
   public void testAerobic() throws Exception {
-    driver.get(baseUrl + "/physusp/3NHytBzdfBqSxD2xhnYD9L4evaR4DF");
+    driver.get(baseUrl + "/Physusp/3NHytBzdfBqSxD2xhnYD9L4evaR4DF");
     driver.findElement(By.id("parameters.calculateAerobic")).click();
     driver.findElement(By.id("btnNext")).click();
     driver.findElement(By.xpath("(//input[@name='restOxygenParameters.calculateMethod'])[2]")).click();

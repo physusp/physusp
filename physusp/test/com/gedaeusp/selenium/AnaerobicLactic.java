@@ -20,11 +20,11 @@ public class AnaerobicLactic extends SeleniumTest {
 
   @Test
   public void testAnaerobicLactic() throws Exception {
-    driver.get(baseUrl + "/physusp/3NHytBzdfBqSxD2xhnYD9L4evaR4DF");
+    driver.get(baseUrl + "/Physusp/3NHytBzdfBqSxD2xhnYD9L4evaR4DF");
     driver.findElement(By.id("parameters.calculateAnaerobicLactic")).click();
     driver.findElement(By.id("btnNext")).click();
-    driver.findElement(By.id("anaerobicLacticParameters.maxLactateConcentration")).clear();
-    driver.findElement(By.id("anaerobicLacticParameters.maxLactateConcentration")).sendKeys("4");
+    driver.findElement(By.id("anaerobicLacticParameters.peakLactateConcentration")).clear();
+    driver.findElement(By.id("anaerobicLacticParameters.peakLactateConcentration")).sendKeys("4");
     driver.findElement(By.id("anaerobicLacticParameters.restLactateConcentration")).clear();
     driver.findElement(By.id("anaerobicLacticParameters.restLactateConcentration")).sendKeys("2");
     driver.findElement(By.id("anaerobicLacticParameters.weight")).clear();

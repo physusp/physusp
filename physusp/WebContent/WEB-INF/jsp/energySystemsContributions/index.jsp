@@ -104,7 +104,7 @@
 					<div class="col-sm-6">
 						<div class="form-group">
 							<label class="control-label">Peak Blood Lactate <strong>(mmol/L)</strong></label>
-							<input type="text" id="anaerobicLacticParameters.maxLactateConcentration" name="anaerobicLacticParameters.maxLactateConcentration" class="form-control" />
+							<input type="text" id="anaerobicLacticParameters.peakLactateConcentration" name="anaerobicLacticParameters.peakLactateConcentration" class="form-control" />
 						</div>
 						<div class="form-group">
 							<label class="control-label">Rest Blood Lactate <strong>(mmol/L)</strong></label>

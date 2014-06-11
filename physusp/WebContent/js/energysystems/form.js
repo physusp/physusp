@@ -85,7 +85,7 @@ $(function(){
 				required: hasSelectedAnaerobicLactic,
 				min: 0
 			},
-			"anaerobicLacticParameters.maxLactateConcentration": {
+			"anaerobicLacticParameters.peakLactateConcentration": {
 				required: hasSelectedAnaerobicLactic,
 				greaterThan: "#anaerobicLacticParameters\\.restLactateConcentration"
 			},
@@ -107,7 +107,7 @@ $(function(){
 			"anaerobicLacticParameters.weight": {
 				min: "Please enter a value greater than or equal to 0."
 			},
-			"anaerobicLacticParameters.maxLactateConcentration": {
+			"anaerobicLacticParameters.peakLactateConcentration": {
 				greaterThan: "Must be greater than rest concentration."
 			},
 			"oxygenConsumptionRestError": {
