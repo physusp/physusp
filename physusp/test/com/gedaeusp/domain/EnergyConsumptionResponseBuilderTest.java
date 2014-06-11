@@ -29,7 +29,7 @@ public class EnergyConsumptionResponseBuilderTest {
 	@Test
 	public void addAnaerobicLacticTest() {
 		AnaerobicLacticParameters parameters = new AnaerobicLacticParameters();
-		parameters.setMaxLactateConcentration(6.7);
+		parameters.setPeakLactateConcentration(6.7);
 		parameters.setRestLactateConcentration(0.7);
 		parameters.setWeight(74);
 		UnitValue<EnergyUnit> anaerobicLacticEnergy = energyConsumptionResponseBuilder.addAnaerobicLactic(parameters).getResponse().getAnaerobicLactic();

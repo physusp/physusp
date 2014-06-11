@@ -3,7 +3,7 @@ package com.gedaeusp.models;
 public class AnaerobicLacticParameters {
 
 	private double restLactateConcentration;
-	private double maxLactateConcentration;
+	private double peakLactateConcentration;
 	private double weight;
 	
 	public double getWeight() {
@@ -12,11 +12,11 @@ public class AnaerobicLacticParameters {
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
-	public double getMaxLactateConcentration() {
-		return maxLactateConcentration;
+	public double getPeakLactateConcentration() {
+		return peakLactateConcentration;
 	}
-	public void setMaxLactateConcentration(double maxLactateConcentration) {
-		this.maxLactateConcentration = maxLactateConcentration;
+	public void setPeakLactateConcentration(double peakLactateConcentration) {
+		this.peakLactateConcentration = peakLactateConcentration;
 	}
 	public double getRestLactateConcentration() {
 		return restLactateConcentration;

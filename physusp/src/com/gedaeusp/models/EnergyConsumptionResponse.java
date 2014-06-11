@@ -1,8 +1,6 @@
 package com.gedaeusp.models;
 
 import java.io.Serializable;
-import java.util.List;
-
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.FlowUnit;
@@ -21,7 +19,7 @@ public class EnergyConsumptionResponse implements Serializable {
 	private UnitValue<EnergyUnit> anaerobicAlactic;
 	
 	@XStreamAlias("expectedOxygenConsumption")
-	private UnitValue<FlowUnit>[] expectedOxygenConsumption;
+	private UnitValue<FlowUnit>[] expectedOxygenConsumptions;
 	
 	@XStreamAlias("rSquared")
 	private double rSquared;
@@ -62,11 +60,11 @@ public class EnergyConsumptionResponse implements Serializable {
 	public void setAnaerobicAlactic(UnitValue<EnergyUnit> anaerobicAlactic) {
 		this.anaerobicAlactic = anaerobicAlactic;
 	}
-	public UnitValue<FlowUnit>[] getExpectedOxygenConsumption() {
-		return expectedOxygenConsumption;
+	public UnitValue<FlowUnit>[] getExpectedOxygenConsumptions() {
+		return expectedOxygenConsumptions;
 	}
-	public void setExpectedOxygenConsumption(UnitValue<FlowUnit>[] expectedOxygenConsumption) {
-		this.expectedOxygenConsumption = expectedOxygenConsumption;
+	public void setExpectedOxygenConsumptions(UnitValue<FlowUnit>[] expectedOxygenConsumptions) {
+		this.expectedOxygenConsumptions = expectedOxygenConsumptions;
 	}
 	public double getRSquared() {
 		return rSquared;

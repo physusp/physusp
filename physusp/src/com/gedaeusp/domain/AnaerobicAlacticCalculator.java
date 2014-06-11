@@ -92,7 +92,7 @@ public class AnaerobicAlacticCalculator {
 			expectedOxygenConsumptionValues[i] = biexponentialCalculator.value(normalizedTimesArray[i]);
 			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
 		}
-		biexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
+		biexponentialFitData.setExpectedOxygenConsumptions(expectedOxygenConsumption);
 		
 		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
 		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumptionValues);
@@ -134,7 +134,7 @@ public class AnaerobicAlacticCalculator {
 			expectedOxygenConsumptionValues[i] = monoexponentialCalculator.value(normalizedTimesArray[i]);
 			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
 		}
-		monoexponentialFitData.setExpectedOxygenConsumption(expectedOxygenConsumption);
+		monoexponentialFitData.setExpectedOxygenConsumptions(expectedOxygenConsumption);
 		
 		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
 		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumptionValues);

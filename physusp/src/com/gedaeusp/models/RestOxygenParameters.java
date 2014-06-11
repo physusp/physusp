@@ -2,15 +2,15 @@ package com.gedaeusp.models;
 
 public class RestOxygenParameters {
 
-	private String oxygenConsumptionRest;
+	private String oxygenRestConsumption;
 	private String calculateMethod;
 	private double fixedValue;
 	
 	public String getOxygenConsumptionRest() {
-		return oxygenConsumptionRest;
+		return oxygenRestConsumption;
 	}
 	public void setOxygenConsumptionRest(String oxygenConsumptionRest) {
-		this.oxygenConsumptionRest = oxygenConsumptionRest;
+		this.oxygenRestConsumption = oxygenConsumptionRest;
 	}
 	public String getCalculateMethod() {
 		return calculateMethod;
