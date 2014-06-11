@@ -83,9 +83,9 @@
 					<div id="aerobicSecondRow" class="row">
 						<div id="restData" class="col-sm-6">
 							<div id="aerobicRestTable">
-								<div id="oxygenConsumptionRest"></div>
+								<div id="oxygenConsumptionRest" data-field="restOxygenParameters.oxygenConsumptionRest"></div>
 								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." 
-								 data-table="oxygenConsumptionRest" />
+									data-table="oxygenConsumptionRest" />
 							</div>
 							<div id="aerobicRestAvg">
 								<label class="control-label">Rest VO<sub>2</sub> <strong>(ml/min)</strong></label>
@@ -93,7 +93,7 @@
 							</div>
 						</div>
 						<div class="col-sm-6">
-							<div id="oxygenConsumptionDuringExercise"></div>
+							<div id="oxygenConsumptionDuringExercise" data-field="aerobicParameters.oxygenConsumptionDuringExercise"></div>
 							<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
 								data-table="oxygenConsumptionDuringExercise"/>
 						</div>
@@ -156,7 +156,7 @@
 					<div id="anaerobicAlacticSecondRow" class="row">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<div id="oxygenConsumptionPostExercise" class="col-sm-12"></div>
+								<div id="oxygenConsumptionPostExercise" data-field="anaerobicAlacticParameters.oxygenConsumptionPostExercise" class="col-sm-12"></div>
 								<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." 
 									data-table="oxygenConsumptionPostExercise"/>
 							</div>
@@ -254,10 +254,18 @@
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/exporting.js"/>"></script>
 	<script type="text/javascript"
-		src="<c:url value="/js/energysystemscontributions.js"/>"></script>
-	<script type="text/javascript"
 		src="<c:url value="/js/lib/jquery.handsontable.full.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/jquery.validate.min.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/energysystems/form.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/energysystems/advancedresults.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/energysystems/oxygenconsumptiontable.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/energysystems/resultrow.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/energysystems/main.js"/>"></script>
 </body>
 </html>
