@@ -11,7 +11,7 @@ public class BiexponentialFitData {
 	private double tau1;
 	private double tau2;
 	private double rSquared;
-	private UnitValue<FlowUnit>[] expectedOxygenConsumption;
+	private UnitValue<FlowUnit>[] expectedOxygenConsumptions;
 	
 	public UnitValue<FlowUnit> getV0() {
 		return v0;
@@ -55,11 +55,11 @@ public class BiexponentialFitData {
 	public void setRSquared(double rSquared) {
 		this.rSquared = rSquared;
 	}
-	public UnitValue<FlowUnit>[] getExpectedOxygenConsumption() {
-		return expectedOxygenConsumption;
+	public UnitValue<FlowUnit>[] getExpectedOxygenConsumptions() {
+		return expectedOxygenConsumptions;
 	}
-	public void setExpectedOxygenConsumption(UnitValue<FlowUnit>[] expectedOxygenConsumption) {
-		this.expectedOxygenConsumption = expectedOxygenConsumption;
+	public void setExpectedOxygenConsumptions(UnitValue<FlowUnit>[] expectedOxygenConsumptions) {
+		this.expectedOxygenConsumptions = expectedOxygenConsumptions;
 	}
 	
 }

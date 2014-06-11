@@ -110,7 +110,7 @@ public class EnergyConsumptionResponseBuilder {
 				parameters.getRestLactateConcentration(),
 				MolarConcentrationUnit.MiliMolPerLiter);
 		UnitValue<MolarConcentrationUnit> maxLactic = new UnitValue<MolarConcentrationUnit>(
-				parameters.getMaxLactateConcentration(),
+				parameters.getPeakLactateConcentration(),
 				MolarConcentrationUnit.MiliMolPerLiter);
 		UnitValue<WeightUnit> weight = new UnitValue<WeightUnit>(
 				parameters.getWeight(), WeightUnit.Kg);
@@ -143,10 +143,8 @@ public class EnergyConsumptionResponseBuilder {
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
 		if (parameters.getExponentialType() == 1) {
 			MonoexponentialFitData monoexponentialFitData = new MonoexponentialFitData();
-			anaerobicAlacticEnergy = alacticCalculator
-					.calculateEnergyWithMonoexponential(monoexponentialFitData);
-			response.setExpectedOxygenConsumption(monoexponentialFitData
-					.getExpectedOxygenConsumption());
+			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithMonoexponential(monoexponentialFitData);
+			response.setExpectedOxygenConsumptions(monoexponentialFitData.getExpectedOxygenConsumptions());
 			response.setRSquared(monoexponentialFitData.getRSquared());
 			response.setV0(monoexponentialFitData.getV0());
 			response.setT0(monoexponentialFitData.getT0());
@@ -155,10 +153,8 @@ public class EnergyConsumptionResponseBuilder {
 
 		} else {
 			BiexponentialFitData biexponentialFitData = new BiexponentialFitData();
-			anaerobicAlacticEnergy = alacticCalculator
-					.calculateEnergyWithBiexponential(biexponentialFitData);
-			response.setExpectedOxygenConsumption(biexponentialFitData
-					.getExpectedOxygenConsumption());
+			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithBiexponential(biexponentialFitData);
+			response.setExpectedOxygenConsumptions(biexponentialFitData.getExpectedOxygenConsumptions());
 			response.setRSquared(biexponentialFitData.getRSquared());
 			response.setV0(biexponentialFitData.getV0());
 			response.setT0(biexponentialFitData.getT0());
