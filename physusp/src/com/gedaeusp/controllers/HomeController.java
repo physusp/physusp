@@ -1,6 +1,5 @@
 package com.gedaeusp.controllers;
 
-import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 

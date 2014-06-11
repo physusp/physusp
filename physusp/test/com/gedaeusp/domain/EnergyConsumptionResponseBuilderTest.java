@@ -5,13 +5,9 @@ import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
-import com.gedaeusp.domain.AerobicCalculator;
-import com.gedaeusp.models.AnaerobicAlacticParameters;
 import com.gedaeusp.models.AnaerobicLacticParameters;
 
 public class EnergyConsumptionResponseBuilderTest {
