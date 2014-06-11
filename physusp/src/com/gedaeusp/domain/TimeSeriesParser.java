@@ -1,9 +1,7 @@
 package com.gedaeusp.domain;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.StringReader;
-import java.text.ParseException;
 import java.util.LinkedHashMap;
 
 import org.apache.commons.logging.Log;
@@ -14,7 +12,7 @@ public class TimeSeriesParser<T extends Unit> {
 
 	private Log log = LogFactory.getLog(this.getClass());
 	
-	public LinkedHashMap<Integer, UnitValue<T>> parse(String string, T unit) throws ParseException {
+	public LinkedHashMap<Integer, UnitValue<T>> parse(String string, T unit) {
 		LinkedHashMap<Integer, UnitValue<T>> result = new LinkedHashMap<Integer, UnitValue<T>>();
 		BufferedReader reader = new BufferedReader(new StringReader(string));
 		String line;

@@ -6,7 +6,6 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 
-import com.gedaeusp.domain.DomainException;
 import com.gedaeusp.domain.EnergyConsumptionResponseBuilder;
 import com.gedaeusp.models.AerobicParameters;
 import com.gedaeusp.models.AnaerobicAlacticParameters;
@@ -23,7 +22,7 @@ public class EnergySystemsContributionsController {
 		this.result = result;
 	}
 	
-	@Path("")
+	@Path("3NHytBzdfBqSxD2xhnYD9L4evaR4DF")
 	public void index() {
 	}
 

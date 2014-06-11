@@ -1,13 +1,13 @@
 package com.gedaeusp.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.FlowUnit;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+@SuppressWarnings("serial")
 @XStreamAlias("consumption")
 public class EnergyConsumptionResponse implements Serializable {
 
