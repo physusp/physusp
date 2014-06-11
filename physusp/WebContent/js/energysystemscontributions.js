@@ -91,6 +91,24 @@
 		return toSend;
 	}
 	
+	var ResultRow = function(row, data){
+		this.row = row;
+		this.data = data;
+		
+		this.showInColumn = function (i, value) {
+			row.find("td:nth-of-type(" + i + ")").text(parseFloat(value).toFixed(2));
+		};
+		
+		this.showResult = function() {
+			row.removeClass("hide");
+			this.showInColumn(2, data.Kcal);
+			this.showInColumn(3, data.KJ);
+			this.showInColumn(4, data.LO2);
+		};
+	};
+	
+	//var OxygenConsumptionTable = function()
+	
 	function sendFormData(url, formData) {
 		$.ajax({
 			url: url,
@@ -98,29 +116,20 @@
 			data: formData,
 			success: function(result){
 				var data = [];
-				if(typeof(result.consumption.aerobic) != "undefined"){
+				if(result.consumption.aerobic != undefined){
 					data.push(["Aerobic", parseFloat(result.consumption.aerobic.Kcal)]);
-					var aerobicRow = $("#aerobicRow");
-					aerobicRow.removeClass("hide");
-					aerobicRow.find("td:nth-of-type(2)").text(parseFloat(result.consumption.aerobic.Kcal).toFixed(2));
-					aerobicRow.find("td:nth-of-type(3)").text(parseFloat(result.consumption.aerobic.KJ).toFixed(2));
-					aerobicRow.find("td:nth-of-type(4)").text(parseFloat(result.consumption.aerobic.LO2).toFixed(2));
+					var aerobicRow = new ResultRow($("#aerobicRow"), result.consumption.aerobic);
+					aerobicRow.showResult();
 				}
-				if(typeof(result.consumption.anaerobicLactic) != "undefined"){
+				if(result.consumption.anaerobicLactic != undefined){
 					data.push(["Anaerobic Lactic", parseFloat(result.consumption.anaerobicLactic.Kcal)]);
-					var anaerobicLacticRow = $("#anaerobicLacticRow");
-					anaerobicLacticRow.removeClass("hide");
-					anaerobicLacticRow.find("td:nth-of-type(2)").text(parseFloat(result.consumption.anaerobicLactic.Kcal).toFixed(2));
-					anaerobicLacticRow.find("td:nth-of-type(3)").text(parseFloat(result.consumption.anaerobicLactic.KJ).toFixed(2));
-					anaerobicLacticRow.find("td:nth-of-type(4)").text(parseFloat(result.consumption.anaerobicLactic.LO2).toFixed(2));
+					var anaerobicLacticRow = new ResultRow($("#anaerobicLacticRow"), result.consumption.anaerobicLactic);
+					anaerobicLacticRow.showResult();
 				}
-				if(typeof(result.consumption.anaerobicAlactic) != "undefined"){
+				if(result.consumption.anaerobicAlactic != undefined){
 					data.push(["Anaerobic Alactic", parseFloat(result.consumption.anaerobicAlactic.Kcal)]);
-					var anaerobicAlacticRow = $("#anaerobicAlacticRow");
-					anaerobicAlacticRow.removeClass("hide");
-					anaerobicAlacticRow.find("td:nth-of-type(2)").text(parseFloat(result.consumption.anaerobicAlactic.Kcal).toFixed(2));
-					anaerobicAlacticRow.find("td:nth-of-type(3)").text(parseFloat(result.consumption.anaerobicAlactic.KJ).toFixed(2));
-					anaerobicAlacticRow.find("td:nth-of-type(4)").text(parseFloat(result.consumption.anaerobicAlactic.LO2).toFixed(2));
+					var anaerobicAlacticRow = new ResultRow($("#anaerobicAlacticRow"), result.consumption.anaerobicAlactic);
+					anaerobicAlacticRow.showResult();
 				}
 				showChart(data);
 				showAdvancedResults(result);
@@ -128,7 +137,7 @@
 		})
 		.error(function (data) {
 			$("#modal-error").find("#error-content").text("");
-			if(typeof data.responseJSON !== "undefined")
+			if(data.responseJSON != undefined)
 				$("#modal-error").find("#error-content").text(data.responseJSON.exceptionInfo.message);
 			$("#modal-error").modal("show");
 		});
@@ -326,11 +335,47 @@
 	function validateSeries(data) {
 		var lastTime = "0";
 		for(var i = 0; i < data.length - 10; ++i) {
-			if(data[i][0] <= lastTime)
+			if(data[i][0] < lastTime)
 				return false;
 			lastTime = data[i][0];
 		}
 		return true;
+	}
+	
+	
+	function getHandsontableConfig(errorField) {
+		
+		var headers = ["Time <strong>(hh:mm:ss)</strong>", "VO<sub>2</sub> <strong>(ml/min)</strong>"];
+		
+		return {
+		    minSpareRows: 10,
+		    colHeaders: headers,
+		    contextMenu: true,
+		    data: [[null, null]],
+		    height: 260,
+		    colWidths: [1, 1],
+		    stretchH: "all",
+			columns: [{
+				type: 'text',
+				validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+				allowInvalid: false
+			}, { 	  	
+				type: 'numeric',
+				format: '0,0.00',
+				validator: greaterThanZero,
+				allowInvalid: false
+			}],
+			afterChange: function() {
+				var data = this.getData();
+				if(data.length <= 10)
+					errorField.val("Table is empty.");
+				else if(!validateSeries(data))
+					errorField.val("Table time series is not valid.");
+				else
+					errorField.val("");
+				$('#data').validate().element(errorField);
+			}
+		};	
 	}
 	
 	$(function(){
@@ -424,98 +469,9 @@
 			return ($(field).val() == "" || $(field).val() > 40);
 		}, "Weight value is too low?");
 		
-		var headers = ["Time <strong>(hh:mm:ss)</strong>", "VO<sub>2</sub> <strong>(ml/min)</strong>"];
-		
-		$('#oxygenConsumptionRest').handsontable({
-		    minSpareRows: 10,
-		    colHeaders: headers,
-		    contextMenu: true,
-		    data: [[null, null]],
-		    height: 260,
-		    colWidths: [1, 1],
-		    stretchH: "all",
-			columns: [{
-				type: 'text',
-				validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
-				allowInvalid: false
-			}, { 	  	
-				type: 'numeric',
-				format: '0,0.00',
-				validator: greaterThanZero,
-				allowInvalid: false
-			}],
-			afterChange: function() {
-				var errorOutput = $('#oxygenConsumptionRestError');
-				var data = this.getData();
-				if(data.length <= 10)
-					errorOutput.val("Table is empty.");
-				else if(!validateSeries(data))
-					errorOutput.val("Table time series is not valid.");
-				else
-					errorOutput.val("");
-				$('#data').validate().element(errorOutput);
-			}
-		});
-		$('#oxygenConsumptionDuringExercise').handsontable({
-		    minSpareRows: 10,
-		    colHeaders: headers,
-		    contextMenu: true,
-		    data: [[null, null]],
-		    height: 260,
-		    colWidths: [1, 1],
-		    stretchH: "all",
-		    columns: [{
-				type: 'text',
-				validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
-				allowInvalid: false
-			}, { 	  	
-				type: 'numeric',
-				format: '0,0.00',
-				validator: greaterThanZero,
-				allowInvalid: false
-			}],
-			afterChange: function() {
-				var errorOutput = $('#oxygenConsumptionDuringExerciseError');
-				var data = this.getData();
-				if(data.length <= 10)
-					errorOutput.val("Table is empty.");
-				else if(!validateSeries(data))
-					errorOutput.val("Table time series is not valid.");
-				else
-					errorOutput.val("");
-				$('#data').validate().element(errorOutput);
-			}
-		});
-		$('#oxygenConsumptionPostExercise').handsontable({
-		    minSpareRows: 10,
-		    colHeaders: headers,
-		    contextMenu: true,
-		    data: [[null, null]],
-		    height: 260,
-		    colWidths: [1, 1],
-		    stretchH: "all",
-			columns: [{
-				type: 'text',
-				validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
-				allowInvalid: false
-			}, { 	  	
-				type: 'numeric',
-				format: '0,0.00',
-				validator: greaterThanZero,
-				allowInvalid: false
-			}],
-			afterChange: function() {
-				var errorOutput = $('#oxygenConsumptionPostExerciseError');
-				var data = this.getData();
-				if(data.length <= 10)
-					errorOutput.val("Table is empty.");
-				else if(!validateSeries(data))
-					errorOutput.val("Table time series is not valid.");
-				else
-					errorOutput.val("");
-				$('#data').validate().element(errorOutput);
-			}
-		});
+		$('#oxygenConsumptionRest').handsontable(getHandsontableConfig($('#oxygenConsumptionRestError')));
+		$('#oxygenConsumptionDuringExercise').handsontable(getHandsontableConfig($('#oxygenConsumptionDuringExerciseError')));
+		$('#oxygenConsumptionPostExercise').handsontable(getHandsontableConfig($('#oxygenConsumptionPostExerciseError')));
 		
 		$('#aerobic input:radio').change(function() {
 			$("#aerobicRestTable").toggle($(this).val() == "series");
