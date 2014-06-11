@@ -1,21 +1,17 @@
 package com.gedaeusp.selenium;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.*;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class Aerobic {
   private WebDriver driver;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
@@ -29,7 +25,7 @@ public class Aerobic {
 
   @Test
   public void testAerobic() throws Exception {
-    driver.get(baseUrl + "/physusp/");
+    driver.get(baseUrl + "/physusp/3NHytBzdfBqSxD2xhnYD9L4evaR4DF");
     driver.findElement(By.id("parameters.calculateAerobic")).click();
     driver.findElement(By.id("btnNext")).click();
     driver.findElement(By.xpath("(//input[@name='restOxygenParameters.calculateMethod'])[2]")).click();
@@ -50,39 +46,6 @@ public class Aerobic {
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
-    }
-  }
-
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
     }
   }
 }

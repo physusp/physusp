@@ -13,6 +13,7 @@ public class Time {
 	    DateFormat formatter = new SimpleDateFormat("hh:mm:ss");  
 	    Date date = (Date)formatter.parse(string);
 	    return date.getHours()*3600+date.getMinutes()*60+date.getSeconds();
+
 	}
 	
 	public static Integer timeRange(List<Integer> time) {

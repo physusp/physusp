@@ -15,9 +15,7 @@ public class RestOxygenConsumptionCalculatorFromSeries implements RestOxygenCons
 		setAverageRestConsumption(new UnitValue<FlowUnit>(result,FlowUnit.lPerSecond));;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.gedaeusp.domain.RestOxygenConsumptionCalculator#getAverageRestConsumption()
-	 */
+
 	@Override
 	public UnitValue<FlowUnit> getAverageRestConsumption() {
 		return averageRestConsumption;

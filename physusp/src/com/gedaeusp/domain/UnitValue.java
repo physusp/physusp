@@ -22,6 +22,7 @@ public class UnitValue<T extends Unit> {
 		return unit;
 	}
 
+	@SuppressWarnings("unchecked")
 	public double getValue(Object expectedUnit) {
 		return getValue((T)expectedUnit);
 	}
