@@ -2,7 +2,7 @@ package com.gedaeusp.models;
 
 public class AnaerobicAlacticParameters {
 
-	private double timeDelayPost;
+	private double timeDelay;
 	private String oxygenConsumptionPostExercise;
 	private int exponentialType;
 	private boolean useTimeDelay;
@@ -19,11 +19,11 @@ public class AnaerobicAlacticParameters {
 	public void setOxygenConsumptionPostExercise(String oxygenConsumptionPost) {
 		this.oxygenConsumptionPostExercise = oxygenConsumptionPost;
 	}
-	public double getTimeDelayPost() {
-		return timeDelayPost;
+	public double getTimeDelay() {
+		return timeDelay;
 	}
-	public void setTimeDelayPost(double timeDelayPost) {
-		this.timeDelayPost = timeDelayPost;
+	public void setTimeDelay(double timeDelayPost) {
+		this.timeDelay = timeDelayPost;
 	}
 	
 	public int getExponentialType() {

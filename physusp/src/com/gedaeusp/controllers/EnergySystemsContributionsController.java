@@ -49,8 +49,4 @@ public class EnergySystemsContributionsController {
 		this.result.use(Results.json()).from(builder.getResponse()).recursive().serialize();
 	}
 
-	
-
-	
-
 }

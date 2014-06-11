@@ -24,8 +24,7 @@ public class ExceptionInterceptor implements Interceptor {
 	@Override
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object resourceInstance) throws InterceptionException {
-		try
-		{
+		try {
 			stack.next(method, resourceInstance);
 		}
 		catch(InterceptionException ex) {
