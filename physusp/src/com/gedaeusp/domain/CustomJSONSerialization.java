@@ -17,7 +17,6 @@ public class CustomJSONSerialization extends XStreamJSONSerialization {
 			TypeNameExtractor extractor, ProxyInitializer initializer,
 			XStreamBuilder builder) {
 		super(response, extractor, initializer, builder);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override  
