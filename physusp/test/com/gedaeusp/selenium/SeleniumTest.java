@@ -14,8 +14,9 @@ public class SeleniumTest {
 	static public void tableInput(WebDriver driver, String table, String data) {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(data), null);
 	    Actions builder = new Actions(driver);
-	    builder.moveToElement(driver.findElement(By.id(table)), 0, 50).click().sendKeys(Keys.CONTROL	+ "v");
+	    builder.moveToElement(driver.findElement(By.id(table)), 0, 50).click().sendKeys(Keys.chord(Keys.LEFT_CONTROL,"v"));
 	    builder.perform();
 	}
+
 
   }
