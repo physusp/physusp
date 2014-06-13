@@ -12,4 +12,8 @@ var ResultRow = function(row, data){
 		this.showInColumn(3, data.KJ);
 		this.showInColumn(4, data.LO2);
 	};
+	
+	this.hide = function() {
+		this.row.hide();
+	};
 };

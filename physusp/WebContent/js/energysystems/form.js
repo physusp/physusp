@@ -23,21 +23,33 @@ function calculateResults() {
 
 function onCalculateSuccess(result) {
 	var data = [];
+	var aerobicRow = new ResultRow($("#aerobicRow"), result.consumption.aerobic);
+	var anaerobicLacticRow = new ResultRow($("#anaerobicLacticRow"), result.consumption.anaerobicLactic);
+	var anaerobicAlacticRow = new ResultRow($("#anaerobicAlacticRow"), result.consumption.anaerobicAlactic);
+	
 	if(result.consumption.aerobic != undefined){
 		data.push(["Aerobic", parseFloat(result.consumption.aerobic.Kcal)]);
-		var aerobicRow = new ResultRow($("#aerobicRow"), result.consumption.aerobic);
 		aerobicRow.showResult();
+	}
+	else {
+		aerobicRow.hide();
 	}
 	if(result.consumption.anaerobicLactic != undefined){
 		data.push(["Anaerobic Lactic", parseFloat(result.consumption.anaerobicLactic.Kcal)]);
-		var anaerobicLacticRow = new ResultRow($("#anaerobicLacticRow"), result.consumption.anaerobicLactic);
 		anaerobicLacticRow.showResult();
 	}
+	else{
+		anaerobicLacticRow.hide();
+	}
+		
 	if(result.consumption.anaerobicAlactic != undefined){
 		data.push(["Anaerobic Alactic", parseFloat(result.consumption.anaerobicAlactic.Kcal)]);
-		var anaerobicAlacticRow = new ResultRow($("#anaerobicAlacticRow"), result.consumption.anaerobicAlactic);
 		anaerobicAlacticRow.showResult();
 	}
+	else {
+		anaerobicAlacticRow.hide();
+	}
+	
 	showChart(data);
 	showAdvancedResults(result);
 }
