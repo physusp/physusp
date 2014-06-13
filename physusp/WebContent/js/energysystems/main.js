@@ -193,7 +193,7 @@ function getHandsontableConfig(errorField) {
 	    stretchH: "all",
 		columns: [{
 			type: 'text',
-			validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$/,
+			validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?)?$/,
 			allowInvalid: false
 		}, { 	  	
 			type: 'numeric',

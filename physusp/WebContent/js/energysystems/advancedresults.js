@@ -4,7 +4,7 @@ function convertTimeStringToMilliseconds(str) {
 }
 
 function convertMillisecondsToTimeString(ms) {
-	var t = ms / 1000;
+	var t = Math.round(ms / 1000);
 	var h = Math.floor(t / 3600), hh = ("0" + h).substr(-2, 2);
 	var m = Math.floor((t - h * 3600) / 60), mm = ("0" + m).substr(-2, 2);
 	var s = t - h * 3600 - m * 60, ss = ("0" + s).substr(-2, 2);
