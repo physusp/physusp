@@ -100,10 +100,14 @@ function changeTab(e) {
 		$("#btnPrevious").hide();
 	else
 		$("#btnPrevious").show();
-	if (tabId == "tabResults")
+	if (tabId == "tabResults") {
 		$("#btnNext").hide();
-	else
+		$("#btnNewAnalysis").css("display", "inline-block");
+	}
+	else {
 		$("#btnNext").show();
+		$("#btnNewAnalysis").hide();
+	}
 	
 	$(link.attr("href")).find('.handsontable').each(function() {
 		fixHandsontableLayout(this);
@@ -154,7 +158,8 @@ function showChart(data) {
             type: 'pie',
             name: 'Contribution',
             data: data
-        }]
+        }],
+        title: ""
 	});
 }
 

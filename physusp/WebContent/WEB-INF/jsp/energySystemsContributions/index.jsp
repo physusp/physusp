@@ -26,24 +26,30 @@
 					<div class="col-sm-12">
 						<p class="information">What do you wish to calculate?</p>
 						<div class="checkbox">
-							<label class="control-label"> <input type="checkbox"
-								id="parameters.calculateAerobic"
-								name="parameters.calculateAerobic" value="true" 
-								data-tab="aerobic" /> Aerobic System
+							<label class="control-label">
+								<input type="checkbox"
+									id="parameters.calculateAerobic"
+									name="parameters.calculateAerobic" value="true" 
+									data-tab="aerobic" checked />
+								Aerobic System
 							</label>
 						</div>
 						<div class="checkbox">
-							<label class="control-label"> <input type="checkbox"
-								id="parameters.calculateAnaerobicLactic"
-								name="parameters.calculateAnaerobicLactic" value="true"
-								data-tab="anaerobicLactic" /> Anaerobic Lactic System
+							<label class="control-label">
+								<input type="checkbox"
+									id="parameters.calculateAnaerobicLactic"
+									name="parameters.calculateAnaerobicLactic" value="true"
+									data-tab="anaerobicLactic" checked />
+								Anaerobic Lactic System
 							</label>
 						</div>
 						<div class="checkbox">
-							<label class="control-label"> <input type="checkbox"
-								id="parameters.calculateAnaerobicAlactic"
-								name="parameters.calculateAnaerobicAlactic" value="true"
-								data-tab="anaerobicAlactic" /> Anaerobic Alactic System
+							<label class="control-label">
+								<input type="checkbox"
+									id="parameters.calculateAnaerobicAlactic"
+									name="parameters.calculateAnaerobicAlactic" value="true"
+									data-tab="anaerobicAlactic" checked />
+								Anaerobic Alactic System
 							</label>
 						</div>
 						<div id="validateSystems">
@@ -198,6 +204,12 @@
 										<td></td>
 										<td></td>
 									</tr>
+									<tr id="totalsRow">
+										<td>Totals</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -226,6 +238,7 @@
 						</li>
 					</ul>
 				</div>
+				<a id="btnNewAnalysis" href="" class="btn btn-default btn-lg">New Analysis</a>
 			</div>
 		</div>
 	</form>

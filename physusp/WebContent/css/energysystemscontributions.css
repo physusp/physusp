@@ -56,3 +56,4 @@ label {font-weight: normal}
 	#btnPrevious {display: none}
 	#exportDropdown {display: none}
 	#containerButtons > div.dropdown {display: inline-block}
+	#btnNewAnalysis {display: none}

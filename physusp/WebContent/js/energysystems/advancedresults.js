@@ -1,12 +1,21 @@
-function convertTimeStringToSeconds(str) {
+function convertTimeStringToMilliseconds(str) {
 	var tt = str.split(":");
 	return ( tt[0] * 3600 + tt[1] * 60 + tt[2] * 1 ) * 1000;
 }
 
+function convertMillisecondsToTimeString(ms) {
+	var t = ms / 1000;
+	var h = Math.floor(t / 3600), hh = ("0" + h).substr(-2, 2);
+	var m = Math.floor((t - h * 3600) / 60), mm = ("0" + m).substr(-2, 2);
+	var s = t - h * 3600 - m * 60, ss = ("0" + s).substr(-2, 2);
+	return hh + ":" + mm + ":" + ss;
+}
+
 function showAdvancedResults(result) {
 	if ($("#parameters\\.calculateAnaerobicAlactic").is(":checked")) {
+		$("#advancedResults").html("<p>Exponential fit data for the calculation of the Anaerobic Alactic System.</p>")
 		if ($("#monoexponential").is(":checked"))
-			$("#advancedResults").html(
+			$("#advancedResults").append(
 				"<p>" +
 					"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
 					"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(5) + "<br>" +
@@ -16,7 +25,7 @@ function showAdvancedResults(result) {
 				"</p>"
 			);
 		else
-			$("#advancedResults").html(
+			$("#advancedResults").append(
 				"<p>" +
 					"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
 					"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(5) + "<br>" +
@@ -32,7 +41,7 @@ function showAdvancedResults(result) {
 		var series1 = [];
 		for(var i = 0 ; i < input.length; i++) {
 			if (input[i][0] == null) break;
-			series1.push([convertTimeStringToSeconds(input[i][0]), input[i][1]]);
+			series1.push([convertTimeStringToMilliseconds(input[i][0]), input[i][1]]);
 		}
 		
 		var series2 = [];
@@ -60,6 +69,12 @@ function showAdvancedResults(result) {
 		    		}
 		    	}
 		    },
+		    tooltip: {
+		    	formatter: function() {
+		    		var time = convertMillisecondsToTimeString(this.x);
+		    		return 'time: <b>' + time + '</b><br/>VO<sub>2</sub>: <b>' + this.y + '</b>';
+		    	}
+		    },
 	        exporting: {
 	        	buttons: {
 	        		contextButton: {
@@ -77,7 +92,10 @@ function showAdvancedResults(result) {
 	        	}
 	        },
 	        yAxis: {
-	        	min: 0
+	        	min: 0,
+	        	title: {
+	        		text: "VO<sub>2</sub> (ml/min)"
+	        	}
 	        },
 	        series: [{
 	            data: series1,

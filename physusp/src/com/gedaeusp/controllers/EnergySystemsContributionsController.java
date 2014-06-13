@@ -22,7 +22,7 @@ public class EnergySystemsContributionsController {
 		this.result = result;
 	}
 	
-	@Path("3NHytBzdfBqSxD2xhnYD9L4evaR4DF")
+	@Path("")
 	public void index() {
 	}
 
