@@ -209,7 +209,18 @@ function getHandsontableConfig(errorField) {
 	};	
 }
 
+function clearForm() {
+	$("#parameters\\.calculateAerobic").prop("checked", "checked");
+	$("#parameters\\.calculateAnaerobicLactic").prop("checked", "checked");
+	$("#parameters\\.calculateAnaerobicAlactic").prop("checked", "checked");
+	$("[name='restOxygenParameters\\.calculateMethod'][value='series']").prop("checked", "checked");
+	$("input[type='text']").val("");
+}
+
 $(function(){
+	
+	clearForm();
+	
 	$("#btnNext").click(setEnergySystems);
 	$("#btnPrevious").click(previousEnergySystem);
 	
