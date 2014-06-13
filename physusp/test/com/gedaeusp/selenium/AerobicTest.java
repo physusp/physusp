@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class Aerobic {
+public class AerobicTest {
   private WebDriver driver;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
@@ -19,7 +19,7 @@ public class Aerobic {
     driver = new FirefoxDriver();
     Dimension resolution = new Dimension(1280,1024);
     driver.manage().window().setSize(resolution);
-    baseUrl = "http://localhost:8080";
+    baseUrl = "http://localhost:9090";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 

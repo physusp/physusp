@@ -83,7 +83,10 @@ public class AnaerobicAlacticCalculator {
 		
 		Biexponential biexponentialCalculator = new Biexponential(v0, t0, a1, a2, tau1, tau2);
 		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length];
+		
+		@SuppressWarnings("unchecked")
 		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
+		
 		for (int i = 0; i < normalizedTimesArray.length; i++) {
 			expectedOxygenConsumptionValues[i] = biexponentialCalculator.value(normalizedTimesArray[i]);
 			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
@@ -119,7 +122,10 @@ public class AnaerobicAlacticCalculator {
 		
 		DelayedExponential monoexponentialCalculator = new DelayedExponential(v0, a, tau, t0);
 		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length];
+		
+		@SuppressWarnings("unchecked")
 		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
+		
 		for (int i = 0; i < normalizedTimesArray.length; i++) {
 			expectedOxygenConsumptionValues[i] = monoexponentialCalculator.value(normalizedTimesArray[i]);
 			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);

@@ -8,6 +8,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 public class UnitValueConverter implements Converter {
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean canConvert(Class clazz) {
 		return clazz.equals(UnitValue.class);
