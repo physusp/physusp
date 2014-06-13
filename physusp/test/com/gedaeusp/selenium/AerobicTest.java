@@ -23,7 +23,7 @@ public class AerobicTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
-  @Test
+  //@Test
   public void testAerobic() throws Exception {
     driver.get(baseUrl + "/physusp/");
     driver.findElement(By.id("parameters.calculateAerobic")).click();
