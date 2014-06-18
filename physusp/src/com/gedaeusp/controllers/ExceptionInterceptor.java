@@ -32,7 +32,7 @@ public class ExceptionInterceptor implements Interceptor {
 			Throwable causeException = ex.getCause();
 			
 			if(causeException instanceof DomainException) {
-				result.use(Results.json()).from(new ExceptionInfo(causeException)).serialize();
+				result.use(Results.json()).from(new ExceptionInfo((DomainException) causeException)).serialize();
 			}
 			else throw ex;
 		}

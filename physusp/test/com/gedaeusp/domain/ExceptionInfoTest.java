@@ -8,8 +8,8 @@ public class ExceptionInfoTest {
 	
 	@Test	
 	public void exceptionInfoTest() {
-		ExceptionInfo exceptionInfo = new ExceptionInfo(new Throwable("Oi Alfredo!"));
-		assertEquals("java.lang.Throwable", exceptionInfo.getName());
+		ExceptionInfo exceptionInfo = new ExceptionInfo(new DomainException("Oi Alfredo!"));
+		assertEquals("com.gedaeusp.domain.DomainException", exceptionInfo.getName());
 		assertEquals("Oi Alfredo!", exceptionInfo.getMessage());	
 	}	
 }

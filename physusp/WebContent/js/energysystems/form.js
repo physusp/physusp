@@ -66,8 +66,12 @@ function onCalculateSuccess(result) {
 
 function onCalculateError(data) {
 	$("#modal-error").find("#error-content").text("");
-	if(data.responseJSON != undefined)
+	if(data.responseJSON != undefined) {
 		$("#modal-error").find("#error-content").text(data.responseJSON.exceptionInfo.message);
+		var tabName = data.responseJSON.exceptionInfo.location;
+		if(tabName != undefined)
+			$("#containerTabs").find("a[href='#" + tabName + "']").tab("show");
+	}
 	$("#modal-error").modal("show");
 }
 

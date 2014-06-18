@@ -4,10 +4,12 @@ public class ExceptionInfo {
 
 	private String message;
 	private String name;
+	private String location;
 	
-	public ExceptionInfo(Throwable ex) {
+	public ExceptionInfo(DomainException ex) {
 		this.name = ex.getClass().getName();
 		this.message = ex.getMessage();
+		this.location = ex.getLocation();
 	}
 	
 	public String getMessage() {
@@ -15,6 +17,10 @@ public class ExceptionInfo {
 	}
 	public String getName() {
 		return name;
+	}
+	
+	public String getLocation() {
+		return location;
 	}
 	
 }
