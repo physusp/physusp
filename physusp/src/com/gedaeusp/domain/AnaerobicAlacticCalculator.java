@@ -16,7 +16,6 @@ public class AnaerobicAlacticCalculator {
 	private double[] timesArray;
 	private double[] normalizedTimesArray;
 	private double timeDelay;
-	private UnitValue<FlowUnit> baselineOxygenVol;
 	
 	public AnaerobicAlacticCalculator(NonlinearCurveFitter fitter) {
 		this.fitter = fitter;
@@ -45,7 +44,7 @@ public class AnaerobicAlacticCalculator {
 	}
 
 	public void setExponentialInput(List<UnitValue<FlowUnit>> consumption, List<Integer> times,
-			UnitValue<FlowUnit> baselineOxygenVol, double time) {
+			double time) {
 		consumptionArray = toArray(consumption, FlowUnit.lPerSecond);
 		timesArray = toArray(times);
 		normalizedTimesArray = new double[timesArray.length];
@@ -54,13 +53,12 @@ public class AnaerobicAlacticCalculator {
 			normalizedTimesArray[i] = timesArray[i]-timesArray[0];
 		}
 		timeDelay = time;
-		this.baselineOxygenVol = baselineOxygenVol;
 	}
 	
 	public UnitValue<EnergyUnit> calculateEnergyWithBiexponential(BiexponentialFitData biexponentialFitData) {
 		double[] init = fitter.guessBiexponentialInitialParameters(
 				consumptionArray, normalizedTimesArray,
-				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
+				0, timeDelay);
 
 		double[] best = fitter.doBiexponentialFit(consumptionArray, normalizedTimesArray, init);
 		
@@ -104,7 +102,7 @@ public class AnaerobicAlacticCalculator {
 	public UnitValue<EnergyUnit> calculateEnergyWithMonoexponential(MonoexponentialFitData monoexponentialFitData){
 		double[] init = fitter.guessExponentialInitialParameters(
 				consumptionArray, normalizedTimesArray,
-				baselineOxygenVol.getValue(FlowUnit.lPerSecond), timeDelay);
+				0, timeDelay);
 
 		double[] best = fitter.doDelayedExponentialFit(consumptionArray, normalizedTimesArray, init);
 

@@ -40,14 +40,11 @@ public class EnergyConsumptionResponseBuilder {
 		return this;
 	}
 
-	public EnergyConsumptionResponseBuilder addAnaerobicAlactic(
-			AnaerobicAlacticParameters parameters,
-			RestOxygenParameters restParameters) {
+	public EnergyConsumptionResponseBuilder addAnaerobicAlactic(AnaerobicAlacticParameters parameters) {
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
 		if (!parameters.isUseTimeDelay())
 			parameters.setTimeDelay(-1);
-		anaerobicAlacticEnergy = getAnaerobicAlacticCalculator(parameters,
-				getRestOxygenConsumptionCalculator(restParameters));
+		anaerobicAlacticEnergy = getAnaerobicAlacticCalculator(parameters);
 		response.setAnaerobicAlactic(anaerobicAlacticEnergy);
 		return this;
 	}
@@ -121,8 +118,7 @@ public class EnergyConsumptionResponseBuilder {
 	}
 
 	private UnitValue<EnergyUnit> getAnaerobicAlacticCalculator(
-			AnaerobicAlacticParameters parameters,
-			RestOxygenConsumptionCalculator restOxygenConsumptionCalculator) {
+			AnaerobicAlacticParameters parameters) {
 		TimeSeriesParser<FlowUnit> parser = new TimeSeriesParser<FlowUnit>();
 
 		LinkedHashMap<Integer, UnitValue<FlowUnit>> oxygenConsumptionPostExerciseSeries = parser
@@ -136,8 +132,7 @@ public class EnergyConsumptionResponseBuilder {
 				new ArrayList<UnitValue<FlowUnit>>(
 						oxygenConsumptionPostExerciseSeries.values()),
 				new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries
-						.keySet()), restOxygenConsumptionCalculator
-						.getAverageRestConsumption(), (double) parameters
+						.keySet()), (double) parameters
 						.getTimeDelay());
 
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
@@ -166,4 +161,5 @@ public class EnergyConsumptionResponseBuilder {
 
 		return anaerobicAlacticEnergy;
 	}
+
 }

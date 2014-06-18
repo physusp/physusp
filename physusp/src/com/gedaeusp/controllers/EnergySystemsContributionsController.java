@@ -41,9 +41,8 @@ public class EnergySystemsContributionsController {
 			builder = builder.addAerobic(aerobicParameters, restOxygenParameters);
 		}
 				
-		if (parameters.getCalculateAnaerobicAlactic()) {
-						
-			builder = builder.addAnaerobicAlactic(anaerobicAlacticParameters, restOxygenParameters);
+		if (parameters.getCalculateAnaerobicAlactic()) {	
+			builder = builder.addAnaerobicAlactic(anaerobicAlacticParameters);
 		}
 		this.result.use(Results.json()).from(builder.getResponse()).recursive().serialize();
 	}

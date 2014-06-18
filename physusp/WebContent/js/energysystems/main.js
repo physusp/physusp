@@ -57,12 +57,12 @@ function setEnergySystems() {
 		$("#aerobicFirstRow").prepend(restOptions);
 		$("#aerobicSecondRow").prepend(restData);
 	}
-	else if ($("#tab_anaerobicAlactic").hasClass("show")) {
-		var restOptions = $("#restOptions").detach(), 
-			restData = $("#restData").detach();
-		$("#anaerobicAlacticFirstRow").prepend(restOptions);
-		$("#anaerobicAlacticSecondRow").prepend(restData);
-	}
+	//else if ($("#tab_anaerobicAlactic").hasClass("show")) {
+	//	var restOptions = $("#restOptions").detach(), 
+	//		restData = $("#restData").detach();
+		//$("#anaerobicAlacticFirstRow").prepend(restOptions);
+		//$("#anaerobicAlacticSecondRow").prepend(restData);
+	//}
 	
 	$("#tabResults").addClass("show");
 	$("#containerTabs").find("li.show").eq(1).find("a").tab("show");
