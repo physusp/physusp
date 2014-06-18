@@ -12,6 +12,12 @@ public class AerobicCalculator {
 		IntegralCalculator<FlowUnit> integralCalculator = new IntegralCalculator<FlowUnit>(time, consumptionDuringExercise);
 		double integralValue = integralCalculator.calculate().getValue(FlowUnit.lPerSecond);
 		Integer timeRange = Time.timeRange(time);
+		
+		double meanDuringExerciseOxygenConsumption = integralValue / timeRange;
+		
+		if(meanDuringExerciseOxygenConsumption < restConsumption.getValue(FlowUnit.lPerSecond))
+			throw new DomainException("Oxygen consumption during exercise mean is less than rest consumption.", "aerobic");
+		
 		double value = integralValue - (restConsumption.getValue(FlowUnit.lPerSecond)*timeRange);
 		return new UnitValue<VolumeUnit>(value,VolumeUnit.l);
 	}
