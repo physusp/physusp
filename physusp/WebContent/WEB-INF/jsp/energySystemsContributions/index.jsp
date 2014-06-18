@@ -7,11 +7,18 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="<c:url value="/css/lib/jquery.handsontable.full.css"/>" />
 	<link rel="stylesheet" href="<c:url value="/css/energysystemscontributions.css"/>" />
-	<title>PhysUSP - Energy Systems Contributions</title>
+	<title>GEDAE-LaB - Energy Systems Contributions</title>
 </head>
 <body>
+
+	<div id="top">
+		<div class="container">
+			<a href="<c:url value="/"/>"><img class="img-responsive" src="<c:url value="/img/logo.png"/>" alt="logo"/></a>
+		</div>
+	</div>
+
 	<h1 class="text-center">Energy Systems Contributions</h1>
-	<form id="data" class="form-horizontal" action="<c:url value="/calculate"/>">
+	<form id="data" class="form-horizontal" action="<c:url value="/esc/calculate"/>">
 		<div class="container">
 			<ul id="containerTabs" class="nav nav-tabs">
 				<li id="tabOptions" class="active show"><a href="#options">Options</a></li>

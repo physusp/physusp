@@ -1,6 +1,19 @@
 h2 {font-size: 18px}
 label {font-weight: normal}
 
+#top {
+	margin-top: 0;
+	padding: 50px 0;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+	background-color: white;
+}
+
+body {
+	font-family: "segoe ui", sans-serif;
+	font-weight: lighter;
+	background-color: #f8f8f8;
+}
+
 .nav > li > a {padding: 10px 14px}
 #containerTabs li a {font-size: 20px; color: #bbb; height: 50px; border-top: 4px transparent solid}
 #containerTabs li.active a {color: black; border-top-color: green}

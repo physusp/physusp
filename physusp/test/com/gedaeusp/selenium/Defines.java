@@ -8,9 +8,9 @@ public class Defines {
 	{
 		@SuppressWarnings("unused")
 		String localDomain = "http://localhost:8080";
-		//@SuppressWarnings("unused")
+		@SuppressWarnings("unused")
 		String serverDomain = "http://localhost:9090";
-		return serverDomain;
+		return localDomain;
 	}
 	
 }
