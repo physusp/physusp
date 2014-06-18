@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width" />
 	<link rel="stylesheet"
 		href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="<c:url value="/css/home.css"/>" />	
