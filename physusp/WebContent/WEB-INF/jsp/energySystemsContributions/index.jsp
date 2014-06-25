@@ -98,6 +98,9 @@
 						<div id="restData" class="col-sm-6">
 							<div id="aerobicRestTable">
 								<div id="oxygenConsumptionRest" data-field="restOxygenParameters.oxygenConsumptionRest"></div>
+								<button id="btnOxygenConsumptionRestPlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionRestPlot" data-table="oxygenConsumptionRest">Plot</button>
+								<div id="oxygenConsumptionRestPlot"></div>
+								
 								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." 
 									data-table="oxygenConsumptionRest" />
 							</div>
@@ -108,6 +111,9 @@
 						</div>
 						<div class="col-sm-6">
 							<div id="oxygenConsumptionDuringExercise" data-field="aerobicParameters.oxygenConsumptionDuringExercise"></div>
+							<button id="btnOxygenConsumptionDuringExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionDuringExercisePlot" data-table="oxygenConsumptionDuringExercise">Plot</button>
+							<div id="oxygenConsumptionDuringExercisePlot"></div>
+							
 							<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
 								data-table="oxygenConsumptionDuringExercise"/>
 						</div>
@@ -170,9 +176,13 @@
 					<div id="anaerobicAlacticSecondRow" class="row">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<div id="oxygenConsumptionPostExercise" data-field="anaerobicAlacticParameters.oxygenConsumptionPostExercise" class="col-sm-12"></div>
-								<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." 
-									data-table="oxygenConsumptionPostExercise"/>
+								<div class="col-sm-12">
+									<div id="oxygenConsumptionPostExercise" data-field="anaerobicAlacticParameters.oxygenConsumptionPostExercise"></div>
+									<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." 
+										data-table="oxygenConsumptionPostExercise"/>
+									<button id="btnOxygenConsumptionPostExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionPostExercisePlot" data-table="oxygenConsumptionPostExercise">Plot</button>
+									<div id="oxygenConsumptionPostExercisePlot"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -288,5 +298,7 @@
 		src="<c:url value="/js/energysystems/resultrow.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/energysystems/main.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/energysystems/plot.js"/>"></script>
 </body>
 </html>
