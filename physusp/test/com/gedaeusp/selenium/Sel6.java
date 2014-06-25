@@ -42,7 +42,7 @@ public class Sel6 {
 	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
-  @Test
+  //@Test
   public void testE8() throws Exception {
     driver.get(baseUrl + "/physusp/esc");
     driver.findElement(By.id("parameters.calculateAerobic")).click();
