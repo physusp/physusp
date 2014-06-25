@@ -3,10 +3,14 @@ label {font-weight: normal}
 
 #top {
 	margin-top: 0;
-	padding: 50px 0;
+	padding: 20px 0;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 	background-color: white;
 }
+	#top img {
+		height: 80px;
+		margin: 0 auto;
+	}
 
 body {
 	font-family: "segoe ui", sans-serif;
