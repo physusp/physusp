@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class AnaerobicLacticTest extends SeleniumTest {
+public class AnaerobicLacticTest {
   private WebDriver driver;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
@@ -36,14 +36,15 @@ public class AnaerobicLacticTest extends SeleniumTest {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = Defines.geDomain();
+    baseUrl = Defines.getDomain();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
- // @Test
+  @Test
   public void testAnaerobicLactic() throws Exception {
-    driver.get(baseUrl + "/physusp/");
-    driver.findElement(By.id("parameters.calculateAnaerobicLactic")).click();
+    driver.get(baseUrl + "/physusp/esc");
+    driver.findElement(By.id("parameters.calculateAerobic")).click();
+    driver.findElement(By.id("parameters.calculateAnaerobicAlactic")).click();
     driver.findElement(By.id("btnNext")).click();
     driver.findElement(By.id("anaerobicLacticParameters.peakLactateConcentration")).clear();
     driver.findElement(By.id("anaerobicLacticParameters.peakLactateConcentration")).sendKeys("4");

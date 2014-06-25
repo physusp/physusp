@@ -23,7 +23,7 @@ public class Defines {
 	
 	public Defines(){}
 	
-	public static String geDomain()
+	public static String getDomain()
 	{
 		@SuppressWarnings("unused")
 		String localDomain = "http://localhost:8080";

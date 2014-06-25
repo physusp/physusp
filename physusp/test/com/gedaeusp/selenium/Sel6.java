@@ -38,17 +38,18 @@ public class Sel6 {
 	    driver = new FirefoxDriver();
 	    Dimension resolution = new Dimension(1280,1024);
 	    driver.manage().window().setSize(resolution);
-	    baseUrl = Defines.geDomain();
+	    baseUrl = Defines.getDomain();
 	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
-  //@Test
+  @Test
   public void testE8() throws Exception {
-    driver.get(baseUrl + "/physusp/#options");
-    driver.findElement(By.id("parameters.calculateAnaerobicLactic")).click();
+    driver.get(baseUrl + "/physusp/esc");
+    driver.findElement(By.id("parameters.calculateAerobic")).click();
+    driver.findElement(By.id("parameters.calculateAnaerobicAlactic")).click();
     driver.findElement(By.id("btnNext")).click();
-    driver.findElement(By.id("anaerobicLacticParameters.maxLactateConcentration")).clear();
-    driver.findElement(By.id("anaerobicLacticParameters.maxLactateConcentration")).sendKeys("4.5");
+    driver.findElement(By.id("anaerobicLacticParameters.peakLactateConcentration")).clear();
+    driver.findElement(By.id("anaerobicLacticParameters.peakLactateConcentration")).sendKeys("4.5");
     driver.findElement(By.id("anaerobicLacticParameters.restLactateConcentration")).clear();
     driver.findElement(By.id("anaerobicLacticParameters.restLactateConcentration")).sendKeys("0.62");
     driver.findElement(By.id("anaerobicLacticParameters.weight")).clear();
