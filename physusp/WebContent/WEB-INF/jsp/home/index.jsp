@@ -18,19 +18,12 @@
 		<div class="container">
 			<div id="content" class="row">
 				<div class="col-xs-12 text-justify">
-					The estimative of the energy system contributions may be useful in the evaluation of the
-					professional and recreational athletes, in the determination of the energy cost in the
-					daily life, and following the history of a disease. However, in order to determine the
-					energy system contributions, the use of some mathematical functions that may be
-					considered unusual to many scientists is often required. In addition, the need for
-					specific software can make these physiological analyses relatively more expensive. The
-					GEDAE-LaB is an open source software designed based on the concept of the usability to
-					help the scientists to estimate the energy system contributions. In this first version,
-					the GEDAE-LaB utilizes mathematical analyzes of some physiological variables (i.e. oxygen
-					uptake and blood lactate accumulation) to determine the contribution of aerobic,
-					anaerobic lactic, and anaerobic alactic metabolisms. It does not require any registration
-					or login. In addition, as the GEADE-LaB (version 1.0) is online available software, you
-					can use it anywhere in the world where you have internet access!
+					The GEDAE-LaB is an open source software for mathematical analyses designed to help the exercise
+					physiologists. In this first version, the GEDAE-LaB (version 1.0) allows to estimate the energy
+					expenditure and energy system contributions using the measurement of the oxygen uptake and blood
+					lactate accumulation during exercise. It does not require any registration or login. In addition,
+					as the GEDAE-LaB is an online available software, you can use it anywhere in the world where you
+					have internet access!
 				</div>
 			</div>
 	
