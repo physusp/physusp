@@ -156,7 +156,6 @@ public class EnergyConsumptionResponseBuilder {
 
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
 		if (parameters.getExponentialType() == 1) {
-//		    TODO: Alterações para ajustar o time delay
 			MonoexponentialFitData monoexponentialFitData = new MonoexponentialFitData();
 			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithMonoexponential(monoexponentialFitData);
 			response.setExpectedOxygenConsumptions(monoexponentialFitData.getExpectedOxygenConsumptions());

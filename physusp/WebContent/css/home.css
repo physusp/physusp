@@ -21,7 +21,7 @@ div.row {
 	margin-top: 50px;
 }
 div.container {
-	overflow: hidden;
+	position:relative;
 }
 
 #content {
@@ -43,4 +43,31 @@ body {
 
 @media (min-width: 1200px) {
 	.container {width: 970px}
+}
+
+.logo {
+	height:90px;
+	float:left;
+	margin-right:90px;
+	margin-top:120px;
+}
+
+.logo-ccsl {
+	margin-right:0px;
+}
+
+#git {
+ 	background: url("../img/git.png") no-repeat scroll 95% 50% #428bca;;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: block;
+    font-weight: 700;
+    padding: 10px 50px 10px 10px;
+    position: absolute;
+    top: -50px;
+    z-index: 10;
+    align:right;
+    right:0;
 }
