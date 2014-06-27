@@ -153,7 +153,7 @@ public class AnaerobicAlacticCalculator {
 				observedValues[j] = exp.value(normalizedTimesSubArray[j]);
 			double sumOfErrors = SquaredErrorsCalculator.calculate(observedValues, consumptionSubArray);	
 			
-			if (sumOfErrors/lastSumOfSquares > EPS) {
+			if (sumOfErrors/lastSumOfSquares < 1 - EPS) {
 				best = bestCandidate.clone();
 				nOutliers = i;
 				System.out.println("timeDelay = " + nOutliers);
