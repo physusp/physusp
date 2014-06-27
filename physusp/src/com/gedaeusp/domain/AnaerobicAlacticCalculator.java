@@ -19,6 +19,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 
 package com.gedaeusp.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.gedaeusp.models.BiexponentialFitData;
@@ -28,7 +29,8 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class AnaerobicAlacticCalculator {
-
+	
+	private static double EPS = 0.05;
 
 	private final NonlinearCurveFitter fitter;
 	private double[] consumptionArray;
@@ -118,43 +120,85 @@ public class AnaerobicAlacticCalculator {
 		return calculateEnergy(best[Biexponential.PARAM_a1], best[Biexponential.PARAM_tau1]);
 	}
 	
+	private double[] normalizeTimesArray(double[] times) {
+		double[] normalizedTimes = new double[times.length];
+		
+		for (int i = 0; i < times.length; i++)
+			normalizedTimes[i] = times[i] - times[0] + 1;
+		return normalizedTimes;
+	}
+	
 	public UnitValue<EnergyUnit> calculateEnergyWithMonoexponential(MonoexponentialFitData monoexponentialFitData){
-		double[] init = fitter.guessExponentialInitialParameters(
-				consumptionArray, normalizedTimesArray,
-				0, timeDelay);
-
-		double[] best = fitter.doDelayedExponentialFit(consumptionArray, normalizedTimesArray, init);
-
-		double v0 = best[DelayedExponential.PARAM_v0];
+		
+		int nOutliers = 0;
+		double[] observedValues       = new double[consumptionArray.length];
+		double[] normalizedTimesArray = normalizeTimesArray(timesArray);
+		double[] best                 = fitter.doExponentialFit(consumptionArray, normalizedTimesArray);
+		Exponential exp               = new Exponential(best[Exponential.PARAM_v0], best[Exponential.PARAM_a], best[Exponential.PARAM_tau]);  
+		
+		for (int j = 0; j < consumptionArray.length; j++)
+			observedValues[j] = exp.value(normalizedTimesArray[j]);
+		double lastSumOfSquares = SquaredErrorsCalculator.calculate(observedValues, consumptionArray);
+		
+		for (int i = 1; i < consumptionArray.length; i++) {
+			double[] consumptionSubArray     = Arrays.copyOfRange(consumptionArray, i, consumptionArray.length);
+			double[] timesSubArray           = Arrays.copyOfRange(normalizedTimesArray, i, normalizedTimesArray.length);
+			double[] normalizedTimesSubArray = normalizeTimesArray(timesSubArray);
+			double[] bestCandidate           = fitter.doExponentialFit(consumptionSubArray, normalizedTimesSubArray);
+			
+			observedValues = new double[consumptionSubArray.length];
+			exp = new Exponential(bestCandidate[Exponential.PARAM_v0], bestCandidate[Exponential.PARAM_a], bestCandidate[Exponential.PARAM_tau]);
+			
+			for (int j = 0; j < consumptionSubArray.length; j++)
+				observedValues[j] = exp.value(normalizedTimesSubArray[j]);
+			double sumOfErrors = SquaredErrorsCalculator.calculate(observedValues, consumptionSubArray);	
+			
+			if (sumOfErrors/lastSumOfSquares > EPS) {
+				best = bestCandidate.clone();
+				nOutliers = i;
+				System.out.println("timeDelay = " + nOutliers);
+				break;
+			}
+			lastSumOfSquares = sumOfErrors;
+		}
+		setMonoexponentialFitData(monoexponentialFitData, best, nOutliers);
+		
+		return calculateEnergy(best[Exponential.PARAM_a], best[Exponential.PARAM_tau]);
+	}
+	
+	private void setMonoexponentialFitData(MonoexponentialFitData monoexponentialFitData, double[] best, int nOutliers) {
+		double v0  = best[Exponential.PARAM_v0];
 		UnitValue<FlowUnit> _v0 = new UnitValue<FlowUnit>(v0, FlowUnit.lPerSecond);
-		double t0 = best[DelayedExponential.PARAM_t0];
-		double a = best[DelayedExponential.PARAM_a];
+		double a   = best[Exponential.PARAM_a];
 		UnitValue<FlowUnit> _a = new UnitValue<FlowUnit>(a, FlowUnit.lPerSecond);
-		double tau = best[DelayedExponential.PARAM_tau];
+		double tau = best[Exponential.PARAM_tau];
 
 		monoexponentialFitData.setV0(_v0);
-		monoexponentialFitData.setT0(t0);
+		monoexponentialFitData.setT0(nOutliers);
 		monoexponentialFitData.setA(_a);
 		monoexponentialFitData.setTau(tau);
 		
-		DelayedExponential monoexponentialCalculator = new DelayedExponential(v0, a, tau, t0);
+		Exponential monoexponentialCalculator = new Exponential(v0, a, tau);
 		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length];
 		
 		@SuppressWarnings("unchecked")
 		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
 		
-		for (int i = 0; i < normalizedTimesArray.length; i++) {
-			expectedOxygenConsumptionValues[i] = monoexponentialCalculator.value(normalizedTimesArray[i]);
+		for (int j = 0; j < nOutliers; j++) {
+			expectedOxygenConsumptionValues[j] = monoexponentialCalculator.value(normalizedTimesArray[j]);
+			expectedOxygenConsumption[j] = new UnitValue<FlowUnit>(0, FlowUnit.lPerSecond);
+		}
+		
+		for (int i = nOutliers; i < normalizedTimesArray.length; i++) {
+			expectedOxygenConsumptionValues[i] = monoexponentialCalculator.value(normalizedTimesArray[i - nOutliers]);
 			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
 		}
+		
 		monoexponentialFitData.setExpectedOxygenConsumptions(expectedOxygenConsumption);
 		
 		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
 		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumptionValues);
 		monoexponentialFitData.setRSquared(rSquared);
-
-		
-		return calculateEnergy(best[DelayedExponential.PARAM_a], best[DelayedExponential.PARAM_tau]);
 	}
 
 	public UnitValue<EnergyUnit> calculateEnergy(double a, double tau) {
