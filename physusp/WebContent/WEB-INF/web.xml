@@ -3,8 +3,8 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
-	<display-name>vraptor-blank-project</display-name>
-
+	<display-name>GEDAE-LaB</display-name>
+	
 	<!--
 		VRaptor will scan classpath for all @Component and 
 		@Resource inside WEB-INF/classes
