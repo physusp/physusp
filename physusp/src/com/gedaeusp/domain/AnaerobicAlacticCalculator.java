@@ -22,6 +22,8 @@ package com.gedaeusp.domain;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.jetty.util.log.Log;
+
 import com.gedaeusp.models.BiexponentialFitData;
 import com.gedaeusp.models.MonoexponentialFitData;
 
@@ -77,15 +79,51 @@ public class AnaerobicAlacticCalculator {
 	}
 	
 	public UnitValue<EnergyUnit> calculateEnergyWithBiexponential(BiexponentialFitData biexponentialFitData) {
-		double[] init = fitter.guessBiexponentialInitialParameters(
-				consumptionArray, normalizedTimesArray,
-				0, timeDelay);
-
+		double[] init = fitter.guessBiexponentialInitialParameters(consumptionArray, normalizedTimesArray);
 		double[] best = fitter.doBiexponentialFit(consumptionArray, normalizedTimesArray, init);
 		
+		int nOutliers = 0;
+		double[] observedValues       = new double[consumptionArray.length];
+		double[] normalizedTimesArray = normalizeTimesArray(timesArray);
+		Biexponential exp             = new Biexponential(best[Biexponential.PARAM_v0], best[Biexponential.PARAM_a1], 
+		                                                  best[Biexponential.PARAM_a2], best[Biexponential.PARAM_tau1],
+		                                                  best[Biexponential.PARAM_tau2]);  
+		
+		for (int j = 0; j < consumptionArray.length; j++)
+			observedValues[j] = exp.value(normalizedTimesArray[j]);
+		double lastSumOfSquares = SquaredErrorsCalculator.calculate(observedValues, consumptionArray);
+		
+		for (int i = 1; i < consumptionArray.length; i++) {
+			double[] consumptionSubArray     = Arrays.copyOfRange(consumptionArray, i, consumptionArray.length);
+			double[] timesSubArray           = Arrays.copyOfRange(normalizedTimesArray, i, normalizedTimesArray.length);
+			double[] normalizedTimesSubArray = normalizeTimesArray(timesSubArray);
+			double[] bestCandidate           = fitter.doBiexponentialFit(consumptionSubArray, normalizedTimesSubArray, init);
+			
+			observedValues = new double[consumptionSubArray.length];
+			exp = new Biexponential(bestCandidate[Biexponential.PARAM_v0], bestCandidate[Biexponential.PARAM_a1], 
+			                        bestCandidate[Biexponential.PARAM_a2], bestCandidate[Biexponential.PARAM_tau1], 
+			                        bestCandidate[Biexponential.PARAM_tau2]);
+			
+			for (int j = 0; j < consumptionSubArray.length; j++)
+				observedValues[j] = exp.value(normalizedTimesSubArray[j]);
+			double sumOfErrors = SquaredErrorsCalculator.calculate(observedValues, consumptionSubArray);	
+			
+			if (sumOfErrors/lastSumOfSquares < 1 - EPS) {
+				best = bestCandidate.clone();
+				nOutliers = i;
+				break;
+			}
+			lastSumOfSquares = sumOfErrors;
+		}
+		
+		setBiexponentialFitData(biexponentialFitData, best, nOutliers);
+		
+		return calculateEnergy(best[Biexponential.PARAM_a1], best[Biexponential.PARAM_tau1]);
+	}
+	
+	private void setBiexponentialFitData(BiexponentialFitData biexponentialFitData, double[] best, int nOutliers) {
 		double v0 = best[Biexponential.PARAM_v0];
 		UnitValue<FlowUnit> _v0 = new UnitValue<FlowUnit>(v0, FlowUnit.lPerSecond);
-		double t0 = best[Biexponential.PARAM_t0];
 		double a1 = best[Biexponential.PARAM_a1];
 		UnitValue<FlowUnit> _a1 = new UnitValue<FlowUnit>(a1, FlowUnit.lPerSecond);
 		double a2 = best[Biexponential.PARAM_a2];
@@ -94,30 +132,31 @@ public class AnaerobicAlacticCalculator {
 		double tau2 = best[Biexponential.PARAM_tau2];
 		
 		biexponentialFitData.setV0(_v0);
-		biexponentialFitData.setT0(t0);
+		biexponentialFitData.setT0(nOutliers);
 		biexponentialFitData.setA1(_a1);
 		biexponentialFitData.setA2(_a2);
 		biexponentialFitData.setTau1(tau1);
 		biexponentialFitData.setTau2(tau2);
 		
-		Biexponential biexponentialCalculator = new Biexponential(v0, t0, a1, a2, tau1, tau2);
-		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length];
+		Biexponential biexponentialCalculator    = new Biexponential(v0, a1, a2, tau1, tau2);
+		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length - nOutliers];
 		
 		@SuppressWarnings("unchecked")
-		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
+		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length - nOutliers];
 		
-		for (int i = 0; i < normalizedTimesArray.length; i++) {
-			expectedOxygenConsumptionValues[i] = biexponentialCalculator.value(normalizedTimesArray[i]);
-			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
+		
+		for (int i = nOutliers; i < normalizedTimesArray.length; i++) {
+			double v = biexponentialCalculator.value(normalizedTimesArray[i]);
+			System.out.println(i + "] " + normalizedTimesArray[i] + ": " + v);
+			expectedOxygenConsumptionValues[i - nOutliers] = v;
+			expectedOxygenConsumption[i - nOutliers] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i - nOutliers], FlowUnit.lPerSecond);
 		}
+		
 		biexponentialFitData.setExpectedOxygenConsumptions(expectedOxygenConsumption);
 		
 		RSquaredCalculator rSquaredCalculator = new RSquaredCalculator();
 		double rSquared = rSquaredCalculator.calculate(consumptionArray, expectedOxygenConsumptionValues);
 		biexponentialFitData.setRSquared(rSquared);
-		
-		
-		return calculateEnergy(best[Biexponential.PARAM_a1], best[Biexponential.PARAM_tau1]);
 	}
 	
 	private double[] normalizeTimesArray(double[] times) {
@@ -156,7 +195,6 @@ public class AnaerobicAlacticCalculator {
 			if (sumOfErrors/lastSumOfSquares < 1 - EPS) {
 				best = bestCandidate.clone();
 				nOutliers = i;
-				System.out.println("timeDelay = " + nOutliers);
 				break;
 			}
 			lastSumOfSquares = sumOfErrors;
@@ -179,19 +217,14 @@ public class AnaerobicAlacticCalculator {
 		monoexponentialFitData.setTau(tau);
 		
 		Exponential monoexponentialCalculator = new Exponential(v0, a, tau);
-		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length];
+		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length - nOutliers];
 		
 		@SuppressWarnings("unchecked")
 		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
 		
-		for (int j = 0; j < nOutliers; j++) {
-			expectedOxygenConsumptionValues[j] = monoexponentialCalculator.value(normalizedTimesArray[j]);
-			expectedOxygenConsumption[j] = new UnitValue<FlowUnit>(0, FlowUnit.lPerSecond);
-		}
-		
 		for (int i = nOutliers; i < normalizedTimesArray.length; i++) {
-			expectedOxygenConsumptionValues[i] = monoexponentialCalculator.value(normalizedTimesArray[i - nOutliers]);
-			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
+			expectedOxygenConsumptionValues[i - nOutliers] = monoexponentialCalculator.value(normalizedTimesArray[i]);
+			expectedOxygenConsumption[i - nOutliers] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i - nOutliers], FlowUnit.lPerSecond);
 		}
 		
 		monoexponentialFitData.setExpectedOxygenConsumptions(expectedOxygenConsumption);

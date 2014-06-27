@@ -64,8 +64,8 @@ function showAdvancedResults(result) {
 		}
 		
 		var series2 = [];
-		for(var i = 0; i < series1.length; i++)
-			series2.push([series1[i][0], parseFloat(result.consumption.expectedOxygenConsumption[i].mlPerMinute)]);
+		for(var i = 0; i < series1.length - result.consumption.t0; i++)
+			series2.push([series1[i + result.consumption.t0][0], parseFloat(result.consumption.expectedOxygenConsumption[i].mlPerMinute)]);
 		
 		$("#advancedChart").highcharts({
 			chart: {
