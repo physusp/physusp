@@ -25,6 +25,16 @@ import com.gedaeusp.domain.Biexponential;
 
 public class BiexponentialParametric implements ParametricUnivariateFunction {
 	
+	private boolean fixedV0;
+	
+	public BiexponentialParametric() {
+		this(false);
+	}
+	
+	public BiexponentialParametric(boolean fixedV0) {
+		this.fixedV0 = fixedV0;
+	}
+	
 	@Override
 	public double value(double t, double... params) {
 		double v0 = params[Biexponential.PARAM_v0];
@@ -43,7 +53,7 @@ public class BiexponentialParametric implements ParametricUnivariateFunction {
 		double tau1 = params[Biexponential.PARAM_tau1];
 		double tau2 = params[Biexponential.PARAM_tau2];
 		
-		double dv0 = 1;
+		double dv0 = fixedV0 == true ? 0 : 1;
 		double da1 = FastMath.exp(-t / tau1);
 		double da2 = FastMath.exp(-t / tau2);
 		double dTau1 = (a1 * t * FastMath.exp(-t / tau1))

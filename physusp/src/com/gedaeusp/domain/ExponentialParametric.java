@@ -23,7 +23,17 @@ import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
 import org.apache.commons.math3.util.FastMath;
 
 public class ExponentialParametric implements ParametricUnivariateFunction {
-
+	
+	private boolean fixedV0;
+	
+	public ExponentialParametric() {
+		this(false);
+	}
+	
+	public ExponentialParametric(boolean fixedV0) {
+		this.fixedV0 = fixedV0;
+	}
+	
 	@Override
 	public double value(double t, double... params) {
 		double v0  = params[Exponential.PARAM_v0];
@@ -38,7 +48,7 @@ public class ExponentialParametric implements ParametricUnivariateFunction {
 		double a    = params[Exponential.PARAM_a];
 		double tau  = params[Exponential.PARAM_tau];
 
-		double dv0  = 1;
+		double dv0  = fixedV0 == true ? 0 : 1;
 		double da   = FastMath.exp(-t / tau);
 		double dTau = a * t * FastMath.exp(-t / tau) / FastMath.pow(tau, 2);
 		

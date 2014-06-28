@@ -42,11 +42,11 @@ public class NonlinearCurveFitter {
 			fitter.addObservedPoint(t[i] - min, v[i]);
 		}
 	}
-
-	public double[] guessBiexponentialInitialParameters(double[] v, double[] t) {
+	
+	public double[] guessBiexponentialInitialParameters(double[] v, double[] t, double v0) {
 
 		double[] exp = doExponentialFit(v, t);
-		double initV0 = StatUtils.min(v);
+		double initV0 = v0;
 		double initTau = exp[Exponential.PARAM_tau];
 		double initA = exp[Exponential.PARAM_a] * 0.5;
 		//TODO: Testar se tau1 == t1
@@ -64,8 +64,21 @@ public class NonlinearCurveFitter {
 //
 //		return new double[] { initV0, initA, initTau, initT0 };
 //	}
+	
+	public double[] doExponentialFitWithFixedV0(double[] v, double[] t, double v0) {
+		CurveFitter<ExponentialParametric> fitter = new CurveFitter<ExponentialParametric>(new LevenbergMarquardtOptimizer());
+		addObservedPointsToFitter(v, t, fitter);
 
-
+		return fitter.fit(new ExponentialParametric(true), new double[] { v0, 1, 1 });		
+	}
+	
+	public double[] doBiexponentialFitWithFixedV0(double[] v, double[] t, double[] init) {
+		CurveFitter<BiexponentialParametric> fitter = new CurveFitter<BiexponentialParametric>(new LevenbergMarquardtOptimizer());
+		addObservedPointsToFitter(v, t, fitter);
+		
+		return fitter.fit(new BiexponentialParametric(true), init);		
+	}
+	
 	public double[] doExponentialFit(double[] v, double[] t) {
 		CurveFitter<ExponentialParametric> fitter = new CurveFitter<ExponentialParametric>(new LevenbergMarquardtOptimizer());
 		addObservedPointsToFitter(v, t, fitter);

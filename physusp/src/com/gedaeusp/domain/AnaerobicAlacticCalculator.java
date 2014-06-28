@@ -33,12 +33,14 @@ import br.com.caelum.vraptor.ioc.Component;
 public class AnaerobicAlacticCalculator {
 	
 	private static double EPS = 0.05;
-
+	private static double MAX_TIME_DELAY = 30;
+	
 	private final NonlinearCurveFitter fitter;
 	private double[] consumptionArray;
 	private double[] timesArray;
 	private double[] normalizedTimesArray;
 	private double timeDelay;
+	
 	
 	public AnaerobicAlacticCalculator(NonlinearCurveFitter fitter) {
 		this.fitter = fitter;
@@ -78,9 +80,18 @@ public class AnaerobicAlacticCalculator {
 		timeDelay = time;
 	}
 	
+	private double estimateBaselineOxygenConsumption() {
+		double[] best            = fitter.doExponentialFit(consumptionArray, normalizedTimesArray);
+		Exponential exp          = new Exponential(best[Exponential.PARAM_v0], best[Exponential.PARAM_a], best[Exponential.PARAM_tau]);
+		double[] normalizedTimes = normalizeTimesArray(timesArray);
+		
+		return exp.value(normalizedTimes[normalizedTimes.length - 1]);
+	}
+	
 	public UnitValue<EnergyUnit> calculateEnergyWithBiexponential(BiexponentialFitData biexponentialFitData) {
-		double[] init = fitter.guessBiexponentialInitialParameters(consumptionArray, normalizedTimesArray);
-		double[] best = fitter.doBiexponentialFit(consumptionArray, normalizedTimesArray, init);
+		double   v0   = estimateBaselineOxygenConsumption();
+		double[] init = fitter.guessBiexponentialInitialParameters(consumptionArray, normalizedTimesArray, v0);
+		double[] best = fitter.doBiexponentialFitWithFixedV0(consumptionArray, normalizedTimesArray, init);
 		
 		int nOutliers = 0;
 		double[] observedValues       = new double[consumptionArray.length];
@@ -93,11 +104,11 @@ public class AnaerobicAlacticCalculator {
 			observedValues[j] = exp.value(normalizedTimesArray[j]);
 		double lastSumOfSquares = SquaredErrorsCalculator.calculate(observedValues, consumptionArray);
 		
-		for (int i = 1; i < consumptionArray.length; i++) {
+		for (int i = 1; i < consumptionArray.length && timesArray[i] - timesArray[0] <= MAX_TIME_DELAY; i++) {
 			double[] consumptionSubArray     = Arrays.copyOfRange(consumptionArray, i, consumptionArray.length);
 			double[] timesSubArray           = Arrays.copyOfRange(normalizedTimesArray, i, normalizedTimesArray.length);
 			double[] normalizedTimesSubArray = normalizeTimesArray(timesSubArray);
-			double[] bestCandidate           = fitter.doBiexponentialFit(consumptionSubArray, normalizedTimesSubArray, init);
+			double[] bestCandidate           = fitter.doBiexponentialFitWithFixedV0(consumptionSubArray, normalizedTimesSubArray, init);
 			
 			observedValues = new double[consumptionSubArray.length];
 			exp = new Biexponential(bestCandidate[Biexponential.PARAM_v0], bestCandidate[Biexponential.PARAM_a1], 
@@ -168,22 +179,23 @@ public class AnaerobicAlacticCalculator {
 	}
 	
 	public UnitValue<EnergyUnit> calculateEnergyWithMonoexponential(MonoexponentialFitData monoexponentialFitData){
-		
 		int nOutliers = 0;
+		double   v0   = estimateBaselineOxygenConsumption();
+		
 		double[] observedValues       = new double[consumptionArray.length];
 		double[] normalizedTimesArray = normalizeTimesArray(timesArray);
-		double[] best                 = fitter.doExponentialFit(consumptionArray, normalizedTimesArray);
+		double[] best                 = fitter.doExponentialFitWithFixedV0(consumptionArray, normalizedTimesArray, v0);
 		Exponential exp               = new Exponential(best[Exponential.PARAM_v0], best[Exponential.PARAM_a], best[Exponential.PARAM_tau]);  
 		
 		for (int j = 0; j < consumptionArray.length; j++)
 			observedValues[j] = exp.value(normalizedTimesArray[j]);
 		double lastSumOfSquares = SquaredErrorsCalculator.calculate(observedValues, consumptionArray);
 		
-		for (int i = 1; i < consumptionArray.length; i++) {
+		for (int i = 1; i < consumptionArray.length && timesArray[i] - timesArray[0] <= MAX_TIME_DELAY; i++) {
 			double[] consumptionSubArray     = Arrays.copyOfRange(consumptionArray, i, consumptionArray.length);
 			double[] timesSubArray           = Arrays.copyOfRange(normalizedTimesArray, i, normalizedTimesArray.length);
 			double[] normalizedTimesSubArray = normalizeTimesArray(timesSubArray);
-			double[] bestCandidate           = fitter.doExponentialFit(consumptionSubArray, normalizedTimesSubArray);
+			double[] bestCandidate           = fitter.doExponentialFitWithFixedV0(consumptionSubArray, normalizedTimesSubArray, v0);
 			
 			observedValues = new double[consumptionSubArray.length];
 			exp = new Exponential(bestCandidate[Exponential.PARAM_v0], bestCandidate[Exponential.PARAM_a], bestCandidate[Exponential.PARAM_tau]);
