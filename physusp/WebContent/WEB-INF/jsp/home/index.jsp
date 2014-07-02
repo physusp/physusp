@@ -32,7 +32,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 		<div id="top">
 			<div class="container">
 				<a id="git" href="https://github.com/physusp/physusp/">View on GitHub</a>
-				<a href="<c:url value="/"/>"><img class="img-responsive" src="<c:url value="/img/logo.png"/>" alt="logo" /></a>
+				<a href="<c:url value="/"/>"><img class="img-responsive" src="<c:url value="/img/logo.jpg"/>" alt="logo" /></a>
 			</div>
 		</div>
 		<div id="bottom" class="container">
