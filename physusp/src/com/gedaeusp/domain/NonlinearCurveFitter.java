@@ -49,21 +49,10 @@ public class NonlinearCurveFitter {
 		double initV0 = v0;
 		double initTau = exp[Exponential.PARAM_tau];
 		double initA = exp[Exponential.PARAM_a] * 0.5;
-		//TODO: Testar se tau1 == t1
+		
 		return new double[] { initV0, initA, initA, initTau * 0.9, initTau * 1.1 };
 	}
 	
-//	public double[] guessExponentialInitialParameters(double[] v, double[] t,
-//			double v0, double t0) {
-//
-//		double[] exp = doExponentialFit(v, t);
-//		double initT0 = (t0 < 0) ? -1 : t0;
-//		double initV0 = StatUtils.min(v);
-//		double initTau = exp[Exponential.PARAM_tau];
-//		double initA = exp[Exponential.PARAM_a] * FastMath.exp(-initT0 / initTau);
-//
-//		return new double[] { initV0, initA, initTau, initT0 };
-//	}
 	
 	public double[] doExponentialFitWithFixedV0(double[] v, double[] t, double v0) {
 		CurveFitter<ExponentialParametric> fitter = new CurveFitter<ExponentialParametric>(new LevenbergMarquardtOptimizer());
@@ -76,7 +65,20 @@ public class NonlinearCurveFitter {
 		CurveFitter<BiexponentialParametric> fitter = new CurveFitter<BiexponentialParametric>(new LevenbergMarquardtOptimizer());
 		addObservedPointsToFitter(v, t, fitter);
 		
-		return fitter.fit(new BiexponentialParametric(true), init);		
+		/* Queremos garantir que a componente rápida está associada a tau1 e a1: */
+		double[] best = fitter.fit(new BiexponentialParametric(true), init);
+		if (best[Biexponential.PARAM_tau1] > best[Biexponential.PARAM_tau2]) {
+			
+			double tmp_tau1                = best[Biexponential.PARAM_tau2];
+			best[Biexponential.PARAM_tau2] = best[Biexponential.PARAM_tau1];
+			best[Biexponential.PARAM_tau1] = tmp_tau1;
+			
+			double tmp_a1                  = best[Biexponential.PARAM_a2];
+			best[Biexponential.PARAM_a2]   = best[Biexponential.PARAM_a1];
+			best[Biexponential.PARAM_a1]   = tmp_a1;
+		}
+				
+		return best;
 	}
 	
 	public double[] doExponentialFit(double[] v, double[] t) {
