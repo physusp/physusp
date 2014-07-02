@@ -184,8 +184,8 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 									<label class="control-label">Time delay <strong>(s)</strong></label>
 									<div>
 										<input type="text"
-											id="anaerobicAlacticParameters.timeDelayPost"
-											name="anaerobicAlacticParameters.timeDelayPost"
+											id="anaerobicAlacticParameters.timeDelay"
+											name="anaerobicAlacticParameters.timeDelay"
 											class="form-control" />
 									</div>
 								</div>

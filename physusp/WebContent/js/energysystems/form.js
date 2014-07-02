@@ -119,7 +119,7 @@ $(function(){
 		errorClass: "error",
 		ignore: ":hidden:not(#oxygenConsumptionRestError,#oxygenConsumptionDuringExerciseError,#oxygenConsumptionPostExerciseError)",
 		rules: {
-			"anaerobicAlacticParameters.timeDelayPost": {
+			"anaerobicAlacticParameters.timeDelay": {
 				required: function() { return $("#useTimeDelay").is(":checked"); }
 			},
 			"anaerobicLacticParameters.weight": {

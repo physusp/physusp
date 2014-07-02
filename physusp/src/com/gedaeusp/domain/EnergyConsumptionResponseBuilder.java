@@ -166,7 +166,6 @@ public class EnergyConsumptionResponseBuilder {
 			response.setTau1(monoexponentialFitData.getTau());
 
 		} else {
-//	        TODO: Alterações para ajustar o time delay 
 			BiexponentialFitData biexponentialFitData = new BiexponentialFitData();
 			anaerobicAlacticEnergy = alacticCalculator.calculateEnergyWithBiexponential(biexponentialFitData);
 			response.setExpectedOxygenConsumptions(biexponentialFitData.getExpectedOxygenConsumptions());

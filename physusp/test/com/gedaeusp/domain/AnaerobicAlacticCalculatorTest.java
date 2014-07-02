@@ -256,7 +256,7 @@ public class AnaerobicAlacticCalculatorTest {
 		List<UnitValue<FlowUnit>> consumption = new ArrayList<UnitValue<FlowUnit>>();
 		List<Integer> times = new ArrayList<Integer>();
 
-		double t0 = 20;
+		double t0 = 0;
 		double v0 = 600;
 		double a1 = 1700;
 		double tau1 = 40;
@@ -300,7 +300,7 @@ public class AnaerobicAlacticCalculatorTest {
 		List<UnitValue<FlowUnit>> consumption = new ArrayList<UnitValue<FlowUnit>>();
 		List<Integer> times = new ArrayList<Integer>();
 
-		double t0 = 15;
+		double t0 = 0;
 		double v0 = 600;
 		double a = 1700;
 		double tau = 40;

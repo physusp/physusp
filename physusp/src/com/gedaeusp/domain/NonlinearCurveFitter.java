@@ -36,7 +36,8 @@ public class NonlinearCurveFitter {
 	private void addObservedPointsToFitter(double[] v, double[] t,
 			CurveFitter<?> fitter) {
 
-		double min = t[0];
+		double min = 0;
+		if(t.length > 0) min = t[0];
 
 		for (int i = 0; i < t.length; i++) {
 			fitter.addObservedPoint(t[i] - min, v[i]);
