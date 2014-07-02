@@ -35,7 +35,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 				<a href="<c:url value="/"/>"><img class="img-responsive" src="<c:url value="/img/logo.png"/>" alt="logo" /></a>
 			</div>
 		</div>
-		<div class="container">
+		<div id="bottom" class="container">
 			<div id="content" class="row">
 				<div class="col-xs-12 text-justify">
 					The GEDAE-LaB is an open source software for mathematical analyses designed to help the exercise physiologists. In this first version, 

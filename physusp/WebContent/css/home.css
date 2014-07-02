@@ -21,11 +21,11 @@ div.row {
 	margin-top: 50px;
 }
 div.container {
-	position:relative;
+	position: relative;
 }
 
 #content {
-	font-size:16px;
+	font-size: 16px;
 }
 
 body {
@@ -45,15 +45,19 @@ body {
 	.container {width: 970px}
 }
 
+#bottom {
+	padding-bottom: 30px;
+}
+
 .logo {
-	height:90px;
-	float:left;
-	margin-right:90px;
-	margin-top:120px;
+	height: 90px;
+	float: left;
+	margin-right: 90px;
+	margin-top: 120px;
 }
 
 .logo-ccsl {
-	margin-right:0px;
+	margin-right: 0px;
 }
 
 #git {
@@ -68,6 +72,6 @@ body {
     position: absolute;
     top: -50px;
     z-index: 10;
-    align:right;
-    right:0;
+    align: right;
+    right: 0;
 }
