@@ -154,13 +154,11 @@ public class AnaerobicAlacticCalculator {
 		
 		@SuppressWarnings("unchecked")
 		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length - nOutliers];
-		
-		
-		for (int i = nOutliers; i < normalizedTimesArray.length; i++) {
-			double v = biexponentialCalculator.value(normalizedTimesArray[i]);
-			System.out.println(i + "] " + normalizedTimesArray[i] + ": " + v);
-			expectedOxygenConsumptionValues[i - nOutliers] = v;
-			expectedOxygenConsumption[i - nOutliers] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i - nOutliers], FlowUnit.lPerSecond);
+
+		double[] normalizedTimesSubArray = normalizeTimesArray(Arrays.copyOfRange(timesArray, nOutliers, timesArray.length));
+		for (int i = 0; i < expectedOxygenConsumption.length; i++) {
+			expectedOxygenConsumptionValues[i] = biexponentialCalculator.value(normalizedTimesSubArray[i]);
+			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
 		}
 		
 		biexponentialFitData.setExpectedOxygenConsumptions(expectedOxygenConsumption);
@@ -174,7 +172,7 @@ public class AnaerobicAlacticCalculator {
 		double[] normalizedTimes = new double[times.length];
 		
 		for (int i = 0; i < times.length; i++)
-			normalizedTimes[i] = times[i] - times[0] + 1;
+			normalizedTimes[i] = times[i] - times[0];
 		return normalizedTimes;
 	}
 	
@@ -232,11 +230,12 @@ public class AnaerobicAlacticCalculator {
 		double[] expectedOxygenConsumptionValues = new double[normalizedTimesArray.length - nOutliers];
 		
 		@SuppressWarnings("unchecked")
-		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length];
+		UnitValue<FlowUnit>[] expectedOxygenConsumption = new UnitValue[normalizedTimesArray.length - nOutliers];
 		
-		for (int i = nOutliers; i < normalizedTimesArray.length; i++) {
-			expectedOxygenConsumptionValues[i - nOutliers] = monoexponentialCalculator.value(normalizedTimesArray[i]);
-			expectedOxygenConsumption[i - nOutliers] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i - nOutliers], FlowUnit.lPerSecond);
+		double[] normalizedTimesSubArray = normalizeTimesArray(Arrays.copyOfRange(timesArray, nOutliers, timesArray.length));
+		for (int i = 0; i < expectedOxygenConsumption.length; i++) {
+			expectedOxygenConsumptionValues[i] = monoexponentialCalculator.value(normalizedTimesSubArray[i]);
+			expectedOxygenConsumption[i] = new UnitValue<FlowUnit>(expectedOxygenConsumptionValues[i], FlowUnit.lPerSecond);
 		}
 		
 		monoexponentialFitData.setExpectedOxygenConsumptions(expectedOxygenConsumption);
