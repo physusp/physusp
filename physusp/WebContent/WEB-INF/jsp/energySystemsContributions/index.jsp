@@ -275,7 +275,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 						</li>
 					</ul>
 				</div>
-				<a id="btnNewAnalysis" href="#" onclick="location.reload(true)" class="btn btn-default btn-lg">New Analysis</a>
+				<a id="btnNewAnalysis" href="" onclick="location.reload(true)" class="btn btn-default btn-lg">New Analysis</a>
 			</div>
 		</div>
 	</form>
