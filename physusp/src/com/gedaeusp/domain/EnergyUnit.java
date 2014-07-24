@@ -1,5 +1,5 @@
 /*
-Copyright 2014 António Miranda, Caio Valente, Igor Topcin, Jorge Melegati, Thales Paiva, Victor Santos
+Copyright 2014 Ant��nio Miranda, Caio Valente, Igor Topcin, Jorge Melegati, Thales Paiva, Victor Santos
 
 This file is part of PhysUSP.
 
@@ -21,12 +21,12 @@ package com.gedaeusp.domain;
 
 public enum EnergyUnit implements Unit
 {
-	Kcal(1.0),
-	KJ(4.184),
-	LO2(5);
-	
+	Kcal(5.0),
+	KJ(20.92),
+	LO2(1.0);
+
 	private double value;
-	
+
 	EnergyUnit(double value){
 		this.setValue(value);
 	}
