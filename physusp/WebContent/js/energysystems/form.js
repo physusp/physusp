@@ -119,9 +119,6 @@ $(function(){
 		errorClass: "error",
 		ignore: ":hidden:not(#oxygenConsumptionRestError,#oxygenConsumptionDuringExerciseError,#oxygenConsumptionPostExerciseError)",
 		rules: {
-			"anaerobicAlacticParameters.timeDelay": {
-				required: function() { return $("#useTimeDelay").is(":checked"); }
-			},
 			"anaerobicLacticParameters.weight": {
 				required: hasSelectedAnaerobicLactic,
 				min: 0.0001
