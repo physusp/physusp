@@ -50,13 +50,13 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 			
 			<div class="row footer-row">
 				<div class="col-xs-4">
-					<img class="img-responsive center-block" src="<c:url value="/img/usp.png"/>" alt="University of São Paulo"/>
+					<img class="img-responsive center-block" src="<c:url value="/img/usp.png?v=2"/>" alt="University of São Paulo"/>
 				</div>
 				<div class="col-xs-4">
-					<img class="img-responsive center-block" src="<c:url value="/img/eefe.png"/>" alt="Escola de Educação Física e Esportes - USP"/>
+					<img class="img-responsive center-block" src="<c:url value="/img/eefe.png?v=2"/>" alt="Escola de Educação Física e Esportes - USP"/>
 				</div>
 				<div class="col-xs-4">
-					<img class="img-responsive center-block" src="<c:url value="/img/ccslime.png"/>" alt="CCSL - Instituto de Matemática e Estatística - USP"/>
+					<img class="img-responsive center-block" src="<c:url value="/img/ccslime.png?v=2"/>" alt="CCSL - Instituto de Matemática e Estatística - USP"/>
 				</div>
 			</div>
 		</div>
