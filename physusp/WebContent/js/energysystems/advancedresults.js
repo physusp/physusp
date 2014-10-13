@@ -86,6 +86,9 @@ function showAdvancedResults(result) {
 		    		marker: {
 		    			radius: 2
 		    		}
+		    	},
+		    	series: {
+		    		showInLegend: false
 		    	}
 		    },
 		    tooltip: {
