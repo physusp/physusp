@@ -94,7 +94,7 @@ function showAdvancedResults(result) {
 		    tooltip: {
 		    	formatter: function() {
 		    		var time = convertMillisecondsToTimeString(this.x);
-		    		return 'time: <b>' + time + '</b><br/>VO<sub>2</sub>: <b>' + this.y + '</b>';
+		    		return 'Time: <b>' + time + '</b><br/>Oxygen uptake: <b>' + this.y + '</b>';
 		    	}
 		    },
 	        exporting: {
@@ -116,7 +116,7 @@ function showAdvancedResults(result) {
 	        yAxis: {
 	        	min: 0,
 	        	title: {
-	        		text: "VO<sub>2</sub> (ml/min)"
+	        		text: "Oxygen uptake (ml/min)"
 	        	}
 	        },
 	        series: [{
