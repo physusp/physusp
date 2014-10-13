@@ -61,7 +61,10 @@ function showPlot(element, plotElement) {
 			}
 		},
 		yAxis : {
-			min : 0
+			min : 0,
+			title : {
+				text : "Oxygen uptake (ml/min)"
+			}
 		},
 		series : [ {
 			data : series1,
