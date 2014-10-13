@@ -29,7 +29,8 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class AnaerobicAlacticCalculator {
-
+	public static final double DEFAULT_TIME_DELAY = -1;
+	
 	private static double EPS = 0.05;
 	private static double MAX_TIME_DELAY = 30;
 
@@ -88,7 +89,7 @@ public class AnaerobicAlacticCalculator {
 
 	public UnitValue<EnergyUnit> calculateEnergyWithBiexponential(
 			BiexponentialFitData biexponentialFitData) {
-		if (timeDelay == -1)
+		if (timeDelay == DEFAULT_TIME_DELAY)
 			return calculateEnergyWithBiexponentialEstimatingT0(biexponentialFitData);
 		else {
 			if (timeDelay > normalizedTimesArray[normalizedTimesArray.length - 1]) {

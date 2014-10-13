@@ -17,47 +17,48 @@ You should have received a copy of the GNU General Public License
 along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 */
 
-div.row {
-	margin-top: 50px;
+@media (min-width: 1200px) {
+	.container {width: 992px}
 }
+
+body {
+	background-color: #f8f8f8;
+}
+
 div.container {
 	position: relative;
 }
 
-#content {
-	font-size: 16px;
-}
-
-body {
+.body-description-row {
+	margin-top: 50px;
 	font-family: "segoe ui", sans-serif;
 	font-weight: lighter;
-	background-color: #f8f8f8;
+	font-size: 1.2em;
+	line-height: 2em;
 }
 
-#top {
+.start-container {
+	max-width: 400px;
+	margin: 0 auto 10px;
+}
+
+.start-btn-row {
+	margin-top: 20px;
+}
+
+.footer-row {
+	margin-top: 50px;
+}
+
+.home-header {
 	margin-top: 0;
 	padding: 50px 0;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 	background-color: white;
 }
 
-@media (min-width: 1200px) {
-	.container {width: 970px}
-}
-
-#bottom {
+.home-body {
 	padding-bottom: 30px;
-}
-
-.logo {
-	height: 50px;
-	float: left;
-	margin-right: 200px;
-	margin-top: 120px;
-}
-
-.logo-ccsl {
-	margin-right: 0px;
 }
 
 #git {

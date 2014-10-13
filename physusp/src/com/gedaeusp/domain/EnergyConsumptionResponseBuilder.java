@@ -61,8 +61,6 @@ public class EnergyConsumptionResponseBuilder {
 
 	public EnergyConsumptionResponseBuilder addAnaerobicAlactic(AnaerobicAlacticParameters parameters) {
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
-		if (!parameters.isUseTimeDelay())
-			parameters.setTimeDelay(-1);
 		anaerobicAlacticEnergy = getAnaerobicAlacticCalculator(parameters);
 		response.setAnaerobicAlactic(anaerobicAlacticEnergy);
 		return this;
@@ -148,11 +146,9 @@ public class EnergyConsumptionResponseBuilder {
 				new NonlinearCurveFitter());
 
 		alacticCalculator.setExponentialInput(
-				new ArrayList<UnitValue<FlowUnit>>(
-						oxygenConsumptionPostExerciseSeries.values()),
-				new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries
-						.keySet()), (double) parameters
-						.getTimeDelay());
+				new ArrayList<UnitValue<FlowUnit>>(oxygenConsumptionPostExerciseSeries.values()),
+				new ArrayList<Integer>(oxygenConsumptionPostExerciseSeries.keySet()),
+				AnaerobicAlacticCalculator.DEFAULT_TIME_DELAY);
 
 		UnitValue<EnergyUnit> anaerobicAlacticEnergy;
 		if (parameters.getExponentialType() == 1) {

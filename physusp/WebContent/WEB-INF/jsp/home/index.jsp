@@ -29,26 +29,35 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 		<title>GEDAE-LaB</title>
 	</head>
 	<body>
-		<div id="top">
+		<div class="home-header">
 			<div class="container">
 				<a id="git" href="https://github.com/physusp/physusp/">View on GitHub</a>
 				<a href="<c:url value="/"/>"><img class="img-responsive" src="<c:url value="/img/logo.jpg"/>" alt="logo" /></a>
 			</div>
 		</div>
-		<div id="bottom" class="container">
-			<div id="content" class="row">
+		<div class="home-body container">
+			<div class="row body-description-row">
 				<div class="col-xs-12 text-justify">
-					The GEDAE-LaB is an open source software for mathematical analyses designed to help the exercise physiologists. In this first version, the GEDAE-LaB (version 1.0) allows to estimate the energy expenditure and energy system contributions during the exercise using the measurement of oxygen uptake and the blood lactate accumulation. The GEDAE-LaB does not require any registration or login. In addition, as the GEDAE-LaB is an online available software, you can use it anywhere in the world if you have access to the internet!
+					The GEDAE-LaB is an open source software for mathematical analysis designed to help the exercise physiologists. In this first version, the GEDAE-LaB (version 1.0) allows to estimate the energy expenditure and energy system contributions during the exercise using the measurement of oxygen uptake and the blood lactate accumulation. The GEDAE-LaB does not require any registration or login. In addition, as the GEDAE-LaB is an online available software, you can use it anywhere in the world if you have access to the internet!
 				</div>
 			</div>
 	
-			<div class="row text-center">
-				<a class="btn btn-primary btn-lg" href="<c:url value="/esc"/>">Start</a>
+			<div class="row text-center start-btn-row">
+				<div class="well start-container">
+					<a class="btn btn-primary btn-lg btn-block" href="<c:url value="/esc"/>">Start</a>
+				</div>
 			</div>
-			<div class="row">
-				<img class="img-responsive logo" src="<c:url value="/img/usp.png"/>"/>
-				<img class="img-responsive logo" src="<c:url value="/img/eefe.png"/>"/>
-				<img class="img-responsive logo logo-ccsl" src="<c:url value="/img/ccslime.png"/>"/>
+			
+			<div class="row footer-row">
+				<div class="col-xs-4">
+					<img class="img-responsive center-block" src="<c:url value="/img/usp.png"/>" alt="University of São Paulo"/>
+				</div>
+				<div class="col-xs-4">
+					<img class="img-responsive center-block" src="<c:url value="/img/eefe.png"/>" alt="Escola de Educação Física e Esportes - USP"/>
+				</div>
+				<div class="col-xs-4">
+					<img class="img-responsive center-block" src="<c:url value="/img/ccslime.png"/>" alt="CCSL - Instituto de Matemática e Estatística - USP"/>
+				</div>
 			</div>
 		</div>
 	</body>

@@ -264,10 +264,6 @@ $(function(){
 		fixHandsontableLayout("#oxygenConsumptionRest");
 	});
 	
-	$('#useTimeDelay').change(function() {
-		$("#TimeDelayDiv").toggle();
-	});
-	
 	$(".exportButton").click(function() {
 		var format = $(this).data("format");
 		var chart = $("#containerChart").highcharts();

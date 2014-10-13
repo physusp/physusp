@@ -173,12 +173,6 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 								</label>
 							</div>
 	
-							<div class="checkbox">
-								<label>
-									<input id="useTimeDelay" type="checkbox" name="anaerobicAlacticParameters.useTimeDelay" value="true" />
-									Use custom time delay
-								</label>
-							</div>
 							<div class="col-sm-12">
 								<div id="TimeDelayDiv" class="form-group" style="display: none">
 									<label class="control-label">Time delay <strong>(s)</strong></label>
