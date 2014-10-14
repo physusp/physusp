@@ -36,7 +36,10 @@ function showPlot(element, plotElement) {
 				marker : {
 					radius : 2
 				}
-			}
+			},
+	    	series: {
+	    		showInLegend: false
+	    	}
 		},
 	    tooltip: {
 	    	formatter: function() {
