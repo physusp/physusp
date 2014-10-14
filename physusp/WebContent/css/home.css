@@ -25,12 +25,12 @@ body {
 	background-color: #f8f8f8;
 }
 
-div.container {
-	position: relative;
-}
+.home-header .img-responsive {
+	display: inline;
+} 
 
 .body-description-row {
-	margin-top: 50px;
+	margin-top: 20px;
 	font-family: "segoe ui", sans-serif;
 	font-weight: lighter;
 	font-size: 1.2em;
@@ -47,12 +47,16 @@ div.container {
 }
 
 .footer-row {
-	margin-top: 50px;
+	margin-top: 100px
+}
+
+.btn-start {
+	font-size: 1.8em;
 }
 
 .home-header {
 	margin-top: 0;
-	padding: 50px 0;
+	padding: 20px 0;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 	background-color: white;
 }
@@ -67,12 +71,12 @@ div.container {
     border-bottom-right-radius: 2px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: #fff;
-    display: block;
+    display: inline-block;
     font-weight: 700;
     padding: 10px 50px 10px 10px;
-    position: absolute;
-    top: -50px;
+    position: relative;
     z-index: 10;
     align: right;
-    right: 0;
+    float: right;
 }
+
