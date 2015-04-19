@@ -118,6 +118,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 							<div id="aerobicRestTable" class="handsontable-container">
 								<div id="oxygenConsumptionRest" data-field="restOxygenParameters.oxygenConsumptionRest"></div>
 								<button id="btnOxygenConsumptionRestPlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionRestPlot" data-table="oxygenConsumptionRest">Plot</button>
+								<button id="btnOxygenConsumptionRestClear" type="button" class="btn btn-default" data-table="oxygenConsumptionRest">Clear</button>
 								<div id="oxygenConsumptionRestPlot"></div>
 								
 								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." 
@@ -132,6 +133,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 							<div id="aerobicTable" class="handsontable-container"> 
 								<div id="oxygenConsumptionDuringExercise" data-field="aerobicParameters.oxygenConsumptionDuringExercise"></div>
 								<button id="btnOxygenConsumptionDuringExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionDuringExercisePlot" data-table="oxygenConsumptionDuringExercise">Plot</button>
+								<button id="btnOxygenConsumptionDuringExerciseClear" type="button" class="btn btn-default" data-table="oxygenConsumptionDuringExercise">Clear</button>
 								<div id="oxygenConsumptionDuringExercisePlot"></div>
 								
 								<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
@@ -196,6 +198,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 									<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." 
 										data-table="oxygenConsumptionPostExercise"/>
 									<button id="btnOxygenConsumptionPostExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionPostExercisePlot" data-table="oxygenConsumptionPostExercise">Plot</button>
+									<button id="btnOxygenConsumptionPostExerciseClear" type="button" class="btn btn-default" data-table="oxygenConsumptionPostExercise">Clear</button>
 									<div id="oxygenConsumptionPostExercisePlot"></div>
 								</div>
 							</div>

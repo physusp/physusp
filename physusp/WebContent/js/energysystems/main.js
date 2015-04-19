@@ -286,4 +286,10 @@ $(function(){
 		if (button.hasClass("active")) button.removeClass("active");
 		else button.addClass("active");
 	});
+	
+	$("#btnOxygenConsumptionRestClear,#btnOxygenConsumptionDuringExerciseClear,#btnOxygenConsumptionPostExerciseClear").click(function() {
+		var tableId = $(this).data("table");
+		$('#' + tableId).handsontable('clear');
+		return false;
+	});
 });
