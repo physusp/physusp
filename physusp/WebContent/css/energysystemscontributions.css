@@ -73,8 +73,8 @@ body {
 	font-weight: bold
 }
 
-.handsontable {
-	padding-top: 10px
+.handsontable-container {
+ 	padding-top: 10px
 }
 
 #aerobicRestAvg {

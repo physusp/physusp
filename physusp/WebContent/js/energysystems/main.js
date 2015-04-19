@@ -220,7 +220,7 @@ function getHandsontableConfig(errorField) {
 			validator: greaterThanZero,
 			allowInvalid: false
 		}],
-		afterChange: function() {
+		afterChange: function(changes, source) {
 			var data = this.getData();
 			if(data.length <= 10)
 				errorField.val("Table is empty.");
@@ -229,6 +229,13 @@ function getHandsontableConfig(errorField) {
 			else
 				errorField.val("");
 			$('#data').validate().element(errorField);
+			this.lastChangeByPaste = source == "paste";
+		},
+		afterScrollVertically: function() {
+			if(this.lastChangeByPaste) {
+				this.lastChangeByPaste = false;
+				this.selectCell(0, 0, 0, 0, true);
+			}
 		}
 	};	
 }

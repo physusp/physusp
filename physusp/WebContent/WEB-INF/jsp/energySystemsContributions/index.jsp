@@ -25,7 +25,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width" />
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="<c:url value="/css/lib/jquery.handsontable.full.css"/>" />
+	<link rel="stylesheet" href="<c:url value="/css/lib/handsontable.full.css"/>" />
 	<link rel="stylesheet" href="<c:url value="/css/energysystemscontributions.css"/>" />
 	<title>GEDAE-LaB - Energy Systems Contributions</title>
 </head>
@@ -115,7 +115,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 					
 					<div id="aerobicSecondRow" class="row">
 						<div id="restData" class="col-sm-6">
-							<div id="aerobicRestTable">
+							<div id="aerobicRestTable" class="handsontable-container">
 								<div id="oxygenConsumptionRest" data-field="restOxygenParameters.oxygenConsumptionRest"></div>
 								<button id="btnOxygenConsumptionRestPlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionRestPlot" data-table="oxygenConsumptionRest">Plot</button>
 								<div id="oxygenConsumptionRestPlot"></div>
@@ -129,12 +129,14 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 							</div>
 						</div>
 						<div class="col-sm-6">
-							<div id="oxygenConsumptionDuringExercise" data-field="aerobicParameters.oxygenConsumptionDuringExercise"></div>
-							<button id="btnOxygenConsumptionDuringExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionDuringExercisePlot" data-table="oxygenConsumptionDuringExercise">Plot</button>
-							<div id="oxygenConsumptionDuringExercisePlot"></div>
-							
-							<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
-								data-table="oxygenConsumptionDuringExercise"/>
+							<div id="aerobicTable" class="handsontable-container"> 
+								<div id="oxygenConsumptionDuringExercise" data-field="aerobicParameters.oxygenConsumptionDuringExercise"></div>
+								<button id="btnOxygenConsumptionDuringExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionDuringExercisePlot" data-table="oxygenConsumptionDuringExercise">Plot</button>
+								<div id="oxygenConsumptionDuringExercisePlot"></div>
+								
+								<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
+									data-table="oxygenConsumptionDuringExercise"/>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -298,7 +300,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/exporting.js"/>"></script>
 	<script type="text/javascript"
-		src="<c:url value="/js/lib/jquery.handsontable.full.js"/>"></script>
+		src="<c:url value="/js/lib/handsontable.full.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/jquery.validate.min.js"/>"></script>
 	<script type="text/javascript"
