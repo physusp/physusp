@@ -81,6 +81,9 @@ function onCalculateSuccess(result) {
 	
 	showChart(data);
 	showAdvancedResults(result);
+	
+	var content = $("#resultsTable").table2CSV({ delivery: 'value'});
+	$("#btnExportSystems").attr('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
 }
 
 function onCalculateError(data) {

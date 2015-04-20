@@ -292,4 +292,5 @@ $(function(){
 		$('#' + tableId).handsontable('clear');
 		return false;
 	});
+	
 });

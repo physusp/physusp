@@ -212,7 +212,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 					</div>
 					<div class="col-sm-6">
 						<div id="other-units">
-							<table class="table">
+							<table id="resultsTable" class="table">
 								<thead>
 									<tr>
 										<th>Systems</th>
@@ -250,6 +250,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 							</table>
 						</div>
 						<button id="btnAdvancedResults" type="button" class="btn btn-default">Advanced</button>
+						<a id="btnExportSystems" type="button" class="btn btn-default" download="export.csv">Export</a>
 						<div id="advancedResults"></div>
 					</div>
 				</div>
@@ -306,6 +307,8 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 		src="<c:url value="/js/lib/handsontable.full.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/jquery.validate.min.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/lib/table2csv.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/energysystems/form.js"/>"></script>
 	<script type="text/javascript"
