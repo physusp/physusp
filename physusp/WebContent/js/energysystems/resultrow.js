@@ -22,7 +22,7 @@ var ResultRow = function(row, data){
 	this.data = data;
 	
 	this.showInColumn = function (i, value) {
-		row.find("td:nth-of-type(" + i + ")").text(parseFloat(value).toFixed(1));
+		row.find("td:nth-of-type(" + i + ")").text(parseFloat(value).toFixed(3));
 	};
 	
 	this.showResult = function() {
