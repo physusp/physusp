@@ -43,8 +43,8 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 			<ul id="containerTabs" class="nav nav-tabs">
 				<li id="tabOptions" class="active show"><a href="#options">Options</a></li>
 				<li id="tab_aerobic"><a href="#aerobic">Aerobic</a></li>
-				<li id="tab_anaerobicLactic"><a href="#anaerobicLactic">Anaerobic Lactic</a></li>
 				<li id="tab_anaerobicAlactic"><a href="#anaerobicAlactic">Anaerobic Alactic</a></li>
+				<li id="tab_anaerobicLactic"><a href="#anaerobicLactic">Anaerobic Lactic</a></li>
 				<li id="tabResults"><a href="#results">Results</a></li>
 			</ul>
 
@@ -192,12 +192,12 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 				<div id="anaerobicLactic" class="tab-pane col-sm-12">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label class="control-label">Peak Blood Lactate <strong>(mmol/L)</strong></label>
-							<input type="text" id="anaerobicLacticParameters.peakLactateConcentration" name="anaerobicLacticParameters.peakLactateConcentration" class="form-control" />
-						</div>
-						<div class="form-group">
 							<label class="control-label">Rest Blood Lactate <strong>(mmol/L)</strong></label>
 							<input type="text" id="anaerobicLacticParameters.restLactateConcentration" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Peak Blood Lactate <strong>(mmol/L)</strong></label>
+							<input type="text" id="anaerobicLacticParameters.peakLactateConcentration" name="anaerobicLacticParameters.peakLactateConcentration" class="form-control" />
 						</div>
 						<div class="form-group">
 							<label class="control-label">Body Mass <strong>(kg)</strong></label>
@@ -241,7 +241,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 										<td></td>
 									</tr>
 									<tr id="totalsRow">
-										<td>Totals</td>
+										<td>Total</td>
 										<td></td>
 										<td></td>
 										<td></td>
