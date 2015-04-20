@@ -64,19 +64,19 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 						<div class="checkbox">
 							<label class="control-label">
 								<input type="checkbox"
-									id="parameters.calculateAnaerobicLactic"
-									name="parameters.calculateAnaerobicLactic" value="true"
-									data-tab="anaerobicLactic" checked />
-								Anaerobic Lactic System
+									id="parameters.calculateAnaerobicAlactic"
+									name="parameters.calculateAnaerobicAlactic" value="true"
+									data-tab="anaerobicAlactic" checked />
+								Anaerobic Alactic System
 							</label>
 						</div>
 						<div class="checkbox">
 							<label class="control-label">
 								<input type="checkbox"
-									id="parameters.calculateAnaerobicAlactic"
-									name="parameters.calculateAnaerobicAlactic" value="true"
-									data-tab="anaerobicAlactic" checked />
-								Anaerobic Alactic System
+									id="parameters.calculateAnaerobicLactic"
+									name="parameters.calculateAnaerobicLactic" value="true"
+									data-tab="anaerobicLactic" checked />
+								Anaerobic Lactic System
 							</label>
 						</div>
 						<div id="validateSystems">
@@ -143,23 +143,6 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 					</div>
 				</div>
 
-				<div id="anaerobicLactic" class="tab-pane col-sm-12">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label class="control-label">Peak Blood Lactate <strong>(mmol/L)</strong></label>
-							<input type="text" id="anaerobicLacticParameters.peakLactateConcentration" name="anaerobicLacticParameters.peakLactateConcentration" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label class="control-label">Rest Blood Lactate <strong>(mmol/L)</strong></label>
-							<input type="text" id="anaerobicLacticParameters.restLactateConcentration" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label class="control-label">Body Mass <strong>(kg)</strong></label>
-							<input type="text" id="anaerobicLacticParameters.weight" name="anaerobicLacticParameters.weight" class="form-control" />
-						</div>
-					</div>
-				</div>
-
 				<div id="anaerobicAlactic" class="tab-pane">
 					<div id="anaerobicAlacticFirstRow" class="row">
 						<div class="col-sm-6">
@@ -202,6 +185,23 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 									<div id="oxygenConsumptionPostExercisePlot"></div>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="anaerobicLactic" class="tab-pane col-sm-12">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="control-label">Peak Blood Lactate <strong>(mmol/L)</strong></label>
+							<input type="text" id="anaerobicLacticParameters.peakLactateConcentration" name="anaerobicLacticParameters.peakLactateConcentration" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Rest Blood Lactate <strong>(mmol/L)</strong></label>
+							<input type="text" id="anaerobicLacticParameters.restLactateConcentration" name="anaerobicLacticParameters.restLactateConcentration" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Body Mass <strong>(kg)</strong></label>
+							<input type="text" id="anaerobicLacticParameters.weight" name="anaerobicLacticParameters.weight" class="form-control" />
 						</div>
 					</div>
 				</div>
