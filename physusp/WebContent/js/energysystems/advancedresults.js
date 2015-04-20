@@ -36,11 +36,11 @@ function showAdvancedResults(result) {
 		if ($("#monoexponential").is(":checked"))
 			$("#advancedResults").append(
 				"<p>" +
-					"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(5) + "<br>" +
-					"<strong>A</strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>&tau;</strong>: " + result.consumption.tau1.toFixed(5) + "<br>" +
-					"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
+					"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "<br>" +
+					"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(1) + "<br>" +
+					"<strong>A</strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "<br>" +
+					"<strong>&tau;</strong>: " + result.consumption.tau1.toFixed(1) + "<br>" +
+					"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(1) + "<br>" +
 				"</p>"
 			);
 		else
