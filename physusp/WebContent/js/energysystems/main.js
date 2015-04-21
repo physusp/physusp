@@ -189,14 +189,31 @@ function greaterThanZero(value, callback){
 		callback(false);
 }
 	
+function getSeconds(time){
+	var split = time.split(":");
+	if(split.length > 1)
+		return (parseInt(split[0]) * 60 + parseInt(split[1])) * 60 + parseInt(split[2]);
+	else
+		return parseFloat(time);
+}
+
 function validateSeries(data) {
-	var lastTime = "0";
+	var lastTime = 0;
 	for(var i = 0; i < data.length - 10; ++i) {
-		if(data[i][0] < lastTime)
+		var actualTime = getSeconds(data[i][0]);
+		if(actualTime < lastTime)
 			return false;
-		lastTime = data[i][0];
+		lastTime = actualTime;
 	}
 	return true;
+}
+
+function timeValidator(value, callback) {
+	var regex = /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?)?$/;
+	if(regex.test(value) || !isNaN(value))
+		callback(true);
+	else
+		callback(false);
 }
 
 function getHandsontableConfig(errorField) {
@@ -212,7 +229,7 @@ function getHandsontableConfig(errorField) {
 	    stretchH: "all",
 		columns: [{
 			type: 'text',
-			validator: /^(([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?)?$/,
+			validator: timeValidator,
 			allowInvalid: false
 		}, { 	  	
 			type: 'numeric',

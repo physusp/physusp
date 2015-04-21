@@ -35,6 +35,10 @@ public class Time {
 
 	}
 	
+	public static boolean isTimeFormat(String string) {
+		return string.contains(":");
+	}
+	
 	public static Integer timeRange(List<Integer> time) {
 		Integer timeRange = 0;
 		for (int i = 0; i < time.size() - 1; i++) {

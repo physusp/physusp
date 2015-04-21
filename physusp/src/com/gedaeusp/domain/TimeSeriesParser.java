@@ -46,7 +46,7 @@ public class TimeSeriesParser<T extends Unit> {
 					continue;
 				if (StringUtils.isBlank(data[1]) || "null".equals(data[1]))
 					continue;
-				int time = Time.convertDateToSeconds(data[0]);
+				int time = Time.isTimeFormat(data[0]) ? Time.convertDateToSeconds(data[0]) : (int)Double.parseDouble(data[0]);
 				result.put(time, new UnitValue<T>(Double.parseDouble(data[1]), unit));
 			}
 		} catch (Exception e) {
