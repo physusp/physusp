@@ -38,5 +38,9 @@ public class HomeController {
  	public void index() {
  		result.include("variable", "Alfredo!");
  	}
-     
+    
+ 	@Path("about")
+ 	public void about() {
+ 		
+ 	}
 }

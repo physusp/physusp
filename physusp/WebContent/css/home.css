@@ -1,5 +1,5 @@
-﻿/*
-Copyright 2014 António Miranda, Caio Valente, Igor Topcin, Jorge Melegati, Thales Paiva, Victor Santos
+/*
+Copyright 2014 Ant�nio Miranda, Caio Valente, Igor Topcin, Jorge Melegati, Thales Paiva, Victor Santos
 
 This file is part of PhysUSP.
 
@@ -80,3 +80,24 @@ body {
     float: right;
 }
 
+.navbar {
+	margin-top: 10px;
+	background-color: #428bca;	
+}
+
+.navbar a {
+	font-weight: bold;
+	font-size: medium;
+	color: #fff !important;
+}
+
+.about {
+	font-family: "segoe ui", sans-serif;
+	font-weight: lighter;
+	font-size: 1.2em;
+	line-height: 2em;
+}
+
+.about ul {
+	list-style-type: none;
+}
