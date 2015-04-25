@@ -56,7 +56,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 			</nav>
 			<div class="row body-description-row">
 				<div class="col-xs-6 text-justify">
-					The GEDAE-LaB is an open source software for mathematical analysis designed to help the exercise physiologists. In this first version, the GEDAE-LaB (version 1.0) allows to estimate the energy expenditure and energy system contributions during the exercise using the measurement of oxygen uptake and the blood lactate accumulation. The GEDAE-LaB does not require any registration or login. In addition, as the GEDAE-LaB is an online available software, you can use it anywhere in the world if you have access to the internet!
+					The GEDAE-LaB is an open source software for mathematical analysis designed to help the exercise physiologists to estimate the energy expenditure and energy system contributions during the exercise using the measurement of oxygen uptake and the blood lactate accumulation. 
 				</div>
 				<div class="col-xs-6 text-center">
 					<img src="<c:url value="/img/result.png"/>" class="img-responsive center-block" />
