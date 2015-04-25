@@ -18,6 +18,8 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 */
 
 function convertTimeStringToMilliseconds(str) {
+	if(str.indexOf(":") == -1)
+		return str * 1000;
 	var tt = str.split(":");
 	return ( tt[0] * 3600 + tt[1] * 60 + tt[2] * 1 ) * 1000;
 }
