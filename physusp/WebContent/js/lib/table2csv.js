@@ -1,6 +1,6 @@
 jQuery.fn.table2CSV = function(options) {
     var options = jQuery.extend({
-        separator: ',',
+        separator: '\t',
         header: [],
         delivery: 'popup' // popup, value
     },
@@ -35,11 +35,13 @@ jQuery.fn.table2CSV = function(options) {
         row2CSV(tmpRow);
     });
     if (options.delivery == 'popup') {
-        var mydata = csvData.join('\n');
+        var mydata = csvData.join('\r\n');
         return popup(mydata);
     } else {
-        var mydata = csvData.join('\n');
-        return mydata;
+        var mydata = csvData.join('\r\n');
+        var enc = new TextEncoder('utf-16le');
+        return new TextDecoder('ascii').decode(enc.encode(mydata));
+        //return mydata;
     }
 
     function row2CSV(tmpRow) {
@@ -50,6 +52,10 @@ jQuery.fn.table2CSV = function(options) {
             csvData[csvData.length] = mystr;
         }
     }
+    
+    
+    
+    
     function formatData(input) {
         // replace " with “
         var regexp = new RegExp(/["]/g);
@@ -58,7 +64,8 @@ jQuery.fn.table2CSV = function(options) {
         var regexp = new RegExp(/\<[^\<]+\>/g);
         var output = output.replace(regexp, "");
         if (output == "") return '';
-        return '"' + output + '"';
+        //return '"' + output + '"';
+        return output;
     }
     function popup(data) {
         var generator = window.open('', 'csv', 'height=400,width=600');

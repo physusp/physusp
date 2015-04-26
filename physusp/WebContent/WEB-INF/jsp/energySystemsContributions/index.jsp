@@ -250,7 +250,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 							</table>
 						</div>
 						<button id="btnAdvancedResults" type="button" class="btn btn-default">Advanced</button>
-						<a id="btnExportSystems" type="button" class="btn btn-default" download="export.csv">Export</a>
+						<a id="btnExportSystems" class="btn btn-default" download="export.csv">Export</a>
 						<div id="advancedResults"></div>
 					</div>
 				</div>
@@ -308,7 +308,11 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/jquery.validate.min.js"/>"></script>
 	<script type="text/javascript"
+		src="<c:url value="/js/lib/encoding.js"/>"></script>
+	<script type="text/javascript"
 		src="<c:url value="/js/lib/table2csv.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="/js/lib/excellentexport.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/energysystems/form.js"/>"></script>
 	<script type="text/javascript"
