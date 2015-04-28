@@ -50,6 +50,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
       					<ul class="nav navbar-nav navbar-right">
         					<li><a href="<c:url value="/"/>">Home</a></li>
         					<li><a href="https://github.com/physusp/physusp/">View on GitHub</a></li>
+        					<li><a href="reportbug">Report a bug</a></li>
         					<li><a href="about">About us</a></li>
         				</ul>
        				</div>

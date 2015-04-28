@@ -58,30 +58,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 			</nav>
 			<div class="row">
 				<div class="col-xs-12 text-justify about">
-				
-					<p>This software was developed inside University of São Paulo as a joint effort from School of Physical Education and Sport and Department of Computer Science.
-					
-					<h2>Coordinator</h2>
-					<ul>
-						<li>Rômulo Bertuzzi, Associate Professor School of Physical Education and Sport</li>
-					</ul>
-					
-					<h2>Software team</h2>
-					<ul>
-						<li><b>Supervisor:</b> Alfredo Goldman, Associate Professor Department of Computer Science</b>
-						<li>António Miranda</li> 
-						<li>Caio Valente</li>
-						<li>Igor Topcin</li>
-						<li>Jorge Melegati</li> 
-						<li>Thales Paiva</li> 
-						<li>Victor Santos</li>
-					</ul>
-					
-					<h2>Collaboration</h2>
-					<ul>
-						<li>Salomão Bueno</li>
-					</ul>
-					
+					<p>To report a bug, please go to issues page on GitHub <a href="https://github.com/physusp/physusp/issues">project.</a> If you don't have a GitHub account, you will have to create one.</p>
 				</div>
 			</div>
 	
