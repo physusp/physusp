@@ -47,8 +47,9 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 					    </button>
 					</div>
 					<div class="collapse navbar-collapse" id="navbar-collapse-1">
-      					<ul class="nav navbar-nav">
-        					<li class="active"><a href="<c:url value="/"/>">Home</a></li>
+      					<ul class="nav navbar-nav navbar-right">
+        					<li><a href="<c:url value="/"/>">Home</a></li>
+        					<li><a href="https://github.com/physusp/physusp/">View on GitHub</a></li>
         					<li><a href="about">About us</a></li>
         				</ul>
        				</div>
@@ -60,26 +61,25 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 				</div>
 				<div class="col-xs-6 text-center">
 					<img src="<c:url value="/img/result.png"/>" class="img-responsive center-block" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center">
 					<div class="well start-container start-btn-row">
 						<a class="btn btn-primary btn-start btn-lg btn-block" href="<c:url value="/esc"/>">Start</a>
 					</div>
 				</div>
 			</div>
-	
 			
-
 			<div class="row footer-row">
-				<div class="col-xs-3">
+				<div class="col-xs-4">
 					<img class="img-responsive center-block" src="<c:url value="/img/usp.png?v=2"/>" alt="University of São Paulo"/>
 				</div>
-				<div class="col-xs-3">
+				<div class="col-xs-4">
 					<img class="img-responsive center-block" src="<c:url value="/img/eefe.png?v=2"/>" alt="Escola de Educação Física e Esportes - USP"/>
 				</div>
-				<div class="col-xs-3">
+				<div class="col-xs-4">
 					<img class="img-responsive center-block" src="<c:url value="/img/ccslime.png?v=2"/>" alt="CCSL - Instituto de Matemática e Estatística - USP"/>
-				</div>
-				<div class="col-xs-3">
-					<a id="git" href="https://github.com/physusp/physusp/">View on GitHub</a>
 				</div>
 			</div>
 		</div>

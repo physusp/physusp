@@ -87,8 +87,7 @@ body {
 
 .navbar a {
 	font-weight: bold;
-	font-size: medium;
-	color: #fff !important;
+	color: #000 !important;
 }
 
 .about {
