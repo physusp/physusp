@@ -64,15 +64,15 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 					<img src="<c:url value="/img/result.png"/>" class="img-responsive center-block" />
 				</div>
 			</div>
-			<div class="row">
+			<div class="row start-btn-row">
 				<div class="col-xs-12 text-center">
-					<div class="well start-container start-btn-row">
+					<div class="well start-container">
 						<a class="btn btn-primary btn-start btn-lg btn-block" href="<c:url value="/esc"/>">Start</a>
 					</div>
 				</div>
 			</div>
 			
-			<div class="row footer-row">
+			<!-- <div class="row footer-row">
 				<div class="col-xs-4">
 					<img class="img-responsive center-block" src="<c:url value="/img/usp.png?v=2"/>" alt="University of São Paulo"/>
 				</div>
@@ -82,7 +82,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 				<div class="col-xs-4">
 					<img class="img-responsive center-block" src="<c:url value="/img/ccslime.png?v=2"/>" alt="CCSL - Instituto de Matemática e Estatística - USP"/>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</body>
 </html>

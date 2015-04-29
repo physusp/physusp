@@ -30,7 +30,7 @@ body {
 } 
 
 .body-description-row {
-	margin-top: 20px;
+	margin-top: 50px;
 	font-family: "segoe ui", sans-serif;
 	font-weight: lighter;
 	font-size: 1.2em;
@@ -43,7 +43,7 @@ body {
 }
 
 .start-btn-row {
-	margin-top: 20px;
+	margin-top: 50px;
 }
 
 .footer-row {

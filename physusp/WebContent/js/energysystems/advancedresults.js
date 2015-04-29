@@ -38,38 +38,37 @@ function showAdvancedResults(result) {
 		if ($("#monoexponential").is(":checked"))
 			$("#advancedResults").append(
 				"<p>" +
-					"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "<br>" +
-					//"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(1) + "<br>" +
-					"<strong>A</strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "<br>" +
-					"<strong>&tau;</strong>: " + result.consumption.tau1.toFixed(1) + "<br>" +
-					"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(1) + "<br>" +
-				"</p>" +
-				"<p>" +
+					"<strong>v<sub>0</sub></strong> (oxygen uptake at baseline): " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "<br>" +
+					"<strong>A</strong> (amplitude): " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "<br>" +
+					"<strong>&tau;</strong> (time constant): " + result.consumption.tau1.toFixed(1) + "<br>" +
+					"<strong>R<sup>2</sup></strong> (determination coefficient): " + result.consumption.rSquared.toFixed(1) + "<br>" +
+				"</p>" //+
+				/*"<p>" +
 					"<strong>v<sub>0</sub></strong>: oxygen uptake at baseline<br/>" +
 					"<strong>A</strong>: amplitude<br/>" +
 					"<strong>&tau;</strong>: time constant<br/>" +
 					"<strong>R<sup>2</sup></strong>: determination coefficient<br/>" +
-				"</p>"	
+				"</p>"*/	
 			);
 		else
 			$("#advancedResults").append(
 				"<p>" +
-					"<strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(5) + "<br>" +
-					"<strong>A<sub>1</sub></strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>A<sub>2</sub></strong>: " + parseFloat(result.consumption.a2.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>&tau;<sub>1</sub></strong>: " + result.consumption.tau1.toFixed(5) + "<br>" +
-					"<strong>&tau;<sub>2</sub></strong>: " + result.consumption.tau2.toFixed(5) + "<br>" +
-					"<strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(5) + "<br>" +
-				"</p>" +
-				"<p>" +
+					"<strong>v<sub>0</sub></strong> (oxygen uptake at baseline): " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
+					"<strong>t<sub>0</sub></strong> (time delay): " + result.consumption.t0.toFixed(5) + "<br>" +
+					"<strong>A<sub>1</sub></strong> (amplitude - fast component): " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(5) + "<br>" +
+					"<strong>A<sub>2</sub></strong> (amplitude - slow component): " + parseFloat(result.consumption.a2.mlPerMinute).toFixed(5) + "<br>" +
+					"<strong>&tau;<sub>1</sub></strong> (time constant - fast component): " + result.consumption.tau1.toFixed(5) + "<br>" +
+					"<strong>&tau;<sub>2</sub></strong> (time constant - slow component): " + result.consumption.tau2.toFixed(5) + "<br>" +
+					"<strong>R<sup>2</sup></strong> (determination coefficient): " + result.consumption.rSquared.toFixed(5) + "<br>" +
+				"</p>" //+
+				/*"<p>" +
 					"<strong>v<sub>0</sub></strong>: oxygen uptake at baseline<br/>" +
 					"<strong>t<sub>0</sub></strong>: time delay<br/>" +
 					"<strong>A</strong>: amplitude<br/>" +
 					"<strong>&tau;</strong>: time constant<br/>" +
 					"<strong>R<sup>2</sup></strong>: determination coefficient" +
 				"</p>" +
-				"<p>The numbers 1 and 2 denote fast and slow components respectively."
+				"<p>The numbers 1 and 2 denote fast and slow components respectively."*/
 			);
 		$("#advancedResults").append('<div id="advancedChart"></div>');
 		var input = $('#oxygenConsumptionPostExercise').handsontable('getData');
