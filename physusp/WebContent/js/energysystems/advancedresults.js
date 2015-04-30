@@ -37,12 +37,24 @@ function showAdvancedResults(result) {
 		$("#advancedResults").html("<p>Exponential fit data for the calculation of the Anaerobic Alactic System.</p>")
 		if ($("#monoexponential").is(":checked"))
 			$("#advancedResults").append(
-				"<p>" +
-					"<strong>v<sub>0</sub></strong> (oxygen uptake at baseline): " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "<br>" +
-					"<strong>A</strong> (amplitude): " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "<br>" +
-					"<strong>&tau;</strong> (time constant): " + result.consumption.tau1.toFixed(1) + "<br>" +
-					"<strong>R<sup>2</sup></strong> (determination coefficient): " + result.consumption.rSquared.toFixed(1) + "<br>" +
-				"</p>" //+
+				"<table border=0>" +
+					"<tr>" + 
+						"<td style=\"width: 150px\"><strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "</td>" +
+						"<td>Oxygen uptake at baseline</td>" +
+					"</tr>" +
+					"<tr>" +
+						"<td><strong>A</strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "</td>" +
+						"<td>Amplitude</td>" +
+					"</tr>" +
+					"<tr>" +
+						"<td><strong>&tau;</strong>: " + result.consumption.tau1.toFixed(1) + "</td>" +
+						"<td>Time constant</td>" +
+					"</tr>" +
+					"<tr>" +	
+						"<td><strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(1) + "</td>" +
+						"<td>Determination coefficient</td>" +
+					"</tr>"	+
+				"</table>" //+
 				/*"<p>" +
 					"<strong>v<sub>0</sub></strong>: oxygen uptake at baseline<br/>" +
 					"<strong>A</strong>: amplitude<br/>" +
@@ -52,15 +64,36 @@ function showAdvancedResults(result) {
 			);
 		else
 			$("#advancedResults").append(
-				"<p>" +
-					"<strong>v<sub>0</sub></strong> (oxygen uptake at baseline): " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>t<sub>0</sub></strong> (time delay): " + result.consumption.t0.toFixed(5) + "<br>" +
-					"<strong>A<sub>1</sub></strong> (amplitude - fast component): " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>A<sub>2</sub></strong> (amplitude - slow component): " + parseFloat(result.consumption.a2.mlPerMinute).toFixed(5) + "<br>" +
-					"<strong>&tau;<sub>1</sub></strong> (time constant - fast component): " + result.consumption.tau1.toFixed(5) + "<br>" +
-					"<strong>&tau;<sub>2</sub></strong> (time constant - slow component): " + result.consumption.tau2.toFixed(5) + "<br>" +
-					"<strong>R<sup>2</sup></strong> (determination coefficient): " + result.consumption.rSquared.toFixed(5) + "<br>" +
-				"</p>" //+
+				"<table border=0>" +
+					"<tr>" + 
+						"<td style=\"width:150px\"><strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "</td>" +
+						"<td>Oxygen uptake at baseline</td>" +
+					"</tr>" +
+					"<tr>" +
+						"<td><strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(1) + "</td>" +
+						"<td>Time delay</td>" +
+					"</tr>" +
+					"<tr>" +
+						"<td><strong>A<sub>1</sub></strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "</td>" +
+						"<td>Amplitude - fast component</td>" +
+					"</tr>" +
+					"<tr>" +	
+						"<td><strong>A<sub>2</sub></strong>: " + parseFloat(result.consumption.a2.mlPerMinute).toFixed(1) + "</td>" +
+						"<td>Amplitude - slow component</td>" +
+					"</tr>" +
+					"<tr>" +	
+						"<td><strong>&tau;<sub>1</sub></strong> (): " + result.consumption.tau1.toFixed(1) + "</td>" +
+						"<td>Time constant - fast component</td>" +
+					"</tr>" +
+					"<tr>" +	
+						"<td><strong>&tau;<sub>2</sub></strong> (): " + result.consumption.tau2.toFixed(5) + "</td>" +
+						"<td>Time constant - slow component</td>" +
+					"</tr>" +
+					"<tr>" +	
+						"<td><strong>R<sup>2</sup></strong> (): " + result.consumption.rSquared.toFixed(5) + "</td>" +
+						"<td>Determination coefficient</td>" +
+					"</tr>" +
+				"</table>" //+
 				/*"<p>" +
 					"<strong>v<sub>0</sub></strong>: oxygen uptake at baseline<br/>" +
 					"<strong>t<sub>0</sub></strong>: time delay<br/>" +
