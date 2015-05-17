@@ -24,7 +24,7 @@ var OxygenConsumptionTable = function(table) {
 		var toSend = "";
 		var rows = table.handsontable('getData');
 		for(var i = 0; i < rows.length - 1; i++)
-			if(rows[i][0] != null) {
+			if(rows[i][0] != null && rows[i][0] !== "") {
 				toSend += rows[i][0] + "," + rows[i][1] + "\n";
 			}
 		return table.data("field") + "=" + toSend;

@@ -312,8 +312,6 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 	<script type="text/javascript"
 		src="<c:url value="/js/lib/table2csv.js"/>"></script>
 	<script type="text/javascript"
-		src="<c:url value="/js/lib/excellentexport.js"/>"></script>
-	<script type="text/javascript"
 		src="<c:url value="/js/energysystems/form.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="/js/energysystems/advancedresults.js"/>"></script>

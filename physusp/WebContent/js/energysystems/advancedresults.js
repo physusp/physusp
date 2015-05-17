@@ -54,13 +54,7 @@ function showAdvancedResults(result) {
 						"<td><strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(1) + "</td>" +
 						"<td>Determination coefficient</td>" +
 					"</tr>"	+
-				"</table>" //+
-				/*"<p>" +
-					"<strong>v<sub>0</sub></strong>: oxygen uptake at baseline<br/>" +
-					"<strong>A</strong>: amplitude<br/>" +
-					"<strong>&tau;</strong>: time constant<br/>" +
-					"<strong>R<sup>2</sup></strong>: determination coefficient<br/>" +
-				"</p>"*/	
+				"</table>"
 			);
 		else
 			$("#advancedResults").append(
@@ -93,27 +87,20 @@ function showAdvancedResults(result) {
 						"<td><strong>R<sup>2</sup></strong> (): " + result.consumption.rSquared.toFixed(5) + "</td>" +
 						"<td>Determination coefficient</td>" +
 					"</tr>" +
-				"</table>" //+
-				/*"<p>" +
-					"<strong>v<sub>0</sub></strong>: oxygen uptake at baseline<br/>" +
-					"<strong>t<sub>0</sub></strong>: time delay<br/>" +
-					"<strong>A</strong>: amplitude<br/>" +
-					"<strong>&tau;</strong>: time constant<br/>" +
-					"<strong>R<sup>2</sup></strong>: determination coefficient" +
-				"</p>" +
-				"<p>The numbers 1 and 2 denote fast and slow components respectively."*/
+				"</table>"
 			);
 		$("#advancedResults").append('<div id="advancedChart"></div>');
 		var input = $('#oxygenConsumptionPostExercise').handsontable('getData');
 		var series1 = [];
 		for(var i = 0 ; i < input.length; i++) {
-			if (input[i][0] == null) break;
+			if (input[i][0] == null || input[i][0] === "") break;
 			series1.push([convertTimeStringToMilliseconds(input[i][0]), input[i][1]]);
 		}
 		
 		var series2 = [];
-		for(var i = 0; i < series1.length - result.consumption.t0; i++)
+		for(var i = 0; i < series1.length - result.consumption.t0; i++) {
 			series2.push([series1[i + result.consumption.t0][0], parseFloat(result.consumption.expectedOxygenConsumption[i].mlPerMinute)]);
+		}
 		
 		$("#advancedChart").highcharts({
 			chart: {

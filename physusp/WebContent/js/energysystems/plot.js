@@ -12,12 +12,12 @@ function showRestPlot() {
 
 function showPlot(element, plotElement) {
 	plotElement.html("");
-	plotElement.append('<div id="plotChart"></div>');
+	plotElement.append('<div></div>');
 	var series1 = [];
 	var input = element.handsontable('getData');
 
 	for (var i = 0; i < input.length; i++) {
-		if (input[i][0] == null)
+		if (input[i][0] == null || input[i][0] === "")
 			break;
 		series1.push([ convertTimeStringToMilliseconds(input[i][0]), input[i][1] ]);
 	}
