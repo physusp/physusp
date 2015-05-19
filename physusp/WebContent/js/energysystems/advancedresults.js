@@ -39,19 +39,19 @@ function showAdvancedResults(result) {
 			$("#advancedResults").append(
 				"<table border=0>" +
 					"<tr>" + 
-						"<td style=\"width: 150px\"><strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "</td>" +
+						"<td style=\"width: 150px\"><strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(2) + "</td>" +
 						"<td>Oxygen uptake at baseline</td>" +
 					"</tr>" +
 					"<tr>" +
-						"<td><strong>A</strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "</td>" +
+						"<td><strong>A</strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(2) + "</td>" +
 						"<td>Amplitude</td>" +
 					"</tr>" +
 					"<tr>" +
-						"<td><strong>&tau;</strong>: " + result.consumption.tau1.toFixed(1) + "</td>" +
+						"<td><strong>&tau;</strong>: " + result.consumption.tau1.toFixed(2) + "</td>" +
 						"<td>Time constant</td>" +
 					"</tr>" +
 					"<tr>" +	
-						"<td><strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(1) + "</td>" +
+						"<td><strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(2) + "</td>" +
 						"<td>Determination coefficient</td>" +
 					"</tr>"	+
 				"</table>"
@@ -60,31 +60,27 @@ function showAdvancedResults(result) {
 			$("#advancedResults").append(
 				"<table border=0>" +
 					"<tr>" + 
-						"<td style=\"width:150px\"><strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(1) + "</td>" +
+						"<td style=\"width:150px\"><strong>v<sub>0</sub></strong>: " + parseFloat(result.consumption.v0.mlPerMinute).toFixed(2) + "</td>" +
 						"<td>Oxygen uptake at baseline</td>" +
 					"</tr>" +
 					"<tr>" +
-						"<td><strong>t<sub>0</sub></strong>: " + result.consumption.t0.toFixed(1) + "</td>" +
-						"<td>Time delay</td>" +
-					"</tr>" +
-					"<tr>" +
-						"<td><strong>A<sub>1</sub></strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(1) + "</td>" +
+						"<td><strong>A<sub>1</sub></strong>: " + parseFloat(result.consumption.a1.mlPerMinute).toFixed(2) + "</td>" +
 						"<td>Amplitude - fast component</td>" +
 					"</tr>" +
 					"<tr>" +	
-						"<td><strong>A<sub>2</sub></strong>: " + parseFloat(result.consumption.a2.mlPerMinute).toFixed(1) + "</td>" +
+						"<td><strong>A<sub>2</sub></strong>: " + parseFloat(result.consumption.a2.mlPerMinute).toFixed(2) + "</td>" +
 						"<td>Amplitude - slow component</td>" +
 					"</tr>" +
 					"<tr>" +	
-						"<td><strong>&tau;<sub>1</sub></strong> (): " + result.consumption.tau1.toFixed(1) + "</td>" +
+						"<td><strong>&tau;<sub>1</sub></strong>: " + result.consumption.tau1.toFixed(2) + "</td>" +
 						"<td>Time constant - fast component</td>" +
 					"</tr>" +
 					"<tr>" +	
-						"<td><strong>&tau;<sub>2</sub></strong> (): " + result.consumption.tau2.toFixed(5) + "</td>" +
+						"<td><strong>&tau;<sub>2</sub></strong>: " + result.consumption.tau2.toFixed(2) + "</td>" +
 						"<td>Time constant - slow component</td>" +
 					"</tr>" +
 					"<tr>" +	
-						"<td><strong>R<sup>2</sup></strong> (): " + result.consumption.rSquared.toFixed(5) + "</td>" +
+						"<td><strong>R<sup>2</sup></strong>: " + result.consumption.rSquared.toFixed(2) + "</td>" +
 						"<td>Determination coefficient</td>" +
 					"</tr>" +
 				"</table>"
