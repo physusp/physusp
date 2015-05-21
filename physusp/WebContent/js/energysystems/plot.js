@@ -59,8 +59,8 @@ function showPlot(element, plotElement) {
 			title : {
 				text : "Time (minutes)"
 			},
-			dateTimeLabelFormats : {
-				minute : "%M"
+			labels : {
+				format : '{value:%M}'
 			}
 		},
 		yAxis : {
