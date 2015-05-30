@@ -290,10 +290,16 @@ $(function(){
 	
 	$(".exportButton").click(function() {
 		var format = $(this).data("format");
-		var chart = $("#containerChart").highcharts();
+		var chartContainer = $(this).data("plot-id");
+		var filename = $(this).data("filename");
+		var chart = $("#" + chartContainer);
+		if(!chart.data("highcharts-chart")){
+			chart = chart.find("div");	
+		}
+		chart = chart.highcharts();
 		chart.exportChart({
 			type: format,
-			filename: 'energy systems contributions ' + new Date()
+			filename: filename + new Date().toISOString().slice(0,10).replace(/-/g,"")
 		});
 	});
 	

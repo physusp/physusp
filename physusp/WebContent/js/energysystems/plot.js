@@ -82,13 +82,18 @@ $(function(){
 		var plotId = $(this).data("plot");
 		var tableId = $(this).data("table");
 		var $plot = $("#" + plotId);
+		var exportPlotBtn = $(this).siblings(".dropdown");
 		
 		$plot.fadeToggle();
 		var button = $(this);
-		if (button.hasClass("active"))
+		if (button.hasClass("active")) {
 			button.removeClass("active");
-		else
+			exportPlotBtn.addClass("hide");
+		}
+		else {
 			button.addClass("active");
+			exportPlotBtn.removeClass("hide");
+		}
 		showPlot($("#" + tableId), $plot);
 	});
 });

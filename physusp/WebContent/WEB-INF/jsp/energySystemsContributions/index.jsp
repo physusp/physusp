@@ -117,8 +117,25 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 						<div id="restData" class="col-sm-6">
 							<div id="aerobicRestTable" class="handsontable-container">
 								<div id="oxygenConsumptionRest" data-field="restOxygenParameters.oxygenConsumptionRest"></div>
-								<button id="btnOxygenConsumptionRestPlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionRestPlot" data-table="oxygenConsumptionRest">Plot</button>
 								<button id="btnOxygenConsumptionRestClear" type="button" class="btn btn-default" data-table="oxygenConsumptionRest">Clear</button>
+								<button id="btnOxygenConsumptionRestPlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionRestPlot" data-table="oxygenConsumptionRest">Plot</button>
+								<div class="dropdown hide" id="btnOxygenConsumptionRestExportPlot">
+									<button id="btnOxygenConsumptionDuringRestPlotBtn" type="button" data-toggle="dropdown" class="btn btn-default">
+										Export Plot<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="#" class="exportButton" data-format="image/jpeg" data-filename="rest" data-plot-id="oxygenConsumptionRestPlot">To JPG</a>
+										</li>
+										<li>
+											<a href="#" class="exportButton" data-format="image/png" data-filename="rest" data-plot-id="oxygenConsumptionRestPlot">To PNG</a>
+										</li>
+										<li>
+											<a href="#" class="exportButton" data-format="image/svg+xml" data-filename="rest" data-plot-id="oxygenConsumptionRestPlot">To SVG</a>
+										</li>
+									</ul>
+								</div>
+								
 								<div id="oxygenConsumptionRestPlot"></div>
 								
 								<input id="oxygenConsumptionRestError" name="oxygenConsumptionRestError" type="hidden" value="Table is empty." 
@@ -132,8 +149,26 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 						<div class="col-sm-6">
 							<div id="aerobicTable" class="handsontable-container"> 
 								<div id="oxygenConsumptionDuringExercise" data-field="aerobicParameters.oxygenConsumptionDuringExercise"></div>
-								<button id="btnOxygenConsumptionDuringExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionDuringExercisePlot" data-table="oxygenConsumptionDuringExercise">Plot</button>
 								<button id="btnOxygenConsumptionDuringExerciseClear" type="button" class="btn btn-default" data-table="oxygenConsumptionDuringExercise">Clear</button>
+								<button id="btnOxygenConsumptionDuringExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionDuringExercisePlot" data-table="oxygenConsumptionDuringExercise">Plot</button>
+								<div class="dropdown hide" id="btnOxygenConsumptionDuringExerciseExportPlot">
+									<button id="btnOxygenConsumptionDuringExerciseExportPlotBtn" type="button" data-toggle="dropdown" class="btn btn-default">
+										Export Plot<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="#" class="exportButton" data-format="image/jpeg" data-filename="during exercise" data-plot-id="oxygenConsumptionDuringExercisePlot">To JPG</a>
+										</li>
+										<li>
+											<a href="#" class="exportButton" data-format="image/png" data-filename="during exercise" data-plot-id="oxygenConsumptionDuringExercisePlot">To PNG</a>
+										</li>
+										<li>
+											<a href="#" class="exportButton" data-format="image/svg+xml" data-filename="during exercise" data-plot-id="oxygenConsumptionDuringExercisePlot">To SVG</a>
+										</li>
+									</ul>
+								</div>
+								
+								
 								<div id="oxygenConsumptionDuringExercisePlot"></div>
 								
 								<input id="oxygenConsumptionDuringExerciseError" name="oxygenConsumptionDuringExerciseError" type="hidden" value="Table is empty." 
@@ -180,8 +215,24 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 									<div id="oxygenConsumptionPostExercise" data-field="anaerobicAlacticParameters.oxygenConsumptionPostExercise"></div>
 									<input id="oxygenConsumptionPostExerciseError" name="oxygenConsumptionPostExerciseError" type="hidden" value="Table is empty." 
 										data-table="oxygenConsumptionPostExercise"/>
+									<button id="btnOxygenConsumptionPostExerciseClear" type="button" class="btn btn-default" data-table="oxygenConsumptionPostExercise">Clear</button>	
 									<button id="btnOxygenConsumptionPostExercisePlot" type="button" class="btn btn-default" data-plot="oxygenConsumptionPostExercisePlot" data-table="oxygenConsumptionPostExercise">Plot</button>
-									<button id="btnOxygenConsumptionPostExerciseClear" type="button" class="btn btn-default" data-table="oxygenConsumptionPostExercise">Clear</button>
+									<div class="dropdown hide" id="btnOxygenConsumptionPostExerciseExportPlot">
+										<button id="btnOxygenConsumptionPostExerciseExportPlotBtn" type="button" data-toggle="dropdown" class="btn btn-default">
+											Export Plot<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li>
+												<a href="#" class="exportButton" data-format="image/jpeg" data-filename="post exercise" data-plot-id="oxygenConsumptionPostExercisePlot">To JPG</a>
+											</li>
+											<li>
+												<a href="#" class="exportButton" data-format="image/png" data-filename="post exercise" data-plot-id="oxygenConsumptionPostExercisePlot">To PNG</a>
+											</li>
+											<li>
+												<a href="#" class="exportButton" data-format="image/svg+xml" data-filename="post exercise" data-plot-id="oxygenConsumptionPostExercisePlot">To SVG</a>
+											</li>
+										</ul>
+									</div>
 									<div id="oxygenConsumptionPostExercisePlot"></div>
 								</div>
 							</div>
@@ -265,13 +316,13 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 					</button>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="#" class="exportButton" data-format="image/jpeg">To JPG</a>
+							<a href="#" class="exportButton" data-format="image/jpeg" data-filename="energy systems contributions" data-plot-id="containerChart">To JPG</a>
 						</li>
 						<li>
-							<a href="#" class="exportButton" data-format="image/png">To PNG</a>
+							<a href="#" class="exportButton" data-format="image/png" data-filename="energy systems contributions" data-plot-id="containerChart">To PNG</a>
 						</li>
 						<li>
-							<a href="#" class="exportButton" data-format="image/svg+xml">To SVG</a>
+							<a href="#" class="exportButton" data-format="image/svg+xml" data-filename="energy systems contributions" data-plot-id="containerChart">To SVG</a>
 						</li>
 					</ul>
 				</div>
