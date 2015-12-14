@@ -58,8 +58,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 			</nav>
 			<div class="row">
 				<div class="col-xs-12 text-justify about">
-					<p>This information will be inserted when the scientific paper is accepted to publish.</p>
-					<!-- <p>This software was developed inside University of São Paulo as a joint effort from School of Physical Education and Sport and Department of Computer Science.
+					<p>This software was developed inside University of São Paulo as a joint effort from School of Physical Education and Sport and Department of Computer Science.
 					
 					<h2>Coordinator</h2>
 					<ul>
@@ -94,7 +93,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 						<div class="col-xs-4">
 							<img class="img-responsive center-block" src="<c:url value="/img/ccslime.png?v=2"/>" alt="CCSL - Instituto de Matemática e Estatística - USP"/>
 						</div>
-					</div> -->
+					</div>
 				</div>
 		</div>
 		<script>
