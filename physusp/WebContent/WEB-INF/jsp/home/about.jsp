@@ -58,16 +58,21 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 			</nav>
 			<div class="row">
 				<div class="col-xs-12 text-justify about">
-					<p>This software was developed inside University of São Paulo as a joint effort from School of Physical Education and Sport and Department of Computer Science.
+					<p>The GEDAE-LaB was developed in a collaborative project conducted by researchers and students
+					 from University of São Paulo (USP) and Federal University of Pernambuco (UFPE), Brazil.</p>
 					
-					<h2>Coordinator</h2>
+					<h2>Coordinators</h2>
 					<ul>
-						<li>Rômulo Bertuzzi, Associate Professor School of Physical Education and Sport</li>
+						<li>Rômulo Bertuzzi: Associate Professor in the School of Physical Education and Sport at 
+						the University of São Paulo (GEDAE-USP).</li>
+						<li>Adriano E. Lima-Silva, Adjunct Professor in the Department of Physical Education 
+						and Sports Science at the Federal University of Pernambuco (CAV-UFPE).</li>
+						<li>Alfredo Goldman, Associate Professor in the Department of Computer Science 
+						at the University of São Paulo (CCSL-USP).  </li>
 					</ul>
 					
 					<h2>Software team</h2>
 					<ul>
-						<li><b>Supervisor:</b> Alfredo Goldman, Associate Professor Department of Computer Science</b>
 						<li>António Miranda</li> 
 						<li>Caio Valente</li>
 						<li>Igor Topcin</li>
@@ -76,9 +81,12 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 						<li>Victor Santos</li>
 					</ul>
 					
-					<h2>Collaboration</h2>
+					<h2>Students</h2>
 					<ul>
 						<li>Salomão Bueno</li>
+						<li>Thaysa Ghiarone</li>
+						<li>Leonardo Pasqua</li>
+						<li>Arthur Gáspari</li>	
 					</ul>
 					
 					<h2>Institutions</h2>
