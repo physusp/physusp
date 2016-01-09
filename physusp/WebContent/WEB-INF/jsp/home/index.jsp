@@ -65,14 +65,18 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 				</div>
 			</div>
 			<div class="row start-btn-row">
-				<div class="col-xs-12 text-center">
+				<div class="col-xs-6 text-justify">
+					<h3><u>Citing GEDAE-LaB:</u></h3>
+					<a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0145733">Bertuzzi et al. (2016). GEDAE-LaB: A Free Software to Calculate the Energy System Contributions during Exercise. PLoS ONE 11 (1): e0145733.</a>
+				</div>
+				<div class="col-xs-6 text-center">
 					<div class="well start-container">
 						<a class="btn btn-primary btn-start btn-lg btn-block" href="<c:url value="/esc"/>">Start</a>
 					</div>
 				</div>
 			</div>
 			
-			<!-- <div class="row footer-row">
+		    <div class="row footer-row">
 				<div class="col-xs-4">
 					<img class="img-responsive center-block" src="<c:url value="/img/usp.png?v=2"/>" alt="University of São Paulo"/>
 				</div>
@@ -82,7 +86,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 				<div class="col-xs-4">
 					<img class="img-responsive center-block" src="<c:url value="/img/ccslime.png?v=2"/>" alt="CCSL - Instituto de Matemática e Estatística - USP"/>
 				</div>
-			</div> -->
+			</div> 
 		</div>
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
