@@ -57,7 +57,7 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 			</nav>
 			<div class="row">
 				<div class="col-xs-12 text-justify about">
-					<p>The program behind this website is Free Software, <a href="https://github.com/physusp/physusp">available at GitHub</a>.</p>
+					<p>The program behind this website is Free Software, <a href="https://github.com/physusp/physusp">available at GitHub</a>. It is not particularly hard to install it in your own machine, see that page for basic instructions.</p>
 					<p>To report a bug, please go to <a href="https://github.com/physusp/physusp/issues">the issues page at the GitHub project.</a> If you don't have a GitHub account, you will have to create one.</p>
 				</div>
 			</div>
