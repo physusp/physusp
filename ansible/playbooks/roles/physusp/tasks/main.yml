@@ -7,12 +7,8 @@
 - name: Install tomcat
   apt: name=tomcat9 state=latest
 
-# TODO: When we upgrade tomcat, does the new version overwite this?
 - name: Remove default/current ROOT app from tomcat
-  file: path=/var/lib/tomcat9/webapps/{{ item }} state=absent
-  with_items:
-    - ROOT
-    - ROOT.war
+  file: path=/var/lib/tomcat9/webapps/ROOT state=absent
 
 - name: Install gedaelab app in tomcat
   copy: dest=/var/lib/tomcat9/webapps/ROOT.war src=physusp-1.0.war force=yes mode=0644 owner=root group=root
