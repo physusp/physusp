@@ -50,19 +50,17 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
       					<ul class="nav navbar-nav navbar-right">
         					<li><a href="<c:url value="/"/>">Home</a></li>
         					<li><a href="about">About us</a></li>
-        					<li><a href="reportbug">Report a bug</a></li>
-        					<li><a href="https://github.com/physusp/physusp/">View on GitHub</a></li>
+						<li><a href="more">More about the project</a></li>
         				</ul>
        				</div>
 				</div>
 			</nav>
 			<div class="row">
 				<div class="col-xs-12 text-justify about">
-					<p>To report a bug, please go to issues page on GitHub <a href="https://github.com/physusp/physusp/issues">project.</a> If you don't have a GitHub account, you will have to create one.</p>
+					<p>The program behind this website is Free Software, <a href="https://github.com/physusp/physusp">available at GitHub</a>.</p>
+					<p>To report a bug, please go to <a href="https://github.com/physusp/physusp/issues">the issues page at the GitHub project.</a> If you don't have a GitHub account, you will have to create one.</p>
 				</div>
 			</div>
-	
-			
 
 			<!-- <div class="row footer-row">
 				<div class="col-xs-4">

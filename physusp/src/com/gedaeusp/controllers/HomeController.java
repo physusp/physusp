@@ -39,8 +39,8 @@ public class HomeController {
  		result.include("variable", "Alfredo!");
  	}
     
- 	@Path("reportbug")
- 	public void reportbug() {
+	@Path("more")
+	public void more() {
  		
  	}
  	
