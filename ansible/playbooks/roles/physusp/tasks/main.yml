@@ -1,0 +1,45 @@
+---
+# Why do we use a proxy if simply letting tomcat handle port 80 directly
+# is faster? Security. First, we do not need to run tomcat as root to
+# bind to port 80 (or use some other trick); second, maybe proxying
+# prevents some forms of attack to tomcat.
+
+- name: Install tomcat
+  apt: name=tomcat9 state=latest
+
+# TODO: When we upgrade tomcat, does the new version overwite this?
+- name: Remove default/current ROOT app from tomcat
+  file: path=/var/lib/tomcat9/webapps/{{ item }} state=absent
+  with_items:
+    - ROOT
+    - ROOT.war
+
+- name: Install gedaelab app in tomcat
+  copy: dest=/var/lib/tomcat9/webapps/ROOT.war src=physusp-1.0.war force=yes mode=0644 owner=root group=root
+
+- name: Install apache 2
+  apt: name=apache2 state=latest
+
+- name: Enable apache event mode, disable prefork mode
+  apache2_module: name={{ item.name }} state={{ item.state }}
+  notify:
+    - reload apache
+  with_items:
+    - name: mpm_event
+      state: present
+    - name: mpm_prefork
+      state: absent
+
+- name: Enable mod_proxy and friends
+  apache2_module: name={{ item }} state=present
+  notify: reload apache
+  with_items:
+    - remoteip
+    - rewrite
+    - proxy
+    - proxy_http
+
+- name: Install apache conf for the gedaelab site
+  copy: src=gedaelab.conf dest=/etc/apache2/sites-enabled/gedaelab.conf mode=0644 owner=root group=root
+  notify:
+    - reload apache
