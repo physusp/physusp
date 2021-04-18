@@ -25,9 +25,9 @@ import com.gedaeusp.domain.ExceptionInfo;
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.controller.ControllerMethod;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
-import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.caelum.vraptor.view.Results;
 
 
@@ -40,8 +40,7 @@ public class ExceptionInterceptor implements Interceptor {
 		this.result = result;
 	}
 	
-	@Override
-	public void intercept(InterceptorStack stack, ResourceMethod method,
+	public void intercept(InterceptorStack stack, ControllerMethod method,
 			Object resourceInstance) throws InterceptionException {
 		try {
 			stack.next(method, resourceInstance);
@@ -57,8 +56,7 @@ public class ExceptionInterceptor implements Interceptor {
 		}
 	}
 
-	@Override
-	public boolean accepts(ResourceMethod method) {
+	public boolean accepts(ControllerMethod method) {
 		return true;
 	}
 

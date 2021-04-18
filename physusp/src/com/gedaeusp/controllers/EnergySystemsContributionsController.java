@@ -19,9 +19,9 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 
 package com.gedaeusp.controllers;
 
+import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
-import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 
@@ -31,15 +31,18 @@ import com.gedaeusp.models.AnaerobicAlacticParameters;
 import com.gedaeusp.models.AnaerobicLacticParameters;
 import com.gedaeusp.models.Parameters;
 import com.gedaeusp.models.RestOxygenParameters;
+import javax.inject.Inject;
 
-@Resource
+@Controller
 @Path("esc")
 public class EnergySystemsContributionsController {
-	private final Result result;
+	
+        @Inject
+        private Result result;
 
-	public EnergySystemsContributionsController(Result result) {
-		this.result = result;
-	}
+        protected EnergySystemsContributionsController(){
+
+        }
 	
 	@Path("")
 	public void index() {
@@ -63,7 +66,7 @@ public class EnergySystemsContributionsController {
 		if (parameters.getCalculateAnaerobicAlactic()) {	
 			builder = builder.addAnaerobicAlactic(anaerobicAlacticParameters);
 		}
-		this.result.use(Results.json()).from(builder.getResponse()).recursive().serialize();
+		this.result.use(Results.json()).from(builder.getResponse(), "consumption").recursive().serialize();
 	}
 
 }

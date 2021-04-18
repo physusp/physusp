@@ -19,9 +19,6 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 
 package com.gedaeusp.domain;
 
-import br.com.caelum.vraptor.ioc.Component;
-
-@Component
 public class AnaerobicLacticCalculator {
 
 	public UnitValue<EnergyUnit> calculate(UnitValue<MolarConcentrationUnit> minLactic, UnitValue<MolarConcentrationUnit> maxLactic, UnitValue<WeightUnit> weight) {

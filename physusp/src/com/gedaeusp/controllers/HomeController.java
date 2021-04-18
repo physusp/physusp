@@ -19,20 +19,22 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 
 package com.gedaeusp.controllers;
 
+import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Path;
-import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import javax.inject.Inject;
 
 
-@Resource
+@Controller
 @Path("")
 public class HomeController {
 
- 	private final Result result;
+        @Inject
+ 	private Result result;
 
- 	public HomeController(Result result) {
- 		this.result = result;
- 	}
+        protected HomeController(){
+        }
+        
 
  	@Path("")
  	public void index() {

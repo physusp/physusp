@@ -21,9 +21,6 @@ package com.gedaeusp.domain;
 
 import java.util.List;
 
-import br.com.caelum.vraptor.ioc.Component;
-
-@Component
 public class AerobicCalculator {
 
 	public UnitValue<VolumeUnit> calculateOxygenConsumptionDuringExercise(List<UnitValue<FlowUnit>> consumptionDuringExercise,

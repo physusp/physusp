@@ -24,13 +24,9 @@ import org.apache.commons.math3.optim.nonlinear.vector.jacobian.LevenbergMarquar
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.util.FastMath;
 
-import br.com.caelum.vraptor.ioc.Component;
-
 import com.gedaeusp.domain.BiexponentialParametric;
 
 
-
-@Component
 public class NonlinearCurveFitter {
 
 	private void addObservedPointsToFitter(double[] v, double[] t,

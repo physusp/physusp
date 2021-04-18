@@ -19,35 +19,30 @@ along with PhysUSP. If not, see <http://www.gnu.org/licenses/>.
 
 package com.gedaeusp.domain;
 
-import com.thoughtworks.xstream.converters.Converter;
-import com.thoughtworks.xstream.converters.MarshallingContext;
-import com.thoughtworks.xstream.converters.UnmarshallingContext;
-import com.thoughtworks.xstream.io.HierarchicalStreamReader;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import java.lang.reflect.Type;
+import javax.annotation.Priority;
+import javax.enterprise.inject.Alternative;
+import javax.interceptor.Interceptor;
 
-public class UnitValueConverter implements Converter {
+@Alternative
+@Priority(Interceptor.Priority.APPLICATION)
+public class UnitValueConverter implements JsonSerializer<UnitValue> {
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public boolean canConvert(Class clazz) {
-		return clazz.equals(UnitValue.class);
-	}
-	
-	@Override
-	public void marshal(Object obj, HierarchicalStreamWriter writer, MarshallingContext context) {
-		UnitValue<?> unitValue = (UnitValue<?>) obj;
-		Class<?> unitType = unitValue.getUnit().getClass();
-		for(Object unitObj : unitType.getEnumConstants()) {
-			Unit unit = (Unit)unitObj;
-			writer.startNode(unit.toString());
-			writer.setValue(Double.toString(unitValue.getValue(unitObj)));
-			writer.endNode();
-		}
-	}
+    @Override
+    public JsonElement serialize(UnitValue obj, Type type, JsonSerializationContext jsc) {
+        JsonObject json = new JsonObject();
+        UnitValue<?> unitValue = (UnitValue<?>) obj;
+        Class<?> unitType = unitValue.getUnit().getClass();
+        for(Object unitObj : unitType.getEnumConstants()) {
+                Unit unit = (Unit)unitObj;
+                json.addProperty(unit.toString(), Double.toString(unitValue.getValue(unitObj)));
+        }
+        return json;
+    }
 
-	@Override
-	public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-		return null;
-	}
 
 }

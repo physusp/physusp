@@ -24,43 +24,42 @@ import java.io.Serializable;
 import com.gedaeusp.domain.EnergyUnit;
 import com.gedaeusp.domain.UnitValue;
 import com.gedaeusp.domain.FlowUnit;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("serial")
-@XStreamAlias("consumption")
 public class EnergyConsumptionResponse implements Serializable {
 
-	@XStreamAlias("aerobic")
+	@SerializedName("aerobic")
 	private UnitValue<EnergyUnit> aerobic;
 	
-	@XStreamAlias("anaerobicLactic")
+	@SerializedName("anaerobicLactic")
 	private UnitValue<EnergyUnit> anaerobicLactic;
 	
-	@XStreamAlias("anaerobicAlactic")
+	@SerializedName("anaerobicAlactic")
 	private UnitValue<EnergyUnit> anaerobicAlactic;
 	
-	@XStreamAlias("expectedOxygenConsumption")
+	@SerializedName("expectedOxygenConsumption")
 	private UnitValue<FlowUnit>[] expectedOxygenConsumptions;
 	
-	@XStreamAlias("rSquared")
+	@SerializedName("rSquared")
 	private double rSquared;
 	
-	@XStreamAlias("v0")
+	@SerializedName("v0")
 	private UnitValue<FlowUnit> v0;
 	
-	@XStreamAlias("t0")
+	@SerializedName("t0")
 	private double t0;
 	
-	@XStreamAlias("a1")
+	@SerializedName("a1")
 	private UnitValue<FlowUnit> a1;
 	
-	@XStreamAlias("a2")
+	@SerializedName("a2")
 	private UnitValue<FlowUnit> a2;
 	
-	@XStreamAlias("tau1")
+	@SerializedName("tau1")
 	private double tau1;
 	
-	@XStreamAlias("tau2")
+	@SerializedName("tau2")
 	private double tau2;
 	
 	public UnitValue<EnergyUnit> getAerobic() {

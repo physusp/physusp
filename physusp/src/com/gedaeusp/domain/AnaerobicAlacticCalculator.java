@@ -25,9 +25,6 @@ import java.util.List;
 import com.gedaeusp.models.BiexponentialFitData;
 import com.gedaeusp.models.MonoexponentialFitData;
 
-import br.com.caelum.vraptor.ioc.Component;
-
-@Component
 public class AnaerobicAlacticCalculator {
 	public static final double DEFAULT_TIME_DELAY = -1;
 	
