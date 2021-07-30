@@ -26,7 +26,11 @@
 		as glassfish 3 or jetty 8, you dont need this
 		filter configuration 
 	-->
-		
+	<context-param>
+            <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
+            <param-value>en_US</param-value>
+        </context-param>	
+                
 	<!-- <context-param>
         	<param-name>br.com.caelum.vraptor.provider</param-name>
 	        <param-value>br.com.caelum.vraptor.ioc.guice.GuiceProvider</param-value>
